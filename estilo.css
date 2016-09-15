@@ -82,9 +82,22 @@ body{
 #infofo{
 	margin:80px auto 25px 150px;
 }
-#botonagrega{
-	text-align:center;
+.bAgregar{
+	width:16px;
+	height:16px;
+	background-image:url(splus.svg);
+	background-color:transparent;
+	background-repeat:no-repeat;
+	background-position:1px 1px;
+	background-size:14px;
+	border-radius:100%;
+	border:2px solid black;}
 }
+.bAgregar:hover{
+	background-color:#1b95e0;
+	
+}
+
 /*Zona Switch*/
 .switch {
   position: relative;
