@@ -38,9 +38,8 @@
 				<li class="button"><a href="#tabs-1">Planilla</a></li>
 				<li class="button"><a href="#tabs-2">Gratificaciones</a></li>
 				<li class="button"><a href="#tabs-3">Descuentos</a></li>
-				<li class="button"><a href="#tabs-4">Horas Extras</a></li>
-				<li class="button"><a href="#tabs-5">Guardar</a></li>
-				<li class="button"><a href="#tabs-6">Vista Previa</a></li>
+				<li class="button"><a href="#tabs-4">Guardar</a></li>
+				<li class="button"><a href="#tabs-5">Vista Previa</a></li>
 			</ul>
 		<div id="tabs-1">					<!--Div Planilla Liquidacion-->
 			<div class="divplanilla">
@@ -135,8 +134,8 @@
 				<form>
 					<table>
 						<tr>
-							<td>Bono Movilizacion</td>
-							<td><input type="text" name="BMovi" placeholder="Monto"></td>
+							<td>Horas Extras</td>
+							<td><input type="text" name="hExtras" placeholder="Monto"></td>
 							<td><div class="bAgregar" id="bAgregar1" onmousedown="cBoton('bAgregar1')"></div></td>
 							<td>Imponible</td>
 							<td>
@@ -147,7 +146,7 @@
 							</td>							
 						</tr>
 						<tr>
-							<td>Bono Alimentacion</td>
+							<td>Bono Movilizacion</td>
 							<td><input type="text" name="BMovi" placeholder="Monto"></td>
 							<td><div class="bAgregar" id="bAgregar2" onmousedown="cBoton('bAgregar2')"></div></td>
 							<td>Imponible</td>
@@ -159,7 +158,7 @@
 							</td>							
 						</tr>
 						<tr>
-							<td>Bono Ley [numeroLey]</td>
+							<td>Bono Alimentacion</td>
 							<td><input type="text" name="BMovi" placeholder="Monto"></td>
 							<td><div class="bAgregar" id="bAgregar3" onmousedown="cBoton('bAgregar3')"></div></td>
 							<td>Imponible</td>
@@ -183,7 +182,7 @@
 							</td>							
 						</tr>
 						<tr>
-							<td>BRP Titulo</td>
+							<td>Bono Ley [numeroLey]</td>
 							<td><input type="text" name="BMovi" placeholder="Monto"></td>
 							<td><div class="bAgregar" id="bAgregar5" onmousedown="cBoton('bAgregar5')"></div></td>
 							<td>Imponible</td>
@@ -195,7 +194,7 @@
 							</td>							
 						</tr>
 						<tr>
-							<td>BRP Mencion</td>
+							<td>BRP Titulo</td>
 							<td><input type="text" name="BMovi" placeholder="Monto"></td>
 							<td><div class="bAgregar" id="bAgregar6" onmousedown="cBoton('bAgregar6')"></div></td>
 							<td>Imponible</td>
@@ -207,9 +206,21 @@
 							</td>							
 						</tr>
 						<tr>
-							<td>Asignacion de Zona</td>
+							<td>BRP Mencion</td>
 							<td><input type="text" name="BMovi" placeholder="Monto"></td>
 							<td><div class="bAgregar" id="bAgregar7" onmousedown="cBoton('bAgregar7')"></div></td>
+							<td>Imponible</td>
+							<td>
+								<label class="switch">
+								  <input type="checkbox" checked>
+								  <span class="slider round"></span>
+								</label>
+							</td>							
+						</tr>
+						<tr>
+							<td>Asignacion de Zona</td>
+							<td><input type="text" name="BMovi" placeholder="Monto"></td>
+							<td><div class="bAgregar" id="bAgregar8" onmousedown="cBoton('bAgregar8')"></div></td>
 							<td>Imponible</td>
 							<td>
 								<label class="switch">
@@ -258,10 +269,7 @@
 		<div id="tabs-4"><br/>
 			<h1>En construccion...</h1>
 		</div>
-		<div id="tabs-5"><br/>
-			<h1>En construccion...</h1>
-		</div>
-		<div id="tabs-6"><br/>				<!-- Div Vista Previa -->
+		<div id="tabs-5"><br/>				<!-- Div Vista Previa -->
 			<div class ="divVistaPrevia">
 				<div class="prueba">asd</div>
 				<form>
