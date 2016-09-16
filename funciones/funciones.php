@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 	include_once "/../conexion.php";
 	
@@ -32,6 +32,18 @@
 	{
 		fun_tema_llamada("header.php");
 	}
+    // LLama a la estructura de la pagina(todas las paginas)
+    function fun_get_Estructura() 
+	{
+		fun_tema_llamada("estructura.php");
+	}
+    
+    // LLama a la estructura de la pagina(todas las paginas)
+    function fun_get_Contenido() 
+	{
+		fun_tema_llamada("contenido.php");
+	}
+
 	// lama al pie de pagina
 	function fun_get_footer(){
 		fun_tema_llamada("footer.php");		
