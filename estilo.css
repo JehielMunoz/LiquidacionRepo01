@@ -43,11 +43,35 @@ body{
     margin: 4px 2px;
     cursor: pointer;
 }
+.buttonSave {
+    background:linear-gradient(#1b95e0,#0c7abf);
+    border: none;
+    color: white;
+    padding: 10px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    font-size: 1em;
+    margin: 5px 2px;
+    cursor: pointer;
+}
 
 .divplanilla{
 	margin:35px auto;
 }
 
+.divVistaPrevia{
+	border:1px solid black;
+	height:1057px;
+	width:806px;
+	background-image:url('img/VistaPrevia.png');
+	background-repeat: no-repeat;
+}
+.prueba{
+	margin:159px 0px 0px 172px;
+	width:274px;
+	border:1px solid black;
+}
 #top-header{
 	top:0;
 	left:0;
@@ -94,7 +118,7 @@ body{
 	border:2px solid black;}
 }
 .bAgregar:hover{
-	background-color:#1b95e0;
+	background-color:#2196F3;
 	
 }
 
