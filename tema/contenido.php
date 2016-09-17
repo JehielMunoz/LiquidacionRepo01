@@ -1,8 +1,9 @@
 <?php 
-    include('tab1.php');
-    include('tab2.php');
-    include('tab3.php');
-    include('tab4.php');
-    include('tab5.php');
+    // El contido de cada tabla va, en su respectivo php.
+    include('/tabs/Planilla.php');
+    include('/tabs/Gratificaciones.php');
+    include('/tabs/Descuentos.php');
+    include('/tabs/Guardar.php');
+    include('/tabs/Vista_Previa.php');
     echo "\n    </div>";
 ?>

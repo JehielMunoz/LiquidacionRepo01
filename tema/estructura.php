@@ -22,6 +22,6 @@
 				<li class="button"><a href="#tabs-3">Descuentos</a></li>
 				<li class="button"><a href="#tabs-4">Guardar</a></li>
 				<li class="button"><a href="#tabs-5">Vista Previa</a></li>
-                <!--Agregar Botones//Listas aquí, contenido de los botones en su respectivo php.-->
+                <!--Agregar Botones//Listas//Tabs aquí, El contenido va en contenido.php.-->
 			</ul>
     
