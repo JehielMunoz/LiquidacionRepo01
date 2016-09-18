@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Maqueta</title>
+	<title><?php echo $pag_html_titulo?></title> <!-- arreglar -->
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/estilo.css"/>
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/tabs_style.css">
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/tabs_style02.css">
