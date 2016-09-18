@@ -1,17 +1,17 @@
-﻿<?php
+<?php
 
 
 	//variables 
 	
 	
-	include('funciones.php');
+	include('./php/funciones/funciones.php');
 	
 	
 	// efectos de la interaccion que tenga el usurio
 	
 	
 
-	fun_get_consultas();
+	fun_consultas();
 	
 
 ?>

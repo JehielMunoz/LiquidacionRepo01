@@ -1,14 +1,22 @@
 <?php
-
-	include_once "/../conexion.php";
+	//include_once "/../conexion.php";
 	
 	// funciones que contengan Arrays
 	//*** 
 	//***
 	// funcion que llama a las partes de las paginas que estan en tema
-	function fun_tema_llamada($archivo){
-		if (file_exists('./tema/'.$archivo)) {
-			include('./tema/'.$archivo);
+	function fun_html_llamada($archivo){
+		if (file_exists('./html/'.$archivo)) {
+			include('./html/'.$archivo);
+			}
+		else {
+			exit(1);
+			}
+		
+	}
+    function fun_llamada($archivo){
+		if (file_exists('./php/'.$archivo)) {
+			include('./php/'.$archivo);
 			}
 		else {
 			exit(1);
@@ -30,28 +38,28 @@
 	// llama a la cabezera 
 	function fun_get_header()
 	{
-		fun_tema_llamada("header.php");
+		fun_html_llamada("header.php");
 	}
     // LLama a la estructura de la pagina(todas las paginas)
     function fun_get_Estructura() 
 	{
-		fun_tema_llamada("estructura.php");
+		fun_html_llamada("estructura.php");
 	}
     
     // LLama a la estructura de la pagina(todas las paginas)
     function fun_get_Contenido() 
 	{
-		fun_tema_llamada("contenido.php");
+		fun_html_llamada("contenido.php");
 	}
 
 	// lama al pie de pagina
 	function fun_get_footer(){
-		fun_tema_llamada("footer.php");		
+		fun_html_llamada("footer.php");		
 	}	
 
 	// llama a una pagina cualquier este es un ejemplo
-	function fun_get_consultas(){
-		fun_tema_llamada("consultas.php");		
+	function fun_consultas(){
+		fun_llamada("consultas.php");		
 	}
 
 ?>

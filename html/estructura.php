@@ -7,7 +7,7 @@
 	</div>
 	<div class="menudiv">
 		<a href="./index.php">Agregar Nuevo</a>
-		<a href="PlanillaLiquidacion.html">Planilla Liquidacion</a>
+		<a href="./index.php">Planilla Liquidacion</a>
 		<a href="#">Horario</a>
 		<a href="#">Licensias</a>
 		<a href="#">AFP</a>
