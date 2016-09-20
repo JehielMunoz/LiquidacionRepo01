@@ -2,15 +2,25 @@
 // datos para la conexion a mysql
 
 // Crea Constantes para la base de datos
-define('DB_SERVER','localhost');
-define('DB_NAME','Prueba');
-define('DB_USER','root');
-define('DB_PASS','');
-
-global $con; 
-// crea conexion a la base Oe datos
-
-$con= mysql_connect(DB_SERVER,DB_USER,DB_PASS);
-mysql_select_db(DB_NAME,$con);
-
+    
+    
+    //connect with the database
+    
+    //get search term
+    //get matched data from skills table
+    function get_Personas(){
+        $dbServer = 'localhost';
+        $dbUser = 'root';
+        $dbPass = '';
+        $dbName = 'prueba';
+        $db = new mysqli($dbServer,$dbUser,$dbPass,$dbName);
+        $query = $db->query("SELECT * FROM persona");
+        while ($row = $query->fetch_assoc()) {
+            $data[] = $row['nombre'];
+        }
+        echo json_encode($data);    
+    }
+    //return json data
+    
+    
 ?>

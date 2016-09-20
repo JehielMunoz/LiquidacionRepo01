@@ -3,7 +3,8 @@
 				<form>	
 					<table>	
 						<tr>
-							<td><input type="text" name="lname" placeholder="Busqueda Personal"></td>
+                            
+							<td><input type="text"  id="AutoNombre" name="AutoNombre" placeholder="Busqueda Personal"></td>
 							<td><input type="text" disabled name="lname" placeholder="Sueldo Base"></td>
 							<td><input type="text" disabled name="lname" placeholder="Sueldo Bruto"></td>
 							<td><input type="text" disabled name="lname" placeholder="Sueldo Liquido"></td>

@@ -3,7 +3,7 @@
 session_start();
 
 //Requiere que cargue el archivo conexion, con la informacion de la DB, para que el resto de la pagina carge.
-require "./php/conexion.php";
+require "./php/Conexion.php";
 
 // Carga las variables y las funciones
 
