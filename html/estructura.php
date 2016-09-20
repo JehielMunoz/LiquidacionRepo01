@@ -1,6 +1,6 @@
 <body>
 	<div id="top-header">
-		<h1>Prueba</h1>
+		<h1><?php global $html_titulo_barra;print_Variable($html_titulo_barra);?></h1>
 		<div id="user-status">
 			Nombre Usuario
 		</div>
