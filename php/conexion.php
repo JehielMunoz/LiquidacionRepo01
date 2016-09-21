@@ -4,10 +4,6 @@
 // Crea Constantes para la base de datos
     
     
-    //connect with the database
-    
-    //get search term
-    //get matched data from skills table
     function get_Personas(){
         $dbServer = 'localhost';
         $dbUser = 'root';
