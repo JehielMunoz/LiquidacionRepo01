@@ -1,4 +1,5 @@
 <?php
+
 // falta agregar el pie de pagina
 ?>
     

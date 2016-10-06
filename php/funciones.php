@@ -1,5 +1,9 @@
 <?php
     
+$_SESSION["usuario"];
+$_SESSION["Rut"];
+
+
 	function html_llamada($archivo){
 		if (file_exists('./html/'.$archivo)) {
 			include('./html/'.$archivo);
@@ -37,6 +41,10 @@
 	function get_Footer(){
 		html_llamada("footer.php");		
 	}	
+
+    function  get_session_rut(){
+        echo json_encode($_SESSION["Rut"]);
+    }
 
     // include './Variables.php';
     //print_Variable($html_titulo); Aqui funciona pero no en las en html

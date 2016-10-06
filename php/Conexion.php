@@ -3,7 +3,6 @@
 // datos para la conexion a mysql
 // Crea Constantes para la base de datos
     function get_Personas(){ 
-        $id = 0;
         $dbServer = 'localhost';
         $dbUser = 'postgres';
         $dbPass = 'wii360';
@@ -22,8 +21,7 @@
         }
         while ($row = pg_fetch_assoc($query)) {
             
-            $data [] = [$id,$row["Nombre"]];   
-            $id=$id+1;
+            $data [] = [$row["Rut"],$row["Nombre"]];   
         }
         
         echo json_encode($data);
@@ -31,6 +29,7 @@
 
 
 function get_Datos(){
+        
         $dbServer = 'localhost';
         $dbUser = 'postgres';
         $dbPass = 'wii360';
@@ -40,15 +39,15 @@ function get_Datos(){
         $dbconn = pg_connect($conn_string);
         if (!empty($_POST["id_nombre"]))
             {
-                $id = $_POST["id_nombre"];   
-                
+                $nombre = $_POST["id_nombre"];   
             }
         else
         {
-            $id = 1;    
+            $nombre = 1;    
         } 
-        $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" where \"Nombre\" = '$id' ");
+        $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" where \"Nombre\" = '$nombre' ");
         $row = pg_fetch_assoc($query);
+        $_SESSION["Rut"] = $row["Rut"];
         return $row;
 }   
     
@@ -79,4 +78,6 @@ function get_Datos(){
         
     } 
     
+
+
 ?>
