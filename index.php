@@ -13,4 +13,4 @@ require './php/funciones.php';
 // Arma el html de la pagina.
 require './php/Inicio_Carga.php';
 
-?>
+?>  

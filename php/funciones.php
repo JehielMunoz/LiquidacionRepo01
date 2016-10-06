@@ -40,4 +40,7 @@
 
     // include './Variables.php';
     //print_Variable($html_titulo); Aqui funciona pero no en las en html
+
+    // datos de planilla
+
 ?>

@@ -22,6 +22,11 @@
 				<li class="button"><a href="#tabs-3">Descuentos</a></li>
 				<li class="button"><a href="#tabs-4">Guardar</a></li>
 				<li class="button"><a href="#tabs-5">Vista Previa</a></li>
+                <form action="./index.php" method="post">
+                                    <input type="text" hidden id="Rut" name="Rut">
+                                    <input onchange="AsignarId(this)" type="text"  id="AutoNombre" name="AutoNombre" placeholder="Busqueda Personal">
+                                    <input type="submit" formmethod="post">
+                                </form>
                 <!--Agregar Botones//Listas//Tabs aquí, El contenido va en contenido.php.-->
 			</ul>
     

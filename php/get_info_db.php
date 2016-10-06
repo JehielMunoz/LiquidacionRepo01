@@ -1,23 +1,28 @@
+
+         
 <?php 
     function get_Datos(){
         $dbServer = 'localhost';
-        $dbUser = 'root';
-        $dbPass = '';
+        $dbUser = 'postgres';
+        $dbPass = '852456';
         $dbName = 'prueba';
-        $db = new mysqli($dbServer,$dbUser,$dbPass,$dbName);
-        if (!empty($_POST['id_nombre']))
+        $conn_string = "host=$dbServer port=5432 dbname=$dbName user=$dbUser password=$dbPass";
+        $dbconn = new pg_connect($conn_string);
+        if (isset($_POST["Rut"]))
             {
-                $id = $_POST['id_nombre'] ;   
+                $Rut= $_POST["Rut"];   
+                $_SESSION['rut'] = $Rut;
+                $query = $dbconn->pg_query($dbconn, "SELECT * FROM tEmpleados where Rut=".$Rut or die('connection failed'));
+                $row = $query->pg_fetch_assoc();
+                return $row;
+        
                 
             }
         else
         {
-            $id = 1;    
-        } 
-        $query = $db->query("SELECT * FROM datos where id=".$id);
-        $row = $query->fetch_assoc();
-        return $row;
-        
+            echo "Error en recuperar el rut." ;   
+        }
+      
         
     }
 
