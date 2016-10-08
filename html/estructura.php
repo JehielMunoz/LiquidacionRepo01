@@ -1,9 +1,11 @@
 <body>
 	<div id="top-header">
 		<h1><?php global $html_titulo_barra;print_Variable($html_titulo_barra);?></h1>
-		<div id="user-status">
-			Nombre Usuario
+		 <form action="./index.php" method="post">
+        <div >       
+            <input type="submit" onclick='Desconectar()' id="user-status" name="Desconectar" formmethod="post" value="Nombre Usuario" > 
 		</div>
+        </form>
 	</div>
 	<div class="menudiv">
 		<a href="./index.php">Agregar Nuevo</a>
@@ -22,6 +24,12 @@
 				<li class="button" onclick='TraerDatos("0")'><a href="#tabs-3">Descuentos</a></li>
 				<li class="button"><a href="#tabs-4">Guardar</a></li>
 				<li class="button"><a href="#tabs-5">Vista Previa</a></li>
+                <li><form action="./index.php" method="post">
+                        <input type="text" hidden id="Rut" name="Rut">
+                        <input onchange="AsignarId(this)" type="text"  id="AutoNombre" name="AutoNombre" placeholder="Busqueda Personal">
+                        <input type="submit" formmethod="post">
+                    </form>
+                </li>  
                 <!--Agregar Botones//Listas//Tabs aquí, El contenido va en contenido.php.-->
 			</ul>
     

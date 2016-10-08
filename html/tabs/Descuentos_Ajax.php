@@ -14,18 +14,17 @@
         echo"<div class =\"divplanilla\">";
         echo"<form>";
         echo    "<table id =\"descuentos\">";   
-        if($rut!="null"){ 
+    if($rut!=""){ 
         if (!$dbconn){
             echo "Error en la conexion";
             exit;
             }
         if($num!='0'){
-            $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tDescuentos\"(\"id_Descuento\",\"Monto\",\"Rut\" ) values($num,0,'$rut');"); 
+        $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tDescuentos\"(\"id_Descuento\",\"Monto\",\"Rut\" ) values($num,0,'$rut');"); 
             if (!$query) {
                 echo "Falla en la consulta.\n";
                 exit;
             }
-            
         }
         $query = pg_query($dbconn, "SELECT \"tEmpleados\".\"Rut\",\"tEmpleados\".\"Nombre\",\"tDescuentos\".\"Descuento\",\"rel_tEmpleados_tDescuentos\".\"Monto\" FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;");
         if (!$query) {
@@ -59,7 +58,6 @@
                 echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos(".$row2['id_Descuento'].")\"></div></td>";				
                 echo "</tr>";
             }   
-        
         echo "</table>";
         echo "<br/>";
         echo "<div class=\"buttonSave\" onclick=\"plSave()\">Guardar</div><div class=\"buttonSave\">Agregar Descuento</div>";

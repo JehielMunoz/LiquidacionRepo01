@@ -10,9 +10,9 @@
     $dbPort = '5432';
     echo"<div class =\"divplanilla\">";
     echo"<form>";
-    echo    "<table id =\"gratificaciones\">";   
+    echo"<table id =\"gratificaciones\">";   
     $conn_string =("host=$dbServer port=$dbPort dbname=$dbName user=$dbUser password=$dbPass ");
-    if($rut!="null"){ 
+    if($rut!=""){ 
         $dbconn = pg_connect($conn_string); 
         if (!$dbconn){
             echo "Error en la conexion";
@@ -24,7 +24,7 @@
                 echo "Falla en la consulta.\n";
                 exit;
             }
-            
+            pg_free_result($query);
         }
         $query = pg_query($dbconn, " SELECT \"tEmpleados\".\"Rut\", \"tBonos\".\"Bono\", \"tBonos\".\"Activo\", \"tBonos\".\"id_Bono\", \"tBonos\".\"Imponible\" FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;"); // falta el rut del usuario
         if (!$query) {
@@ -40,8 +40,7 @@
                     echo"<td><input type=\"text\" name=\"hExtras\" placeholder=\"Monto\"></td>";
                         echo"<td>Imponible</td>";
                 echo"</tr>"; 
-                    }						
-				                  
+                    }							                  
         echo "</table>";
         $query = pg_query($dbconn, "SELECT * FROM \"tBonos\"; ");
         if (!$query) {
@@ -59,7 +58,6 @@
                 echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos_Gratificaciones(".$row2['id_Bono'].")\"></div></td>"	;
                 echo "</tr>";
             }   
-        
         echo "</table>";
         echo "<br/>";
         echo "<div class=\"buttonSave\" onclick=\"plSave()\">Guardar</div><div class=\"buttonSave\">Agregar Gratificación</div>";
@@ -68,7 +66,7 @@
         echo "</table>";
         echo "Elija a un empleado primero";
     }
-    
+
     echo    "</form>";
     echo    "<br />";
     echo "</div>  ";
