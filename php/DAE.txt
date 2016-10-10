@@ -1,9 +1,0 @@
-En esta sesion de trabajo se hicieron las siguientes cosas. 1.- Una pequeña maqueta de la pagina pricipal. 
-                                                            2.- Se creo la base de datos.
-                                                            3.- Se hizo un poco de consultas entre php y la base de datos para recupurar los productos por categoria.
-                                                            4.- Se hizo un php que se encarga enviar los datos del registro de un usuario a la base de datos.
-                                                            5.- Creación del un repositorio git.
-                                                            
-Lo que yo hice fue el php que toma los datos del registros y los devuelve a la base de datos. Como aun no esta lista la pagina del registro, solo hice maquetas de las funciones. La cual registran los datos desde el formulario mediante post Y los guarda en la base de datos. oh, Tambien hice un repositorio en github, donde vamos ir subiendo los cambios.
-
-El link al repositorio es https://github.com/Bossune/Aplicacion-de-Procutos.

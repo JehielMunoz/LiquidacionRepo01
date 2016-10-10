@@ -2,9 +2,8 @@
 			<div class="divplanilla">
 				<form>	
 					<table>	
-						<tr>
-                            
-							<td>    
+						<tr>                            
+							<td>                               
                                 <input type="text" disable placeholder="Rut" disabled id="Ruta" name="rut" value="<?php Rut();?>">
                                 <input type="text" id="Nombre" name="nombre" disabled placeholder="Nombre" disable value="<?php Nombre();?>">
                             </td>
@@ -25,12 +24,11 @@
 							<td>N° Cargas</td>
 							<td><input type="text" disabled name="nCargas" placeholder="Cargas"></td>
 						</tr>
-					</table>
 				</form>
 			</div>
 			<div class ="divplanilla">
 				<form>
-					<table>
+                    <table>
 						<tr>
 							<td>Cotizacion AFP:</td>
 							<td><input type="text" disabled name="lname" placeholder="Nombre AFP" value="<?php nombre_AFP();?>"></td>
