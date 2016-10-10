@@ -26,7 +26,7 @@
 				<li class="button"><a href="#tabs-5">Vista Previa</a></li>
                 <li><form action="./index.php" method="post">
                         <input type="text" hidden id="Rut" name="Rut">
-                        <input onchange="AsignarId(this)" type="text"  id="AutoNombre" name="AutoNombre" placeholder="Busqueda Personal">
+                        <input type="text"  id="AutoNombre" name="AutoNombre" placeholder="Busqueda Personal">
                         <input type="submit" formmethod="post">
                     </form>
                 </li>  

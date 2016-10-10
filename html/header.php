@@ -23,7 +23,10 @@
                 nombre.push(id_nombre[x][1]) ;    
             }                        
             $( "#AutoNombre" ).autocomplete({
-            source: nombre
+            source: nombre,
+            change: function(){
+                AsignarId($(this));
+            }
             });
             });
     </script>
