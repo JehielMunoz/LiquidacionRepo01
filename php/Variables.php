@@ -3,7 +3,7 @@
 // VARIABLES
 
 // titulo de la pagina
-$html_titulo = "Liquidaciones de sueldo.";
+$html_titulo = "Liquidacion De Sueldo.-";
 // titulo de la barra ejemplo
 $html_titulo_barra = "Lugar X";
 // descripcion de la pagina

@@ -1,4 +1,6 @@
-    <div id="tabs-1">					<!--Div Planilla Liquidacion-->
+<?php
+    include $_SERVER["DOCUMENT_ROOT"].'/Liquidaciones-de-Sueldo/php/funciones.php';  # Obligatoriamente hay que volver a cargar las funciones, al cargar este documento con ajax. Es como si fuera un espacio diferente al index.php, por lo tanto. Todas las funciones que estan abajo no existen.
+?>
 			<div class="divplanilla">
 				<form>	
 					<table>	
@@ -58,10 +60,10 @@
 						</tr>
 						<tr>
 							<td>Total Seguros:</td>
-							<td><input type="text" disabled name="lname"></td>
+							<td><input type="text" disabled name="lname" value="<?php echo $_SESSION['Rut'];?>"></td>
 							<td colspan=2></td>
 						</tr>
 					</table>
 				</form>
 			</div>
-		</div>
+		

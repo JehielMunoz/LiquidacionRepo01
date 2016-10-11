@@ -1,7 +1,9 @@
 <?php
 # Rut inicial
-    $_SESSION['Rut']="";
+    #$_SESSION['Rut']=""; # ??? Cual es la necesidad de eso? I mean, que ocupa más recursos? Crear una variable que ocupa memoria? o hacer una consulta if isset? ademas ya haces la pregunta si esta vacia.
 # Si resive un rut completa los datos
+if(!isset($_SEASSION['Rut']))
+{
     if (!empty($_POST["Rut"])) 
      {
         $_SESSION['Rut'] =  $_POST["Rut"];
@@ -11,15 +13,8 @@
         $_SESSION['Isapre'] = get_ISAPRE();
         $_SESSION['Contrato'] = get_Contrato();
      }
-#si no inicia en 0 la informacion
-    else{
-        $_SESSION['Rut'] = "";
-        $_SESSION['Nombre'] ="";         
-        $_SESSION['Datos'] = "";
-        $_SESSION['Afp'] = "";
-        $_SESSION['Isapre'] = "";
-        $_SESSION['Contrato'] = "";
-     }
+}
+#si no inicia en 0 la informacion // LO IDEAL SERIA DESTRUIR LAS VARIABLES CUANDO DEJEMOS DE USARLAS, AKA CUANDO LAS SUBIMOS A LA BASE DE DATOS. 
     function html_llamada($archivo){
         if (file_exists('./html/'.$archivo)) {
             include('./html/'.$archivo);
@@ -57,7 +52,14 @@
 	}	
  #
     function get_session_rut(){
-        echo json_encode($_SESSION["Rut"]);
+        if(!empty($_SESSION['Rut']))
+        {
+            echo json_encode($_SESSION["Rut"]);
+        }
+        else
+        {
+            echo ('""');    
+        }
     }
 
 #-----------------------------------------------------------------------------------------------------------------------------
@@ -76,11 +78,14 @@
         }
         echo json_encode($data);
     }
-    function get_Datos(){       
+    function get_Datos(){
+        if(!empty($_POST['Rut']))
+        {
             include("conex.inc");
             $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" where \"Rut\" = '".$_SESSION['Rut']."' ");
             $row = pg_fetch_assoc($query);
             return $row;
+        }
     }   
 #------------------------------------------------------------------------------------------------------------------
 # Funciones para mostrar los datos
@@ -186,27 +191,33 @@
 # Estan funciones se tienen que  conectar a la base de datos por qué tienen que sacar informacion de otras tablas.
 #------------------------------------------------------------------------------------------------------------------------
     function get_AFP() 
-    {
+    {       if(!empty($_SESSION['Rut']))
+            {
             include("conex.inc");
             $query = pg_query($dbconn, "SELECT * FROM \"tAFP\" where \"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."' ");
             $row = pg_fetch_assoc($query);
-            return $row;    
+            return $row;
+            }
     }
 
     function get_ISAPRE()
-    {
+    {       if(!empty($_SESSION['Rut']))
+            {
             include("conex.inc");
             $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\" where \"id_ISAPRE\" = '".$_SESSION['Datos']['id_ISAPRE']."' ");
             $row = pg_fetch_assoc($query);
-            return $row;    
+            return $row; 
+            }
     }
 
     function get_Contrato()
-    {
+    {       if(!empty($_SESSION['Rut']))
+            {
             include("conex.inc");
             $query = pg_query($dbconn, "SELECT * FROM \"tContratos\" where \"id_Contrato\" = '".$_SESSION['Datos']['id_Contrato']."' ");
             $row = pg_fetch_assoc($query);
-            return $row;    
+            return $row;  
+            }
     }
 #------------------------------------------------------------------------------------------------------------------------
 
