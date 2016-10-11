@@ -38,11 +38,16 @@
                 echo"<tr>";
                     echo"<td>".$row1['Bono']."</td>";
                     echo"<td><input type=\"text\" name=\"hExtras\" placeholder=\"Monto\"></td>";
+                    if($row1['Imponible']=='t'){
                         echo"<td>Imponible</td>";
+                    }
+                    else{
+                        echo"<td>No Imponible</td>";
+                    }
                 echo"</tr>"; 
                     }							                  
         echo "</table>";
-        $query = pg_query($dbconn, "SELECT * FROM \"tBonos\"; ");
+        $query = pg_query($dbconn, "SELECT * FROM public.\"tBonos\" WHERE \"tBonos\".\"id_Bono\"  NOT IN (SELECT \"tBonos\".\"id_Bono\" FROM public.\"rel_tEmpleados_tBonos\", public.\"tEmpleados\", public.\"tBonos\" WHERE \"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tBonos\".\"Rut\" AND \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" AND \"tEmpleados\".\"Rut\" = '$rut');");
         if (!$query) {
                 echo "Error en la consulta.\n";
                 exit;
@@ -53,9 +58,14 @@
         echo "<table>";
         while ($row2 = pg_fetch_assoc($query)) {
                 echo "<tr>";
-                echo "<td>".$row2['Bono']."</td>";
-                echo"<td>Imponible</td>";
-                echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos_Gratificaciones(".$row2['id_Bono'].")\"></div></td>"	;
+                    echo "<td>".$row2['Bono']."</td>";
+                    if($row2['Imponible']=='t'){
+                        echo"<td>Imponible</td>";
+                    }
+                    else{
+                        echo"<td>No Imponible</td>";
+                    }
+                    echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos_Gratificaciones(".$row2['id_Bono'].")\"></div></td>"	;
                 echo "</tr>";
             }   
         echo "</table>";
