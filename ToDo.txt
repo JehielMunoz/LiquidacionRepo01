@@ -19,3 +19,8 @@ Por implementar:
 -En Descuentos falta agregar fórmulas para agregar nueva gratificación.
 -Falta solucionar Problemas con Chrome.
 
+
+11-10-2016:
+-Arreglado el bug con Google Chrome.
+-Implementado el ajax y arreglado problemas de logica(?)
+-Idk
