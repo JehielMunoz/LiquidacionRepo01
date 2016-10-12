@@ -1,5 +1,5 @@
 <?php
-    include $_SERVER["DOCUMENT_ROOT"].'/Liquidaciones-de-Sueldo/php/funciones.php';  # Obligatoriamente hay que volver a cargar las funciones, al cargar este documento con ajax. Es como si fuera un espacio diferente al index.php, por lo tanto. Todas las funciones que estan abajo no existen.
+    include '../../php/funciones.php';  # Obligatoriamente hay que volver a cargar las funciones, al cargar este documento con ajax. Es como si fuera un espacio diferente al index.php, por lo tanto. Todas las funciones que estan abajo no existen.
 ?>
 			<div class="divplanilla">
 				<form>	
@@ -45,22 +45,22 @@
 						</tr>
 						<tr>
 							<td>Total Bonos:</td>
-							<td><input type="text" disabled name="lname"></td>
+							<td><input type="text" disabled name="lname" value="<?php Total_Bonos();?>"></td>
 							<td colspan=2></td>
 						</tr>
 						<tr>
 							<td>Total Descuentos:</td>
-							<td><input type="text" disabled name="lname"></td>
+							<td><input type="text" disabled name="lname" value="<?php Total_Descuentos();?>"></td>
 							<td colspan=2></td>
 						</tr>
 						<tr>
 							<td>Total Asignaciones:</td>
-							<td><input type="text" disabled name="lname"></td>
+							<td><input type="text" disabled name="lname" value="<?php Total_Asignacion();?>"></td>
 							<td colspan=2></td>
 						</tr>
 						<tr>
 							<td>Total Seguros:</td>
-							<td><input type="text" disabled name="lname" value="<?php echo $_SESSION['Rut'];?>"></td>
+							<td><input type="text" disabled name="lname" value=""></td>
 							<td colspan=2></td>
 						</tr>
 					</table>
