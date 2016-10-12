@@ -120,8 +120,8 @@ if(!isset($_SESSION['Rut']))
         Total_AFP();
         cal_Total_Descuentos();
         cal_sub_total();
-        Liquido_Alcansado();
         Liquido_Pagar();
+        Liquido_Alcansado();
          if (!empty($_SESSION['Total_Haberes']))
        {   
             echo ($_SESSION['Total_Haberes']);
@@ -239,13 +239,13 @@ if(!isset($_SESSION['Rut']))
 #------------------------------------------------------------------------------------------
 
 function cal_Total_Imponible(){
-    $rut = $_SESSION['Rut'];
     include("conex.inc");
     $_SESSION['Gratificaciones_Imponible']=0;
     $_SESSION['Gratificaciones_no_Imponible']=0;
-    $query = pg_query($dbconn, " SELECT \"tEmpleados\".\"Rut\", \"tBonos\".\"Bono\", \"tBonos\".\"Activo\", \"tBonos\".\"id_Bono\", \"tBonos\".\"Imponible\",\"rel_tEmpleados_tBonos\".\"Monto\" FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;");
+    $_SESSION['Asignacion_Familiar']=0;
+    $query = pg_query($dbconn, " SELECT \"tEmpleados\".\"Rut\", \"tBonos\".\"Bono\", \"tBonos\".\"Activo\", \"tBonos\".\"id_Bono\", \"tBonos\".\"Imponible\",\"rel_tEmpleados_tBonos\".\"Monto\" FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."'::bpchar;");
     while ($row1 = pg_fetch_assoc($query)) {
-        if($row1['Imponible']=='t'){
+        if($row1['Imponible']){
         $_SESSION['Gratificaciones_Imponible'] += $row1['Monto'];
         }
         else{
@@ -300,7 +300,7 @@ function Liquido_Pagar(){
 }
 function Total_AFP(){
     include("conex.inc");
-    $query = pg_query($dbconn, " SELECT * FROM \"tAFP\" WHERE \"tAFP\".\"id_AFP\" = '".$_SESSION['id_AFP']."';");
+    $query = pg_query($dbconn, " SELECT * FROM \"tAFP\" WHERE \"tAFP\".\"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."';");
     $row1 = pg_fetch_assoc($query);
     $_SESSION['Total_AFP'] = intval(($row1['Tasa'] * $_SESSION['Total_Imponible'])/100);
 }
