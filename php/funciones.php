@@ -12,6 +12,12 @@ if(!isset($_SESSION['Rut']))
         $_SESSION['Afp'] = get_AFP();
         $_SESSION['Isapre'] = get_ISAPRE();
         $_SESSION['Contrato'] = get_Contrato();
+         cal_Total_Imponible();
+        Total_AFP();
+        cal_Total_Descuentos();
+        cal_sub_total();
+        Liquido_Pagar();
+        Liquido_Alcansado();
      }
 }
 #si no inicia en 0 la informacion // LO IDEAL SERIA DESTRUIR LAS VARIABLES CUANDO DEJEMOS DE USARLAS, AKA CUANDO LAS SUBIMOS A LA BASE DE DATOS. 
@@ -116,26 +122,44 @@ if(!isset($_SESSION['Rut']))
     
      function Sueldo_Bruto()
     {   
-        cal_Total_Imponible();
-        Total_AFP();
-        cal_Total_Descuentos();
-        cal_sub_total();
-        Liquido_Pagar();
-        Liquido_Alcansado();
+       
          if (!empty($_SESSION['Total_Haberes']))
        {   
             echo ($_SESSION['Total_Haberes']);
         }
         
-    } 
+    }
 # Aun queda ingresar formulas
      function Sueldo_Liquido()
-    {   if (!empty($_POST[""])) 
+    {   if (!empty($_SESSION[''])) 
         {   
            
         }
         
     }    
+    function Total_Bonos()
+    {
+        if (!empty($_SESSION['Total_Bonos'])) 
+       {      
+            echo ($_SESSION['Total_Bonos']);
+        }
+    }
+    
+    
+    function Total_Descuentos()
+    {
+        if (!empty($_SESSION['Total_Descuentos'])) 
+       {      
+            echo ($_SESSION['Total_Descuentos']);
+        }
+    }
+    function Total_Asignacion()
+    {
+        if(!empty($_SESSION['Asignacion_Familiar']))
+        {
+            echo $_SESSION['Asignacion_Familiar'] ;
+        }
+    }
     function Hora()
     {
         if(!empty($_SESSION['Datos']))
@@ -259,9 +283,10 @@ function cal_Total_Imponible(){
     }
     $_SESSION['Total_Imponible']= $_SESSION['Datos']["Sueldo_base"] + $_SESSION['Gratificaciones_Imponible'];
     $_SESSION['Total_Haberes'] =  $_SESSION['Datos']["Sueldo_base"] + $_SESSION['Gratificaciones_Imponible']+ $_SESSION['Gratificaciones_no_Imponible']; 
+    $_SESSION['Total_Bonos'] = $_SESSION['Gratificaciones_Imponible']+ $_SESSION['Gratificaciones_no_Imponible'];
 }
 
-
+    
 
 
 
@@ -280,6 +305,7 @@ function cal_Total_Descuentos(){
         }
     }
     $_SESSION['Total_Tributable'] = $_SESSION['Total_Imponible']- $_SESSION['Descuentos_Legal'];
+    $_SESSION['Total_Descuentos'] = $_SESSION['Descuentos_Otros'] + $_SESSION['Descuentos_Legal'];
     
 }
 
