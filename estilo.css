@@ -207,11 +207,21 @@ body{
 	background-size:14px;
 	border-radius:100%;
 	border:2px solid black;}
-}
-.bAgregar:hover{
-	background-color:#2196F3;
-	
-}
+
+.bAgregar:hover{ background-color:#2196F3;}
+
+.bEliminar{
+	width:16px;
+	height:16px;
+	background-image:url(sminus.svg);
+	background-color:transparent;
+	background-repeat:no-repeat;
+	background-position:1px 1px;
+	background-size:14px;
+	border-radius:100%;
+	border:2px solid black;}
+
+.bEliminar:hover{ background-color:#FF2913;}
 
 /*Zona Switch*/
 .switch {
