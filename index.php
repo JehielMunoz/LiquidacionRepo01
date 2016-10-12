@@ -7,16 +7,14 @@ function verificar_login($user,$password,&$result){
     include("./php/conex.inc");
     $query = pg_query($dbconn, "SELECT * FROM \"tUsuarios\" WHERE \"Usuario\" = '$user' and \"Password\" = '$password'");
     $count = 0;
-    while($row = pg_fetch_object($query))
+    if(!empty($row = pg_fetch_object($query))) #Aqui habia un while. Esto es kinda redunte. El nombre del usuario deberia ser unico, por lo tanto, Siempre va a haber 1 asi que lo arregle, para que solo haga la consulta. Sin necesidad de usar un ciclo while.
     {
-        $count++;
         $result = $row;
-    }
-    if($count == 1){
         return 1;
     }
-    else{
-        return 0;
+    else
+    {
+        return 0;    
     }
 }
 
@@ -42,8 +40,6 @@ else
     // Carga las variables y las funciones
     require './php/Variables.php';
     require './php/funciones.php';
-    get_datos();
-
     // Arma el html de la pagina.
     require './php/Inicio_Carga.php';
 }

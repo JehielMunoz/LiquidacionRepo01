@@ -26,7 +26,7 @@
             }
             pg_free_result($query);
         }
-        $query = pg_query($dbconn, " SELECT \"tEmpleados\".\"Rut\", \"tBonos\".\"Bono\", \"tBonos\".\"Activo\", \"tBonos\".\"id_Bono\", \"tBonos\".\"Imponible\" FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;"); // falta el rut del usuario
+        $query = pg_query($dbconn, " SELECT \"tEmpleados\".\"Rut\", \"tBonos\".\"Bono\", \"tBonos\".\"Activo\", \"tBonos\".\"id_Bono\", \"tBonos\".\"Imponible\",\"rel_tEmpleados_tBonos\".\"Monto\" FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;"); // falta el rut del usuario
         if (!$query) {
                 echo "Error en la consulta.\n";
                 exit;
@@ -37,7 +37,7 @@
         while ($row1 = pg_fetch_assoc($query)) {
                 echo"<tr>";
                     echo"<td>".$row1['Bono']."</td>";
-                    echo"<td><input type=\"text\" name=\"hExtras\" placeholder=\"Monto\"></td>";
+                    echo"<td><input type=\"text\" name=\"hExtras\" placeholder=".$row1['Monto']."></td>";
                     if($row1['Imponible']=='t'){
                         echo"<td>Imponible</td>";
                     }
