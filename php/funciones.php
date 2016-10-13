@@ -192,8 +192,7 @@ if(!isset($_SESSION['Rut']))
         }
         else
         {
-            echo "No posee.";
-            if($_SESSION['Asignacion_Familiar']==0)
+        if($_SESSION['Asignacion_Familiar']==0)
             {
                 echo Formato_Dinero($_SESSION['Asignacion_Familiar']);
             }
