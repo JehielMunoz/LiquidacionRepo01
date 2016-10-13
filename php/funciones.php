@@ -96,11 +96,42 @@ if(!isset($_SESSION['Rut']))
 #------------------------------------------------------------------------------------------------------------------
 # Funciones para mostrar los datos
 #-----------------------------------------------------------------------------------------------------------------
+  function Formato_Dinero($dinerint)
+    {
+    $string = $dinerint;
+    $len = round(strlen($string)/3, 0, PHP_ROUND_HALF_DOWN);
+    $contador = -3;
+    for ($i=0; $i<($len);$i++)
+    {
+        $string = substr_replace($string,'.',$contador,0);
+        $contador= $contador - 3 - 1;
+    }                    // 3 por la separacion de los puntos. y 1 por el nuevo caracter que se agrega.
+    
+        if ($string[0]==".")
+        {
+            $string = substr($string,1);
+        }
+        
+        $string = substr_replace($string,'$',0,0);
+        
+        return $string;        
+    }
+    
+    function Formato_Rut($rut)
+    {
+        # Easy fix if the rut has less than 10 characters. strlen
+        $rut = substr_replace($rut,'.',2,0);
+        $rut = substr_replace($rut,'.',6,0);
+        $rut = substr_replace($rut,'-',10,0);
+        
+        return $rut;
+    }
+
     function Rut()
     {
       if (!empty($_SESSION["Rut"]))
         {
-            echo $_SESSION['Rut'];
+            echo Formato_Rut($_SESSION['Rut']);
         }     
     }
     function Nombre()
@@ -114,8 +145,8 @@ if(!isset($_SESSION['Rut']))
     }
     function Sueldo_Base(){   
         if (!empty($_SESSION['Datos'])) 
-       {      
-            echo ($_SESSION['Datos']["Sueldo_base"]);
+       {    
+            echo Formato_Dinero($_SESSION['Datos']["Sueldo_base"]);
         }
         
     }  
@@ -125,7 +156,7 @@ if(!isset($_SESSION['Rut']))
        
          if (!empty($_SESSION['Total_Haberes']))
        {   
-            echo ($_SESSION['Total_Haberes']);
+            echo Formato_Dinero($_SESSION['Total_Haberes']);
         }
         
     }
@@ -141,7 +172,7 @@ if(!isset($_SESSION['Rut']))
     {
         if (!empty($_SESSION['Total_Bonos'])) 
        {      
-            echo ($_SESSION['Total_Bonos']);
+            echo Formato_Dinero($_SESSION['Total_Bonos']);
         }
     }
     
@@ -150,14 +181,14 @@ if(!isset($_SESSION['Rut']))
     {
         if (!empty($_SESSION['Total_Descuentos'])) 
        {      
-            echo ($_SESSION['Total_Descuentos']);
+            echo Formato_Dinero($_SESSION['Total_Descuentos']);
         }
     }
     function Total_Asignacion()
     {
         if(!empty($_SESSION['Asignacion_Familiar']))
         {
-            echo $_SESSION['Asignacion_Familiar'] ;
+            echo Formato_Dinero($_SESSION['Asignacion_Familiar']) ;
         }
     }
     function Hora()
@@ -171,7 +202,7 @@ if(!isset($_SESSION['Rut']))
     {
         if(!empty($_SESSION['Datos']))
         {
-            echo $_SESSION['Datos']["Paga_por_hora"];    
+            echo Formato_Dinero($_SESSION['Datos']["Paga_por_hora"]);    
         }
     }
 
