@@ -22,7 +22,7 @@
 							<td>Tipo Contrato</td>
 							<td><input type="text" disabled name="Tipo_Contrato" placeholder="Tipo" value="<?php Tipo_Contrato();?>"></td>
 							<td>N° Cargas</td>
-							<td><input type="text" disabled name="nCargas" placeholder="Cargas"></td>
+							<td><input type="text" disabled name="nCargas" placeholder="Cargas" value="<?php nCargas();?>"></td>
 						</tr>
 				</form>
 			</div>
@@ -32,14 +32,14 @@
 						<tr>
 							<td>Cotizacion AFP:</td>
 							<td><input type="text" disabled name="lname" placeholder="Nombre AFP" value="<?php nombre_AFP();?>"></td>
+                            <td><input type="text" disabled name="lname" placeholder="SIS" value="<?php Valor_AFP();?>"></td>
 							<td><input type="text" disabled  placeholder="Tasa" name="lname" value="<?php tasa_AFP();?>"></td>
-							<td><input type="text" disabled name="lname" placeholder="SIS" value="<?php sis_AFP();?>"></td>
 						<tr>
 							<td>Cotizacion de Salud:</td>
 							
 							<td><input type="text" disabled name="lname" placeholder="Nombre ISAPRE" value="<?php nombre_ISAPRE();?>"></td>
 							<td><input type="text" disabled  placeholder="Valor" name="lname"  value="<?php tasa_ISAPRE();?>"></td>
-							<td><input type="text" disabled name="lname" placeholder="%"></td>
+                            <td><input type="text" disabled name="lname" placeholder="%"></td>
 						</tr>
 						<tr>
 							<td>Total Bonos:</td>
