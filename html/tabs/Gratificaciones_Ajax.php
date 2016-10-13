@@ -3,6 +3,7 @@
     ini_set('display_errors', '1');
     $rut = $_POST["id_rut1"];
     $num = $_POST["num1"];
+    $num2 = $_POST["num2"];
     $dbServer = 'localhost';
     $dbUser = 'postgres';
     $dbPass = 'wii360';
@@ -18,8 +19,16 @@
             echo "Error en la conexion";
             exit;
             }
-        if($num!='0'){
+        if($num!='0' && $num2==1){
             $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tBonos\"(\"Rut\",\"id_Bono\",\"Monto\") values('$rut',$num,0);"); 
+            if (!$query) {
+                echo "Falla en la consulta.\n";
+                exit;
+            }
+            pg_free_result($query);
+        }
+        if($num!='0' && $num2==2){
+            $query = pg_query($dbconn,"delete from  \"rel_tEmpleados_tBonos\" where \"rel_tEmpleados_tBonos\".\"id_Bono\"=$num and \"rel_tEmpleados_tBonos\".\"Rut\" = '$rut' ;"); 
             if (!$query) {
                 echo "Falla en la consulta.\n";
                 exit;
@@ -44,6 +53,7 @@
                     else{
                         echo"<td>No Imponible</td>";
                     }
+                    echo "<td><div class=\"bEliminar\" onclick=\"TraerDatos_Gratificaciones(".$row1['id_Bono'].",'2')\"></div></td>";
                 echo"</tr>"; 
                     }							                  
         echo "</table>";
@@ -65,7 +75,7 @@
                     else{
                         echo"<td>No Imponible</td>";
                     }
-                    echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos_Gratificaciones(".$row2['id_Bono'].")\"></div></td>"	;
+                    echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos_Gratificaciones(".$row2['id_Bono'].",'1')\"></div></td>";
                 echo "</tr>";
             }   
         echo "</table>";

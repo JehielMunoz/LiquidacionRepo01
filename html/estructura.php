@@ -20,8 +20,8 @@
 	<div id="tabs" class="barradiv">
 			<ul>
 				<li class="button" id="tab-1" ><a href="#tabs-1">Planilla</a></li>
-				<li class="button" onclick='TraerDatos_Gratificaciones("0")'><a href="#tabs-2">Gratificaciones</a></li>
-				<li class="button" onclick='TraerDatos("0")'><a href="#tabs-3">Descuentos</a></li>
+				<li class="button" onclick='TraerDatos_Gratificaciones("0","0")'><a href="#tabs-2">Gratificaciones</a></li>
+				<li class="button" onclick='TraerDatos("0","0")'><a href="#tabs-3">Descuentos</a></li>
 				<li class="button"><a href="#tabs-4">Guardar</a></li>
 				<li class="button"><a href="#tabs-5">Vista Previa</a></li>
                 <li><form action="#" method="post">
