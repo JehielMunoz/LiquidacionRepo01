@@ -2,6 +2,7 @@
 # Rut inicial
     #$_SESSION['Rut']=""; # ??? Cual es la necesidad de eso? I mean, que ocupa más recursos? Crear una variable que ocupa memoria? o hacer una consulta if isset? ademas ya haces la pregunta si esta vacia.
 # Si resive un rut completa los datos
+
 if(!isset($_SESSION['Rut']))
 {
     if (!empty($_POST["Rut"])) 
@@ -19,7 +20,6 @@ if(!isset($_SESSION['Rut']))
         Liquido_Alcansado();
      }
 }
-#si no inicia en 0 la informacion // LO IDEAL SERIA DESTRUIR LAS VARIABLES CUANDO DEJEMOS DE USARLAS, AKA CUANDO LAS SUBIMOS A LA BASE DE DATOS. 
     function html_llamada($archivo){
         if (file_exists('./html/'.$archivo)) {
             include('./html/'.$archivo);
@@ -155,8 +155,13 @@ if(!isset($_SESSION['Rut']))
     function Total_Asignacion()
     {
         if(!empty($_SESSION['Asignacion_Familiar']))
-        {
+        {  
             echo $_SESSION['Asignacion_Familiar'];
+           
+        }
+        else
+        {
+            echo "No posee.";
         }
     }
     function Hora()
