@@ -69,24 +69,23 @@ input[type="password"]:focus{
 	<img id="logo" src="./Resources/Imagenes/logo.png"/>
 	<div id="cuadro-login">
 		<h3>Inicie sesión</h3>
-		<table>
-		<tr>
-			<td>Usuario</td>
-			<td><input type="text"></td>
-		</tr>
-		<tr>
-			<td>Contraseña</td>
-			<td><input type="password"></td>
-		</tr>
-        <tr>
-			<td>
-                <form method="post" action="index.php">
-                    <input type="submit" value="Logear">
-                </form>
-            </td>
-			
-		</tr>    
-		</table>
+        <form method="post" action="index.php">
+            <table>
+            <tr>
+                <td>Usuario</td>
+                <td><input type="text" id="Usuario" name="Usuario"></td>
+            </tr>
+            <tr>
+                <td>Contraseña</td>
+                <td><input type="password" id="Password" name="Password"></td>
+            </tr>
+            <tr>
+                <td>              
+                    <input type="submit" value="Logear" name="login">
+                </td>
+            </tr>    
+            </table>
+        </form>
 	</div>
 
 	<div id="index-contacto">

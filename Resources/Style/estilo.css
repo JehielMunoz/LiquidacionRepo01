@@ -64,14 +64,110 @@ body{
 	border:1px solid black;
 	height:1057px;
 	width:806px;
-	background-image:url('../Imagenes/VistaPrevia.png');
+	background-image:url('./Img/VistaPrevia.png');
 	background-repeat: no-repeat;
 }
-.prueba{
-	margin:159px 0px 0px 172px;
-	width:274px;
-	border:1px solid black;
+.vista-datos{
+	font-size:11px;
+	margin:159px 0 0 172px;
+	width:274px;}
+
+.vista-datos span{
+	display:block;
+	margin:1px 0;
+	padding:0.15px 2px;
+	border:1px solid gray;}
+
+.vista-horas{
+	float:right;
+	font-size:10px;
+	margin:-122px 0 0;
+	width:86px;}
+
+.vista-horas span{
+	display:block;
+	padding:0.5px 2px;
+	margin:1.8px 0;}
+
+.vista-haberes{
+	font-size:12px;
+	margin:33px 0 0 354px;}
+
+.vista-haberes span{
+	width:80px;
+	display:block;
+	margin:0.7px 0;
+	padding:0.8px 0;}
+
+.vista-descuentos{
+	float:right;
+	font-size:12px;
+	margin:-340px 0 0;}
+
+.vista-descuentos span{
+	width:89px;
+	display:block;
+	margin:1px 0;
+	padding:0.7px 0;}
+
+.vista-total-haberes-descuentos{
+	width:800px;
+	font-size:12px;
+	padding:0.5px 1px;
+	text-align:right;
+	margin-top:99px;
+	float:right;}
+
+.vista-total-haberes-descuentos span{ margin-left:351px;}
+
+.vista-totales-izquierda{
+	width:355px;
+	float:left;
+	margin-top:69px;
+	font-size:12px;}
+
+.vista-totales-izquierda span{
+	text-align:right;
+	margin:0 85px 0 20px;}
+
+.vista-totales-centro{
+	width:90px;
+	margin:133px 0 0 355px;
+	font-size:12px;
+	text-align:right;}
+
+.vista-totales-centro span{
+	width:86px;
+	display:inline-block;
+	margin:1px 0;
+	padding:0.5px 2px;}
+
+.vista-totales-derecha{
+	width:48px;
+	float:right;
+	margin-top:-87px;
+	font-size:12px;
+	text-align:right;
+	padding:0 2px;}
+
+.vista-totales-derecha span{
+	width:48px;
+    display:inline-block;
+	margin:1px 0;}
+
+.divError{
+	float:right;
+	background-color:#ff0000;
+	padding:2px;
 }
+
+#vista-sueldo-palabras{
+	width:597px;
+	font-size:12px;
+	text-transform:uppercase;
+	padding:0.5px 2px;
+	margin:50px 0 0 205px;}
+
 #top-header{
 	top:0;
 	left:0;
@@ -81,6 +177,7 @@ body{
 	position:fixed;
 	padding:5px 10px;
 	background:linear-gradient(#1b95e0,rgb(12,122,191)/*#0c7abf*/);
+	z-index:900;
 }
 
 #top-header h1{
@@ -116,11 +213,21 @@ body{
 	background-size:14px;
 	border-radius:100%;
 	border:2px solid black;}
-}
-.bAgregar:hover{
-	background-color:#2196F3;
-	
-}
+
+.bAgregar:hover{ background-color:#2196F3;}
+
+.bEliminar{
+	width:16px;
+	height:16px;
+	background-image:url(sminus.svg);
+	background-color:transparent;
+	background-repeat:no-repeat;
+	background-position:1px 1px;
+	background-size:14px;
+	border-radius:100%;
+	border:2px solid black;}
+
+.bEliminar:hover{ background-color:#FF2913;}
 
 /*Zona Switch*/
 .switch {

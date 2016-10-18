@@ -1,4 +1,6 @@
-    <div id="tabs-1">					<!--Div Planilla Liquidacion-->
+<?php
+    include '../../php/funciones.php';  # Obligatoriamente hay que volver a cargar las funciones, al cargar este documento con ajax. Es como si fuera un espacio diferente al index.php, por lo tanto. Todas las funciones que estan abajo no existen.
+?>
 			<div class="divplanilla">
 				<form>	
 					<table>	
@@ -34,34 +36,35 @@
 							<td><input type="text" disabled name="lname" placeholder="Nombre AFP" value="<?php nombre_AFP();?>"></td>
                             <td><input type="text" disabled name="lname" placeholder="SIS" value="<?php Valor_AFP();?>"></td>
 							<td><input type="text" disabled  placeholder="Tasa" name="lname" value="<?php tasa_AFP();?>"></td>
+							
 						<tr>
 							<td>Cotizacion de Salud:</td>
 							
 							<td><input type="text" disabled name="lname" placeholder="Nombre ISAPRE" value="<?php nombre_ISAPRE();?>"></td>
-							<td><input type="text" disabled  placeholder="Valor" name="lname"  value="<?php tasa_ISAPRE();?>"></td>
-                            <td><input type="text" disabled name="lname" placeholder="%"></td>
+							<td><input type="text" disabled  placeholder="Valor" name="lname"  value="<?php Valor_Isapre();?>"></td>
+							<td><input type="text" disabled name="lname" placeholder="%" value="<?php tasa_ISAPRE();?>"></td>
 						</tr>
 						<tr>
 							<td>Total Bonos:</td>
-							<td><input type="text" disabled name="lname"></td>
+							<td><input type="text" disabled name="lname" value="<?php Total_Bonos();?>"></td>
 							<td colspan=2></td>
 						</tr>
 						<tr>
 							<td>Total Descuentos:</td>
-							<td><input type="text" disabled name="lname"></td>
+							<td><input type="text" disabled name="lname" value="<?php Total_Descuentos();?>"></td>
 							<td colspan=2></td>
 						</tr>
 						<tr>
 							<td>Total Asignaciones:</td>
-							<td><input type="text" disabled name="lname"></td>
+							<td><input type="text" disabled name="lname" value="<?php Total_Asignacion();?>"></td>
 							<td colspan=2></td>
 						</tr>
 						<tr>
 							<td>Total Seguros:</td>
-							<td><input type="text" disabled name="lname"></td>
+							<td><input type="text" disabled name="lname" value="<?php Valor_seguro_cesantia();?>"></td>
 							<td colspan=2></td>
 						</tr>
 					</table>
 				</form>
 			</div>
-		</div>
+		

@@ -1,5 +1,6 @@
 <?php
-// falta agregar el pie de pagina
+
+// falta agregar el pie de pagina Derechos del autor
 ?>
     
     </body>
