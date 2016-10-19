@@ -26,7 +26,7 @@
 				<li class="button"><a href="#tabs-5">Vista Previa</a></li>
                 <li><form action="#" method="post">
                         <input type="text" hidden id="Rut" name="Rut">
-                        <input type="text"  id="AutoNombre" name="AutoNombre" placeholder="Busqueda Personal">
+                        <input type="text"  id="AutoNombre" name="AutoNombre" placeholder="Buscar personal...">
                         <input type="submit" id="btn-buscar" formmethod="post" value="Buscar Persona">
                     </form>
                 </li>  

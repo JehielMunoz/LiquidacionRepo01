@@ -24,3 +24,10 @@ Por implementar:
 -Arreglado el bug con Google Chrome.
 -Implementado el ajax y arreglado problemas de logica(?)
 -Idk
+
+19-10-2016
+
+Nuevo:
+- Se Cambio el estilo
+- se agrego nuevo sistema de login
+- ahora se encontrara la version del la plataforma en el index
