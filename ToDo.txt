@@ -31,3 +31,18 @@ Nuevo:
 - Se Cambio el estilo
 - se agrego nuevo sistema de login
 - ahora se encontrara la version del la plataforma en el index
+
+19-10-2016
+
+Nuevo:
+
+-Se Corrigierion problemas de los deciles en el momento de sacar los sueldos.
+-Gratificaciones y Descuentos Terminados.
+-Ahora se pueden agregar nuevas Gratificaciones.
+-Ahora se pueden agregar nuevos Descuentos.
+-Se incluyo el formato peso en Gratificaciones y Descuento.
+-Se corrigio un pequeño problema con la base de datos.
+
+Por Implementar:
+
+La página de licencias.

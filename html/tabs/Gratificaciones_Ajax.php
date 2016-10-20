@@ -1,9 +1,19 @@
 <?php
     error_reporting(E_ALL);
     ini_set('display_errors', '1');
+    include '../../php/funciones.php';
     $rut = $_POST["id_rut1"];
     $num = $_POST["num1"];
     $num2 = $_POST["num2"];
+    if(!empty($_POST['nombre'])){
+        $nombre = $_POST["nombre"];
+    }
+    if(!empty($_POST['tipo'])){
+        $tipo = $_POST['tipo'];
+    }
+    if(!empty($_POST['monto'])){
+        $monto = $_POST['monto'];
+    }
     $dbServer = 'localhost';
     $dbUser = 'postgres';
     $dbPass = 'wii360';
@@ -20,7 +30,7 @@
             exit;
             }
         if($num!='0' && $num2==1){
-            $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tBonos\"(\"Rut\",\"id_Bono\",\"Monto\") values('$rut',$num,0);"); 
+            $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tBonos\"(\"Rut\",\"id_Bono\",\"Monto\") values('$rut',$num,$monto);"); 
             if (!$query) {
                 echo "Falla en la consulta.\n";
                 exit;
@@ -35,6 +45,15 @@
             }
             pg_free_result($query);
         }
+        if($num!='0' && $num2==3){
+            if($tipo=='Imponible'){
+            $query = pg_query("insert into \"tBonos\"(\"Bono\",\"Imponible\",\"Activo\") values('$nombre','t','t');"); }
+            else{
+            $query = pg_query("insert into \"tBonos\"(\"Bono\",\"Imponible\",\"Activo\") values('$nombre','f','t');");
+            }
+            
+            
+        }
         $query = pg_query($dbconn, " SELECT \"tEmpleados\".\"Rut\", \"tBonos\".\"Bono\", \"tBonos\".\"Activo\", \"tBonos\".\"id_Bono\", \"tBonos\".\"Imponible\",\"rel_tEmpleados_tBonos\".\"Monto\" FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;"); // falta el rut del usuario
         if (!$query) {
                 echo "Error en la consulta.\n";
@@ -46,7 +65,7 @@
         while ($row1 = pg_fetch_assoc($query)) {
                 echo"<tr>";
                     echo"<td>".$row1['Bono']."</td>";
-                    echo"<td><input type=\"text\" name=\"hExtras\" placeholder=".$row1['Monto']."></td>";
+                    echo"<td><input type=\"text\" class=\"entrega-dato\" placeholder=".Formato_Dinero($row1['Monto'])."></td>";
                     if($row1['Imponible']=='t'){
                         echo"<td>Imponible</td>";
                     }
@@ -75,12 +94,29 @@
                     else{
                         echo"<td>No Imponible</td>";
                     }
+                    echo "<td><input id='bono".$row2['id_Bono']."' type=\"text\" class=\"entrega-dato\"></input></td>";
                     echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos_Gratificaciones(".$row2['id_Bono'].",'1')\"></div></td>";
                 echo "</tr>";
             }   
         echo "</table>";
         echo "<br/>";
-        echo "<div class=\"buttonSave\" onclick=\"plSave()\">Guardar</div><div class=\"buttonSave\">Agregar Gratificación</div>";
+        echo "<h2>Crear Gratificación</h2>";
+        echo "<table>";
+        echo "<tr>";
+            echo "<td>Nombre</td>";
+            echo "<td>Tipo</td>";
+            echo "<td>Agregar</div></td>";
+        echo "</tr>";
+        echo "<tr>";
+            echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Nombre_nueva_gratificacion\" name=\"Nombre_nueva_gratificacion\"></input></td>";
+            echo "<td><select id=\"Tipo_nueva_gratificacion\" name=\"Tipo_nueva_gratificacion\">";
+            echo            "<option value='Imponible'>Imponible</option>";
+            echo            "<option value='no Imponible'>No Imponible</option>";
+            echo "</select>";
+            echo "</td>";
+            echo "<td><div class=\"bAgregar\" class=\"entrega-dato\" onclick=\"TraerDatos_Gratificaciones('3','3')\"></div></td>";
+        echo "</tr>";
+        echo "</table>";
         }
     else{
         echo "</table>";

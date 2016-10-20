@@ -187,14 +187,14 @@ if(!isset($_SESSION['Rut']))
     {
         if(!empty($_SESSION['Asignacion_Familiar']))
         {  
-            echo $_SESSION['Asignacion_Familiar'];
+            echo Formato_Dinero($_SESSION['Asignacion_Familiar']);
            
         }
         else
         {
         if($_SESSION['Asignacion_Familiar']==0)
             {
-                echo Formato_Dinero($_SESSION['Asignacion_Familiar']);
+                echo "$0";
             }
         }
     }
@@ -335,7 +335,7 @@ function cal_Total_Imponible(){
     $_SESSION['Asignacion_Familiar']= 0;
     $query = pg_query($dbconn, " SELECT \"tEmpleados\".\"Rut\", \"tBonos\".\"Bono\", \"tBonos\".\"Activo\", \"tBonos\".\"id_Bono\", \"tBonos\".\"Imponible\",\"rel_tEmpleados_tBonos\".\"Monto\" FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."'::bpchar;");
     while ($row1 = pg_fetch_assoc($query)) {
-        if($row1['Imponible']){
+        if($row1['Imponible']=="t"){
         $_SESSION['Gratificaciones_Imponible'] += $row1['Monto'];
         }
         else{
@@ -343,7 +343,7 @@ function cal_Total_Imponible(){
             }
     }
     $_SESSION['Total_Imponible']= $_SESSION['Datos']["Sueldo_base"] + $_SESSION['Gratificaciones_Imponible'];
-    $_SESSION['Total_Haberes'] =  $_SESSION['Datos']["Sueldo_base"] + $_SESSION['Gratificaciones_Imponible']+ $_SESSION['Gratificaciones_no_Imponible']; 
+    $_SESSION['Total_Haberes'] =  $_SESSION['Datos']["Sueldo_base"]+$_SESSION['Gratificaciones_Imponible']+$_SESSION['Gratificaciones_no_Imponible']; 
     $_SESSION['Total_Bonos'] = $_SESSION['Gratificaciones_Imponible']+ $_SESSION['Gratificaciones_no_Imponible'];
 }
 
@@ -394,14 +394,14 @@ function Total_AFP(){
     include("conex.inc");
     $query = pg_query($dbconn, " SELECT * FROM \"tAFP\" WHERE \"tAFP\".\"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."';");
     $row1 = pg_fetch_assoc($query);
-    $_SESSION['Total_AFP'] = intval(($row1['Tasa'] * $_SESSION['Total_Imponible'])/100);
+    $_SESSION['Total_AFP'] = round(($row1['Tasa'] * $_SESSION['Total_Imponible'])/100,0);
     $_SESSION['Descuentos_Legal'] += $_SESSION['Total_AFP'] ;
 }
 function Total_Isapre(){
     include("conex.inc");
     $query = pg_query($dbconn, " SELECT * FROM \"tISAPRE\" WHERE \"tISAPRE\".\"id_ISAPRE\" = '".$_SESSION['Isapre']['id_ISAPRE']."';");
     $row1 = pg_fetch_assoc($query);
-    $_SESSION['Total_Isapre'] = intval(($row1['Tasa'] * $_SESSION['Total_Imponible'])/100);
+    $_SESSION['Total_Isapre'] = round(($row1['Tasa'] * $_SESSION['Total_Imponible'])/100,0);
     $_SESSION['Descuentos_Legal'] +=$_SESSION['Total_Isapre'];
 }
 
@@ -409,7 +409,7 @@ function Total_Seguro(){
     include("conex.inc");
     $query = pg_query($dbconn, " SELECT * FROM \"tContratos\" WHERE \"tContratos\".\"id_Contrato\" = '".$_SESSION['Contrato']['id_Contrato']."';");
     $row1 = pg_fetch_assoc($query);
-    $_SESSION['Total_seguro'] = intval(($row1['Tasa_seguro_cesantia'] * $_SESSION['Total_Imponible'])/100);
+    $_SESSION['Total_seguro'] = round(($row1['Tasa_seguro_cesantia'] * $_SESSION['Total_Imponible'])/100,0);
     $_SESSION['Descuentos_Legal'] +=$_SESSION['Total_seguro'];
 }
 
