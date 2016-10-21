@@ -1,14 +1,24 @@
+<?php session_start();?>
 <body>
 	<div id="top-header">
 		<h1><?php global $html_titulo_barra;print_Variable($html_titulo_barra);?></h1>
 		 <form action="./index.php" method="post">
         <div >       
-            <input type="submit" onclick='Desconectar()' id="user-status" name="Desconectar" formmethod="post" value="Nombre Usuario" > 
+            <input type="submit" onclick='Desconectar()' id="user-status" name="Desconectar" formmethod="post" value="<?php echo $_SESSION['Usuario'];?>" > 
 		</div>
         </form>
 	</div>
 	<div class="menudiv">
-		<a href="./index.php">Agregar Nuevo</a>
+	    <?php 
+            if(!empty($_SESSION['Tipo']))
+            {   
+                if($_SESSION['Tipo']!=="contador") // Pregunta el tipo de usuario 
+                {   
+                    echo "<a href=\"./index.php\">Agregar Nuevo Empleado</a>";     // Y muestra el contenido segun el tipo que sea.
+                }
+            }
+        
+        ?>
 		<a href="./index.php">Planilla Liquidacion</a>
 		<a href="#">Licencias</a>
 		<a href="#">AFP</a>

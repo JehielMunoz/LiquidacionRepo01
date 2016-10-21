@@ -23,7 +23,7 @@ if (!isset($_SESSION['Usuario'])){
     if(isset($_POST['login'])){
         if(verificar_login($_POST['Usuario'],$_POST['Password'],$result) == 1)
         {
-            $_SESSION['Tipo'] = $result->Tipo;
+            $_SESSION['Tipo'] = trim($result->Tipo," ");
             $_SESSION['Usuario'] = $result->Usuario;
             echo '<script language= "JavaScript">location.href="index.php" </script>';
             header("location:index.php");

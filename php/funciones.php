@@ -4,7 +4,7 @@ if(!isset($_SESSION['Rut']))
     if (!empty($_POST["Rut"])) 
      {
         $_SESSION['Rut'] =  $_POST["Rut"];
-        $_SESSION['Nombre'] = $_POST["AutoNombre"];         
+        $_SESSION['Nombre'] = trim($_POST["AutoNombre"]," ");         
         $_SESSION['Datos'] = get_Datos();
         $_SESSION['Afp'] = get_AFP();
         $_SESSION['Isapre'] = get_ISAPRE();
