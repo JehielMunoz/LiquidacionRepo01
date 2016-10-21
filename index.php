@@ -1,5 +1,6 @@
 <?php
-// inicia la session de usuario
+// inicia la session de session
+// Version: 0.22
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -7,7 +8,7 @@ function verificar_login($user,$password,&$result){
     include("./php/conex.inc");
     $query = pg_query($dbconn, "SELECT * FROM \"tUsuarios\" WHERE \"Usuario\" = '$user' and \"Password\" = '$password'");
     $count = 0;
-    if(!empty($row = pg_fetch_object($query))) #Aqui habia un while. Esto es kinda redunte. El nombre del usuario deberia ser unico, por lo tanto, Siempre va a haber 1 asi que lo arregle, para que solo haga la consulta. Sin necesidad de usar un ciclo while.
+    if(!empty($row = pg_fetch_object($query))) 
     {
         $result = $row;
         return 1;
@@ -29,7 +30,7 @@ if (!isset($_SESSION['Usuario'])){
                 }
         else
             {
-            echo '<div class="error">Su usuario es incorrecto, intente nuevamente.</div>';
+            echo '<div class="divError">Su usuario es incorrecto, intente nuevamente.</div>';
         }
     }
     require 'login.php';

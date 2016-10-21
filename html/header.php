@@ -54,13 +54,31 @@
             
         }
         
-        function TraerDatos_Gratificaciones(num){
+        function TraerDatos_Gratificaciones(num,num2){
             if (window.XMLHttpRequest) objAjax1 = new XMLHttpRequest() ;//para Mozilla
             else if (window.ActiveXObject) objAjax1 = new ActiveXObject("Microsoft.XMLHTTP");
- 			var rut = document.getElementById('Ruta').value;  // Tuve que hacer unos cambios para que funcionara. lo voy a explicar en la descripción del comit.
+ 			var rut = document.getElementById('Ruta').value; 
+            var rut1 = rut.replace(".","");
+            var rut2 = rut1.replace(".","");
+            var rut3 = rut2.replace("-","");
+            // Tuve que hacer unos cambios para que funcionara. lo voy a explicar en la descripción del comit.
             objAjax1.open("POST","./html/tabs/Gratificaciones_Ajax.php");
 			objAjax1.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-			objAjax1.send("id_rut1="+rut+"&num1="+num);
+            if(num2=='0'){
+                objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2);		
+            }
+            if(num2=='1'){
+                var monto=document.getElementById("bono"+num).value;
+                objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&monto="+monto);
+            }
+            if(num2=='2'){
+                objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2);		
+            }
+            if(num2=='3'){
+                var nombre = document.getElementById('Nombre_nueva_gratificacion').value;
+                var tipo = document.getElementById('Tipo_nueva_gratificacion').value;
+                objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&nombre="+nombre+"&tipo="+tipo);
+            }
 			objAjax1.onreadystatechange = MotrarDatos_Gratificaciones;
 			}
         function MotrarDatos_Gratificaciones(){
@@ -68,13 +86,30 @@
 				document.getElementById("tabs-2").innerHTML = objAjax1.responseText;
 				}
         }
-        function TraerDatos(num){     
+        function TraerDatos(num,num2){     
             if (window.XMLHttpRequest) objAjax2 = new XMLHttpRequest() ;//para Mozilla
             else if (window.ActiveXObject) objAjax2 = new ActiveXObject("Microsoft.XMLHTTP");
             var rut = document.getElementById('Ruta').value;
+            var rut1 = rut.replace(".","");
+            var rut2 = rut1.replace(".","");
+            var rut3 = rut2.replace("-","");
  			objAjax2.open("POST","./html/tabs/Descuentos_Ajax.php");
 			objAjax2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-			objAjax2.send("id_rut2="+rut+"&num2="+num);		
+            if(num2=='0'){
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2);		
+            }
+            if(num2=='1'){
+                var monto=document.getElementById("descuento"+num).value;
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&monto="+monto);
+            }
+            if(num2=='2'){
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2);
+            }
+            if(num2=='3'){
+                var nombre = document.getElementById('Nombre_nuevo_descuento').value;
+                var tipo = document.getElementById('Tipo_nuevo_descuento').value;
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&nombre="+nombre+"&tipo="+tipo);
+            }
 			objAjax2.onreadystatechange = MostrarDatos;
 			}
 		function MostrarDatos(){
