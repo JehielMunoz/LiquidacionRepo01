@@ -10,11 +10,10 @@
 	<div class="menudiv">
 		<a href="./index.php">Agregar Nuevo</a>
 		<a href="./index.php">Planilla Liquidacion</a>
-		<a href="#">Horario</a>
 		<a href="#">Licencias</a>
 		<a href="#">AFP</a>
 		<a href="#">IPS</a>
-		<a href="#">Contacto</a>
+		<a href="./html/Contacto.php">Contacto</a>
 		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
