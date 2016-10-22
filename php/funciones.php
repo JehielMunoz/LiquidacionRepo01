@@ -187,13 +187,6 @@ if(!isset($_SESSION['Rut']))
             echo Formato_Dinero($_SESSION['Asignacion_Familiar']);
            
         }
-        else
-        {
-        if($_SESSION['Asignacion_Familiar']==0)
-            {
-                echo "$0";
-            }
-        }
     }
     function Hora()
     {
