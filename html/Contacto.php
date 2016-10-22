@@ -58,7 +58,7 @@
     <body>
 	<div id="top-header">
 		<h1><?php global $html_titulo_barra;print_Variable($html_titulo_barra);?></h1>
-		 <form action="./index.php" method="post">
+		 <form action="../index.php" method="post">
         <div >       
             <input type="submit" onclick='Desconectar()' id="user-status" name="Desconectar" formmethod="post" value="<?php echo $_SESSION['Usuario'];?>" > 
 		</div>
@@ -74,7 +74,7 @@
                 }
             }
     ?>
-        <a href="../index.php">Planilla Liquidacion</a>
+        <a href="../html/Agregar_empleado.php">Planilla Liquidacion</a>
 		<a href="#">Licencias</a>
 		<a href="#">AFP</a>
 		<a href="#">IPS</a>
@@ -95,7 +95,7 @@
                         
                     </form>
                 </li>
-                <!--Agregar Botones//Listas//Tabs aquí, El contenido va en contenido.php.-->
+                
 			</ul>
 			<div id="tabs-1">
             <div class="divplanilla">
@@ -110,3 +110,4 @@
         
         </div>
     </body>
+</html>

@@ -14,7 +14,7 @@
             {   
                 if($_SESSION['Tipo']!=="contador") // Pregunta el tipo de usuario 
                 {   
-                    echo "<a href=\"./index.php\">Agregar Nuevo Empleado</a>";     // Y muestra el contenido segun el tipo que sea.
+                    echo "<a href=\"./html/Agregar_empleado.php\">Agregar Nuevo Empleado</a>";     // Y muestra el contenido segun el tipo que sea.
                 }
             }
         
