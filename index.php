@@ -38,12 +38,8 @@ if (!isset($_SESSION['Usuario'])){
 }
 else
 {   
-    //Comprueba Si se registro un Empleado.
-    if(!empty($_POST['r_Rut']))
-    {
-        include './php/Registro.php';
-    }
-    require_once './php/funciones.php';
+   
+    require './php/funciones.php';
     //Requiere que cargue el archivo conexion, con la informacion de la DB, para que el resto de la pagina carge.
     // Carga las variables y las funciones
     require './php/Variables.php';

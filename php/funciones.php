@@ -1,21 +1,27 @@
 <?php
-if(!isset($_SESSION['Rut']))
+if(empty($_SESSION))
 {
-    if (!empty($_POST["Rut"])) 
-     {
-        $_SESSION['Rut'] =  $_POST["Rut"];
-        $_SESSION['Nombre'] = trim($_POST["AutoNombre"]," ");         
-        $_SESSION['Datos'] = get_Datos();
-        $_SESSION['Afp'] = get_AFP();
-        $_SESSION['Isapre'] = get_ISAPRE();
-        $_SESSION['Contrato'] = get_Contrato();
-         cal_Total_Imponible();
-        cal_Total_Descuentos();
-        cal_sub_total();
-        Liquido_Pagar();
-        Liquido_Alcansado();
-     }
+    session_start();
 }
+
+ if (!empty($_POST["Rut"])) 
+  {
+     $_SESSION['Rut'] =  $_POST["Rut"];
+     $_SESSION['Datos'] = get_Datos();
+     $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
+     $_SESSION['Afp'] = get_AFP();
+     $_SESSION['Isapre'] = get_ISAPRE();
+     $_SESSION['Contrato'] = get_Contrato();
+     cal_Total_Imponible();
+     cal_Total_Descuentos();
+     cal_sub_total();
+     Liquido_Pagar();
+     Liquido_Alcansado();
+     }  
+   
+
+       
+
 #si no inicia en 0 la informacion // LO IDEAL SERIA DESTRUIR LAS VARIABLES CUANDO DEJEMOS DE USARLAS, AKA CUANDO LAS SUBIMOS A LA BASE DE DATOS. 
     function html_llamada($archivo){
         if (file_exists('./html/'.$archivo)) {
@@ -82,14 +88,12 @@ if(!isset($_SESSION['Rut']))
         echo json_encode($data);
     }
     function get_Datos(){
-        if(!empty($_POST['Rut']))
-        {
             include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" where \"Rut\" = '".$_SESSION['Rut']."' ");
             $row = pg_fetch_assoc($query);
             return $row;
-        }
-    }   
+    }
+      
 #------------------------------------------------------------------------------------------------------------------
 # Funciones para mostrar los datos
 #-----------------------------------------------------------------------------------------------------------------
@@ -123,6 +127,13 @@ if(!isset($_SESSION['Rut']))
         
         return $rut;
     }
+   function Formato_Tel_Cel($telefono)
+   {
+        $telefono = substr_replace($telefono,' ',3,0);
+        $telefono = substr_replace($telefono,' ',6,0); 
+        $telefono = substr_replace($telefono,'(09) ',0,0); 
+        return $telefono;
+   }
     function Rut()
     {
       if (!empty($_SESSION["Rut"]))
@@ -278,17 +289,28 @@ if(!isset($_SESSION['Rut']))
 # Estan funciones se tienen que  conectar a la base de datos por qué tienen que sacar informacion de otras tablas.
 #------------------------------------------------------------------------------------------------------------------------
     function get_AFP() 
-    {       if(!empty($_SESSION['Rut']))
+    {       if(!empty($_SESSION['Datos']))
             {
             include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tAFP\" where \"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."' ");
+            $query = pg_query($dbconn, "SELECT * FROM \"tAFP\" where \"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."'");
             $row = pg_fetch_assoc($query);
             return $row;
             }
     }
+    function get_AFP_Registro() 
+    {     
+            include("conex.php");
+            $query = pg_query($dbconn, "SELECT * FROM \"tAFP\"");
+            while($row = pg_fetch_assoc($query))
+            {
+                echo "<option value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
+            }
+            
+        
+    }
 
     function get_ISAPRE()
-    {       if(!empty($_SESSION['Rut']))
+    {       if(!empty($_SESSION['Datos']))
             {
             include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\" where \"id_ISAPRE\" = '".$_SESSION['Datos']['id_ISAPRE']."' ");
@@ -297,13 +319,33 @@ if(!isset($_SESSION['Rut']))
             }
     }
 
+    function get_ISAPRE_Registro()
+    {       
+            include("conex.php");
+            $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\"");
+            while($row = pg_fetch_assoc($query))
+            {
+                echo "<option value=\"".$row['id_ISAPRE']."\">".$row['ISAPRE']."</option>";
+            }
+          
+            
+    }
     function get_Contrato()
-    {       if(!empty($_SESSION['Rut']))
+    {       if(!empty($_SESSION['Datos']))
             {
             include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tContratos\" where \"id_Contrato\" = '".$_SESSION['Datos']['id_Contrato']."' ");
             $row = pg_fetch_assoc($query);
             return $row;  
+            }
+    }
+    function get_Empleo_Registro()
+    {
+      include("conex.php");
+            $query = pg_query($dbconn, "SELECT * FROM \"tCargos\"");
+            while($row = pg_fetch_assoc($query))
+            {
+                echo "<input type=\"checkbox\"  name=Cargo[] value=\"".$row['id_Cargo']."\">".$row['Cargo']."<br>";
             }
     }
     function Mostrar_Contacto()

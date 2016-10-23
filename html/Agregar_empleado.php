@@ -88,7 +88,7 @@ else
 
                 <!--Agregar Botones//Listas//Tabs aquí, El contenido va en contenido.php.-->
             </ul>
-            <form id="Guardar_Empleado" method="post" action="../index.php">
+            <form id="Guardar_Empleado" method="post" action="../php/Registro.php">
                 <div id="tabs-1">					<!--Div Planilla Liquidacion-->
                     <div class="divplanilla">
                         <table>

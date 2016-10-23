@@ -38,7 +38,7 @@
                $.ajax({
                    type:"POST",
                    url:url,
-                   data: {Rut:$("#Rut").val(),AutoNombre:$("#AutoNombre").val()}, // Datos del post. Los cuales recupera del campo rut y nombre.
+                   data: {Rut: $("#Rut").val(),AutoNombre:$("#AutoNombre").val()}, // Datos del post. Los cuales recupera del campo rut y nombre.
                    success: function (data) { // Si la consulta tiene exito.
                     $("#tabs-1").html(data); // Remplzasa el contedio del div tabs-1
                     $("#tabs").tabs("option", "active", 0);
