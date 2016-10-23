@@ -15,6 +15,10 @@ if(!empty($_POST['tipo'])){
 if(!empty($_POST['monto'])){
     $monto = $_POST['monto'];
 }
+else
+{
+    $monto=0;
+}
 $dbServer = 'localhost';
 $dbUser = 'postgres';
 $dbPass = 'wii360';

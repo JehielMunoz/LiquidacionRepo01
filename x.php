@@ -23,5 +23,11 @@
     
     $e = "122223314";
 //        1.223.453.123
-    echo Formato_Dinero($e); 
+     
+    $telefono = 85245624;
+    $telefono = substr_replace($telefono,' ',3,0);
+    $telefono = substr_replace($telefono,' ',6,0); 
+    $telefono = substr_replace($telefono,'(09) ',0,0); 
+    
+    echo $telefono;
 ?>

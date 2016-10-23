@@ -1,5 +1,9 @@
 <?php
-    include '../../php/funciones.php';  # Obligatoriamente hay que volver a cargar las funciones, al cargar este documento con ajax. Es como si fuera un espacio diferente al index.php, por lo tanto. Todas las funciones que estan abajo no existen.
+    if(file_exists('../../php/funciones.php'))
+    {
+        require_once '../../php/funciones.php';  # Obligatoriamente hay que volver a cargar las funciones, al cargar este documento con ajax. Es como si fuera un espacio diferente al index.php, por lo tanto. Todas las funciones que estan abajo no existen.
+    }
+        
 ?>
     <div id="tabs-1">					<!--Div Planilla Liquidacion-->
 		<div class="divplanilla">

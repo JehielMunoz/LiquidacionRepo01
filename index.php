@@ -20,27 +20,34 @@ function verificar_login($user,$password,&$result){
 }
 
 if (!isset($_SESSION['Usuario'])){
-    if(isset($_POST['login'])){
+    if(isset($_POST['login']))
+    {
         if(verificar_login($_POST['Usuario'],$_POST['Password'],$result) == 1)
         {
             $_SESSION['Tipo'] = trim($result->Tipo," ");
-            $_SESSION['Usuario'] = $result->Usuario;
+            $_SESSION['Usuario'] = trim($result->Usuario," ");
             echo '<script language= "JavaScript">location.href="index.php" </script>';
             header("location:index.php");
-                }
+        }
         else
-            {
+        {
             echo '<div class="divError">Su usuario es incorrecto, intente nuevamente.</div>';
         }
     }
     require './php/login.php';
 }
 else
-{
+{   
+    //Comprueba Si se registro un Empleado.
+    if(!empty($_POST['r_Rut']))
+    {
+        include './php/Registro.php';
+    }
+    require_once './php/funciones.php';
     //Requiere que cargue el archivo conexion, con la informacion de la DB, para que el resto de la pagina carge.
     // Carga las variables y las funciones
     require './php/Variables.php';
-    require './php/funciones.php';
+  
     // Arma el html de la pagina.
     require './php/Inicio_Carga.php';
 }

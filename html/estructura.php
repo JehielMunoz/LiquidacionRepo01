@@ -1,4 +1,9 @@
-<?php session_start();?>
+<?php 
+    if(empty($_SESSION))
+    {
+        session_start();
+    }
+?>
 <body>
 	<div id="top-header">
 		<h1><?php global $html_titulo_barra;print_Variable($html_titulo_barra);?></h1>
