@@ -5,6 +5,7 @@
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/estilo.css"/>
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/tabs_style.css">
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/tabs_style02.css">
+    <link type="text/css" rel="stylesheet" href="./Resources/Style/estilo_tabla.css">
     
     <script src="./Resources/Scripts/scripts.js"></script>
 	<script src="./Resources/Scripts/tabsO.js"></script>
@@ -41,6 +42,22 @@
                    data: {Rut:$("#Rut").val(),AutoNombre:$("#AutoNombre").val()}, // Datos del post. Los cuales recupera del campo rut y nombre.
                    success: function (data) { // Si la consulta tiene exito.
                     $("#tabs-1").html(data); // Remplzasa el contedio del div tabs-1
+                    $("#tabs").tabs("option", "active", 0);
+                    }
+            
+               });
+            return false; // Igual  que al validar formularios, devuelve falso para que se ejecute el enviar del form.
+           });
+        });
+        $(function(){ 
+           $("#tab-5").click(function(){ // Esto maneja el ajax. Cuando hago click en el boton para buscar. Hace una consulta por post y remplaza la planilla con la respuesta del pust.
+               var url = "./html/tabs/Vista_Previa_ajax.php";
+               $.ajax({
+                   type:"POST",
+                   url:url,
+                   data: {Rut:$("#Rut").val(),AutoNombre:$("#AutoNombre").val()}, // Datos del post. Los cuales recupera del campo rut y nombre.
+                   success: function (data) { // Si la consulta tiene exito.
+                    $("#tabs-5").html(data); // Remplzasa el contedio del div tabs-1
                     }
             
                });
@@ -69,7 +86,8 @@
             }
             if(num2=='1'){
                 var monto=document.getElementById("bono"+num).value;
-                objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&monto="+monto);
+            
+            if(monto!=0){ objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&monto="+monto);}
             }
             if(num2=='2'){
                 objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2);		
@@ -77,7 +95,7 @@
             if(num2=='3'){
                 var nombre = document.getElementById('Nombre_nueva_gratificacion').value;
                 var tipo = document.getElementById('Tipo_nueva_gratificacion').value;
-                objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&nombre="+nombre+"&tipo="+tipo);
+               if(nombre!=""){ objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&nombre="+nombre+"&tipo="+tipo);}
             }
 			objAjax1.onreadystatechange = MotrarDatos_Gratificaciones;
 			}
@@ -100,7 +118,8 @@
             }
             if(num2=='1'){
                 var monto=document.getElementById("descuento"+num).value;
-                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&monto="+monto);
+               
+               if(monto!=0){ objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&monto="+monto);}
             }
             if(num2=='2'){
                 objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2);
@@ -108,7 +127,7 @@
             if(num2=='3'){
                 var nombre = document.getElementById('Nombre_nuevo_descuento').value;
                 var tipo = document.getElementById('Tipo_nuevo_descuento').value;
-                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&nombre="+nombre+"&tipo="+tipo);
+               if(nombre!=""){ objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&nombre="+nombre+"&tipo="+tipo);}
             }
 			objAjax2.onreadystatechange = MostrarDatos;
 			}

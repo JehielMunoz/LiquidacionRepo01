@@ -1,13 +1,10 @@
 <?php
-# Rut inicial
-    #$_SESSION['Rut']=""; # ??? Cual es la necesidad de eso? I mean, que ocupa más recursos? Crear una variable que ocupa memoria? o hacer una consulta if isset? ademas ya haces la pregunta si esta vacia.
-# Si resive un rut completa los datos
 if(!isset($_SESSION['Rut']))
 {
     if (!empty($_POST["Rut"])) 
      {
         $_SESSION['Rut'] =  $_POST["Rut"];
-        $_SESSION['Nombre'] = $_POST["AutoNombre"];         
+        $_SESSION['Nombre'] = trim($_POST["AutoNombre"]," ");         
         $_SESSION['Datos'] = get_Datos();
         $_SESSION['Afp'] = get_AFP();
         $_SESSION['Isapre'] = get_ISAPRE();
@@ -72,7 +69,7 @@ if(!isset($_SESSION['Rut']))
 # funciones Para obtener la informacion de las personas
 #-----------------------------------------------------------------------------------------------------------------------------
     function get_Personas(){ 
-        include("conex.inc");
+        include("conex.php");
         $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" ");
         if (!$query) {
             echo "en el query.\n";
@@ -87,7 +84,7 @@ if(!isset($_SESSION['Rut']))
     function get_Datos(){
         if(!empty($_POST['Rut']))
         {
-            include("conex.inc");
+            include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" where \"Rut\" = '".$_SESSION['Rut']."' ");
             $row = pg_fetch_assoc($query);
             return $row;
@@ -190,13 +187,6 @@ if(!isset($_SESSION['Rut']))
             echo Formato_Dinero($_SESSION['Asignacion_Familiar']);
            
         }
-        else
-        {
-        if($_SESSION['Asignacion_Familiar']==0)
-            {
-                echo "$0";
-            }
-        }
     }
     function Hora()
     {
@@ -284,13 +274,37 @@ if(!isset($_SESSION['Rut']))
             echo "No posee.";
         }
     }
+    function descuentos_legales(){
+        if(!empty($_SESSION['Descuentos_Legal'])){
+            echo Formato_Dinero($_SESSION['Descuentos_Legal']);
+        }
+        
+    }
+    function Total_Imponible(){
+        if(!empty($_SESSION['Total_Imponible'])){
+            echo Formato_Dinero($_SESSION['Total_Imponible']);
+        }
+        
+    }
+    function Total_Tributable(){
+        if(!empty($_SESSION['Total_Tributable'])){
+            echo Formato_Dinero($_SESSION['Total_Tributable']);
+        }
+        
+    }
+    function Otros_descuentos(){
+        if(!empty($_SESSION['Descuentos_Otros'])){
+            echo Formato_Dinero($_SESSION['Descuentos_Otros']);
+        }
+        
+    }
 #------------------------------------------------------------------------------------------------------------------------
 # Estan funciones se tienen que  conectar a la base de datos por qué tienen que sacar informacion de otras tablas.
 #------------------------------------------------------------------------------------------------------------------------
     function get_AFP() 
     {       if(!empty($_SESSION['Rut']))
             {
-            include("conex.inc");
+            include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tAFP\" where \"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."' ");
             $row = pg_fetch_assoc($query);
             return $row;
@@ -300,7 +314,7 @@ if(!isset($_SESSION['Rut']))
     function get_ISAPRE()
     {       if(!empty($_SESSION['Rut']))
             {
-            include("conex.inc");
+            include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\" where \"id_ISAPRE\" = '".$_SESSION['Datos']['id_ISAPRE']."' ");
             $row = pg_fetch_assoc($query);
             return $row; 
@@ -310,11 +324,41 @@ if(!isset($_SESSION['Rut']))
     function get_Contrato()
     {       if(!empty($_SESSION['Rut']))
             {
-            include("conex.inc");
+            include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tContratos\" where \"id_Contrato\" = '".$_SESSION['Datos']['id_Contrato']."' ");
             $row = pg_fetch_assoc($query);
             return $row;  
             }
+    }
+    function Mostrar_Contacto()
+    {   
+        
+        include("conex.php");
+        
+        if(!empty($_POST['c_Buscar']))
+        {
+            $query ="Select \"tEmpleados\".\"Rut\",\"tEmpleados\".\"Nombre\", \"tEmpleado_Fono\".\"N_telefono\" 
+                      From \"tEmpleados\" Inner Join \"tEmpleado_Fono\" ON \"tEmpleados\".\"Rut\" = \"tEmpleado_Fono\".\"Rut\"
+                      Where \"tEmpleados\".\"Rut\" = '".$_POST['c_Buscar']."'
+                      order by \"tEmpleados\".\"Rut\"";
+        }
+        else
+        {
+            $query = "Select \"tEmpleados\".\"Rut\",\"tEmpleados\".\"Nombre\", \"tEmpleado_Fono\".\"N_telefono\" 
+                      From \"tEmpleados\" Inner Join \"tEmpleado_Fono\" ON \"tEmpleados\".\"Rut\" = \"tEmpleado_Fono\".\"Rut\"
+                      order by \"tEmpleados\".\"Rut\"";
+        }
+        $execQuery=pg_query($dbconn,$query);
+        
+        while($row = pg_fetch_assoc($execQuery))
+        {
+            echo "<tr>
+                    <td>".Formato_Rut($row['Rut'])."</td>    
+                    <td>".$row['Nombre']."</td>   
+                    <td>".$row['N_telefono']."</td>    
+                </tr>";
+        }
+        
     }
 #------------------------------------------------------------------------------------------------------------------------
 
@@ -328,8 +372,9 @@ if(!isset($_SESSION['Rut']))
 #---------- Funciones de ecuaciones --------------------------------------------
 #------------------------------------------------------------------------------------------
 
+
 function cal_Total_Imponible(){
-    include("conex.inc");
+    include("conex.php");
     $_SESSION['Gratificaciones_Imponible']=0;
     $_SESSION['Gratificaciones_no_Imponible']=0;
     $_SESSION['Asignacion_Familiar']= 0;
@@ -353,7 +398,7 @@ function cal_Total_Imponible(){
 
 function cal_Total_Descuentos(){
     $rut = $_SESSION['Rut'];
-    include("conex.inc");
+    include("conex.php");
     $_SESSION['Descuentos_Legal']=0;
     $_SESSION['Descuentos_Otros']=0;
     $query = pg_query($dbconn, "SELECT \"tEmpleados\".\"Rut\",\"tEmpleados\".\"Nombre\",\"tDescuentos\".\"Descuento\",\"tDescuentos\".\"Tipo\",\"rel_tEmpleados_tDescuentos\".\"Monto\",\"tDescuentos\".\"id_Descuento\" FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;");
@@ -391,14 +436,14 @@ function Liquido_Pagar(){
       
 }
 function Total_AFP(){
-    include("conex.inc");
+    include("conex.php");
     $query = pg_query($dbconn, " SELECT * FROM \"tAFP\" WHERE \"tAFP\".\"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."';");
     $row1 = pg_fetch_assoc($query);
     $_SESSION['Total_AFP'] = round(($row1['Tasa'] * $_SESSION['Total_Imponible'])/100,0);
     $_SESSION['Descuentos_Legal'] += $_SESSION['Total_AFP'] ;
 }
 function Total_Isapre(){
-    include("conex.inc");
+    include("conex.php");
     $query = pg_query($dbconn, " SELECT * FROM \"tISAPRE\" WHERE \"tISAPRE\".\"id_ISAPRE\" = '".$_SESSION['Isapre']['id_ISAPRE']."';");
     $row1 = pg_fetch_assoc($query);
     $_SESSION['Total_Isapre'] = round(($row1['Tasa'] * $_SESSION['Total_Imponible'])/100,0);
@@ -406,7 +451,7 @@ function Total_Isapre(){
 }
 
 function Total_Seguro(){
-    include("conex.inc");
+    include("conex.php");
     $query = pg_query($dbconn, " SELECT * FROM \"tContratos\" WHERE \"tContratos\".\"id_Contrato\" = '".$_SESSION['Contrato']['id_Contrato']."';");
     $row1 = pg_fetch_assoc($query);
     $_SESSION['Total_seguro'] = round(($row1['Tasa_seguro_cesantia'] * $_SESSION['Total_Imponible'])/100,0);

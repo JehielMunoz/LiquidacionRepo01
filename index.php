@@ -5,7 +5,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 function verificar_login($user,$password,&$result){
-    include("./php/conex.inc");
+    include("./php/conex.php");
     $query = pg_query($dbconn, "SELECT * FROM \"tUsuarios\" WHERE \"Usuario\" = '$user' and \"Password\" = '$password'");
     $count = 0;
     if(!empty($row = pg_fetch_object($query))) 
@@ -23,7 +23,7 @@ if (!isset($_SESSION['Usuario'])){
     if(isset($_POST['login'])){
         if(verificar_login($_POST['Usuario'],$_POST['Password'],$result) == 1)
         {
-            $_SESSION['Tipo'] = $result->Tipo;
+            $_SESSION['Tipo'] = trim($result->Tipo," ");
             $_SESSION['Usuario'] = $result->Usuario;
             echo '<script language= "JavaScript">location.href="index.php" </script>';
             header("location:index.php");
@@ -33,7 +33,7 @@ if (!isset($_SESSION['Usuario'])){
             echo '<div class="divError">Su usuario es incorrecto, intente nuevamente.</div>';
         }
     }
-    require 'login.php';
+    require './php/login.php';
 }
 else
 {

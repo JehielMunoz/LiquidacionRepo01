@@ -1,20 +1,29 @@
+<?php session_start();?>
 <body>
 	<div id="top-header">
 		<h1><?php global $html_titulo_barra;print_Variable($html_titulo_barra);?></h1>
 		 <form action="./index.php" method="post">
         <div >       
-            <input type="submit" onclick='Desconectar()' id="user-status" name="Desconectar" formmethod="post" value="Nombre Usuario" > 
+            <input type="submit" onclick='Desconectar()' id="user-status" name="Desconectar" formmethod="post" value="<?php echo $_SESSION['Usuario'];?>" > 
 		</div>
         </form>
 	</div>
 	<div class="menudiv">
-		<a href="./index.php">Agregar Nuevo</a>
+	    <?php 
+            if(!empty($_SESSION['Tipo']))
+            {   
+                if($_SESSION['Tipo']!=="contador") // Pregunta el tipo de usuario 
+                {   
+                    echo "<a href=\"./html/Agregar_empleado.php\">Agregar Nuevo Empleado</a>";     // Y muestra el contenido segun el tipo que sea.
+                }
+            }
+        
+        ?>
 		<a href="./index.php">Planilla Liquidacion</a>
-		<a href="#">Horario</a>
 		<a href="#">Licencias</a>
 		<a href="#">AFP</a>
 		<a href="#">IPS</a>
-		<a href="#">Contacto</a>
+		<a href="./html/Contacto.php">Contacto</a>
 		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
@@ -23,7 +32,7 @@
 				<li class="button" onclick='TraerDatos_Gratificaciones("0","0")'><a href="#tabs-2">Gratificaciones</a></li>
 				<li class="button" onclick='TraerDatos("0","0")'><a href="#tabs-3">Descuentos</a></li>
 				<li class="button"><a href="#tabs-4">Guardar</a></li>
-				<li class="button"><a href="#tabs-5">Vista Previa</a></li>
+				<li class="button" id="tab-5"><a href="#tabs-5">Vista Previa</a></li>
                 <li><form action="#" method="post">
                         <input type="text" hidden id="Rut" name="Rut">
                         <input type="text"  id="AutoNombre" name="AutoNombre" placeholder="Buscar personal...">
