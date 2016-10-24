@@ -5,7 +5,7 @@ if(empty($_SESSION))
 }
 
  if (!empty($_POST["Rut"])) 
-  {
+{
      $_SESSION['Rut'] =  $_POST["Rut"];
      $_SESSION['Datos'] = get_Datos();
      $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
@@ -17,9 +17,7 @@ if(empty($_SESSION))
      cal_sub_total();
      Liquido_Pagar();
      Liquido_Alcansado();
-     }  
-   
-
+}
        
 
 #si no inicia en 0 la informacion // LO IDEAL SERIA DESTRUIR LAS VARIABLES CUANDO DEJEMOS DE USARLAS, AKA CUANDO LAS SUBIMOS A LA BASE DE DATOS. 
@@ -376,13 +374,6 @@ if(empty($_SESSION))
                     <td>".$row['N_telefono']."</td>    
                 </tr>";
         }
-        
-    }
-#------------------------------------------------------------------------------------------------------------------------
-
-    function Desconectar(){
-        if (!empty($_POST["Desconectar"])){ 
-        include("desconexion.php");}
         
     }
 

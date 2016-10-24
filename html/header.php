@@ -50,11 +50,6 @@
         });
     </script>
 	<script>
-        function Desconectar(){
-            <?php Desconectar(); ?>
-            
-        }
-        
         function TraerDatos_Gratificaciones(num,num2){
             if (window.XMLHttpRequest) objAjax1 = new XMLHttpRequest() ;//para Mozilla
             else if (window.ActiveXObject) objAjax1 = new ActiveXObject("Microsoft.XMLHTTP");

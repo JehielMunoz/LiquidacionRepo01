@@ -29,6 +29,7 @@ if($Registro_Usuario!=false)
     cal_sub_total();
     Liquido_Pagar();
     Liquido_Alcansado();
+    
 
     header('location: ../index.php');  
 
@@ -36,7 +37,9 @@ if($Registro_Usuario!=false)
 
 else
 {
-    echo ("Error al Agregar usuario.");
+    $_SESSION["Error_Registro"] = true;
+    header('location: ../html/Agregar_empleado.php');  
+    
 }
 
 

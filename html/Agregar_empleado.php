@@ -30,11 +30,19 @@ else
         <script src="../Resources/Scripts/scripts.js"></script>
         <script src="../Resources/Scripts/tabsO.js"></script>
         <script src="../Resources/Scripts/tabs.js"></script>
-
+        <style>
+            .divError{
+                position: absolute;
+                left: 30px;
+                border: 3px solid red;
+            }
+        </style>
         <script>
             $(function(){
                 $("#tabs").tabs();
+                
             });
+
             
             $(function(){ 
                 $("#Guardar").click(function(){ 
@@ -48,18 +56,16 @@ else
            });
         });
 
-            function Desconectar(){
-                <?php Desconectar(); ?>
-            }
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
     <body>
+     
         <div id="top-header">
             <h1><?php global $html_titulo_barra;print_Variable($html_titulo_barra);?></h1>
-            <form action="../index.php" method="post">
+            <form action="../php/desconexion.php" method="post">
                 <div >       
-                    <input type="submit" onclick='Desconectar()' id="user-status" name="Desconectar" formmethod="post" value="<?php echo $_SESSION['Usuario'];?>" > 
+                    <input type="submit"  id="user-status" name="Desconectar" formmethod="post" value="<?php echo $_SESSION['Usuario'];?>" > 
                 </div>
             </form>
         </div>
@@ -80,7 +86,9 @@ else
             <a href="./Contacto.php">Contacto</a>
             <a href="#">Servicio Tecnico</a>
         </div>
+         
         <div id="tabs" class="barradiv">
+          
             <ul>
                 <li class="button" id="tab-1" ><a href="#tabs-1">Planilla</a></li>
    
@@ -89,7 +97,14 @@ else
                 <!--Agregar Botones//Listas//Tabs aquí, El contenido va en contenido.php.-->
             </ul>
             <form id="Guardar_Empleado" method="post" action="../php/Registro.php">
-                <div id="tabs-1">					<!--Div Planilla Liquidacion-->
+                <div id="tabs-1">					
+                        <?php
+                            if(!empty($_SESSION["Error_Registro"]))
+                            {
+                                echo '<div class="divError">No se pudo agregar el empleado.</div>';
+                                unset($_SESSION["Error_Registro"]);
+                            }
+                        ?>
                     <div class="divplanilla">
                         <table>
                             
@@ -107,8 +122,12 @@ else
                                 <td><input type="number" min="10000000" max="99999999" title="Debes ingresar un rut valido." maxlength="8" required class="entrega-dato"  placeholder="Ingrese Telefono Celular."  id="Telefono" name="r_Telefono" ></td>
                             </tr>
                             <tr>
-                                <td>Cumpleaños</td>
+                                <td>Fecha de Nacimiento</td>
                                 <td><input type="date" class="entrega-dato" required placeholder="Año/Mes/Dia"  id="Cumpleaños" name="r_Cumpleaños" ></td>
+                            </tr> 
+                            <tr>
+                                <td>Direccion</td>
+                                <td><input type="text" class="entrega-dato" placeholder="Calle Falsa 123..."  id="Direccion" name="r_Direccion" ></td>
                             </tr> 
                             <tr>
                                 <td>Fecha de Contrato (?)</td>
