@@ -1,0 +1,206 @@
+
+        #tabla_vista_previa{ 
+            width: 830px; 
+            border-collapse: collapse;
+            border-spacing: 2px;
+            border: 1px solid black;
+            background-color:#ffffff;
+            }
+        #tabla_vista_previa tr:nth-child(even){ background-color:#ffffff;}
+        #tabla_vista_previa td{
+                min-width:0px;
+                border:0px solid black;
+                height: 12px;
+                font-size: 12px;
+                font-family: times new roman;
+                padding: 0.5px ;
+            }
+        /* cabecera */
+        #tabla_head{
+            width:100%;
+            }
+        #tabla_head td{ 
+            text-align:center;
+            width:405px;
+            border-collapse: collapse
+            }
+        #tabla_head .letra_pequena{
+            
+            }
+        /* cabecera de datos de empleado  */
+        #tabla_head_datos{
+            text-align:center;
+            width:100%;
+            border-bottom: 1px solid black;
+            border-top: 1px solid black;
+            border-collapse: collapse;
+            }
+        #tabla_head_datos .head_datos_letra_col1{
+                text-align:right; 
+                font-weight:bold;
+                width: 21%;
+                border-right: 1px solid black;
+            }
+        #tabla_head_datos .head_datos_letra_col2{
+                text-align:left; 
+                font-weight:bold;
+                width: 40%;
+            }
+         #tabla_head_datos .head_datos_letra_col3{
+                width: 20%;
+                border-right: 1px solid black;
+            }
+        #tabla_head_datos .head_datos_letra_col4{
+                text-align:left; 
+                font-weight:bold;
+                border: 1px solid black;
+            }
+        #tabla_head_datos .head_datos_horas{
+                text-align:left; 
+                font-weight:bold;
+                width: 27%;
+                border: 2px solid black;
+            }
+        /* tabla que maneja los bonos y descuentos */
+        
+        #tabla_bonos_descuentos{
+            border-collapse: collapse;
+            text-align: center;
+            width: 100%;
+            border:1px;
+            }
+        #tabla_bonos_descuentos #Haberes{
+            height: 15px;
+            font-size: 15px;
+            border: 1px solid black;
+            font-weight:bold;
+            text-align:center; 
+            width: 55%;
+            }
+        #tabla_bonos_descuentos #Descuentos{
+            height: 15px;
+            font-size: 15px;
+            border: 1px solid black;
+            border-right: 0px;
+            font-weight:bold;
+            text-align:center; 
+            }
+        #tabla_bonos_descuentos .Haberes_column1{
+            text-align: left;
+            border-right: 1px solid black;
+            width: 8%;
+            }
+        #tabla_bonos_descuentos .Haberes_column2{
+            text-align: left; 
+            width: 34%;
+            border-right: 1px solid black;
+            }
+        #tabla_bonos_descuentos .Haberes_column3{
+            text-align: left; 
+            border-right: 1px solid black;
+            }
+        #tabla_bonos_descuentos .Descuentos_column1{
+            width: 6%; 
+            border-right: 1px solid black;
+            }           
+        #tabla_bonos_descuentos .Descuentos_column2{
+            text-align: left; 
+            width: 24%;
+            border-right: 1px solid black;    
+            }           
+        #tabla_bonos_descuentos .Descuentos_column3{
+            text-align: left;     
+            }
+        #tabla_bonos_descuentos #total_haberes{
+            border-bottom: 1px solid black;
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+            }
+        #tabla_bonos_descuentos #total_descuento{
+            border: 1px solid black;
+            }
+        #tabla_vista_previa .total_valores{
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            border-left: 1px solid black;
+            text-align: left;
+            }
+        /* tabla resultados */
+            
+        #tabla_vista_previa #tabla_resultados{          
+            width:100%; 
+            border-collapse: collapse;
+            border-top:0px;
+            }
+        #tabla_resultados .resultados2_column1{
+            width: 16.5%;
+            border: 1px solid black;
+            border-left: 0px;
+            text-align: center;
+            }
+        #tabla_resultados .resultados2_column2{
+            width: 21%;
+            border: 1px solid black;
+            text-align: center;
+            }
+        #tabla_resultados .resultados2_column3{
+            width: 17.5%;
+            text-align: center;
+            border: 1px solid black;
+            
+            }
+        #tabla_resultados .resultados2_column4{
+            border: 1px solid black;
+            text-align: right;
+            
+            }
+        #tabla_resultados .resultados2_column5{
+            border: 1px solid black;
+            border-right: 0px solid black;
+            text-align: left;
+            width: 15%;
+            }
+        #tabla_resultados .resultados3_column{
+            border: 1px solid black;
+            border-left: 0px;
+            text-align: left;
+            }
+        #tabla_resultados #final1_tabla_resultados{
+                text-align: right;
+                font-weight:bold;
+                border-bottom: 1px solid black;
+                border-top: 1px solid black;
+            }
+        #tabla_resultados #final2_tabla_resultados{
+                border-bottom: 1px solid black;
+                border-top: 1px solid black;
+            }
+               
+            
+        /* tabla footer */
+            
+        #tabla_footer{
+            border-collapse: collapse;
+            width: 100%;
+                
+            }
+        #tabla_footer_acuerdo{
+                text-align: center;
+                font-size: 12px;
+            }
+        #firma_contador{
+                text-align: center;
+                width: 18%;
+            }
+        #firma_empleado{
+                text-align: center;
+                width: 18%;
+        
+            }
+        #tabla_vista_previa .negrita{
+                font-weight:bold;
+                border-top: 2px solid black;
+            }
+        .espacios_blanco{
+                width: 28%;
+            }

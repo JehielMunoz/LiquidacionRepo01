@@ -42,7 +42,7 @@
             <li class="button" onclick='TraerDatos_Gratificaciones("0","0")'><a href="#tabs-2">Gratificaciones</a></li>
             <li class="button" onclick='TraerDatos("0","0")'><a href="#tabs-3">Descuentos</a></li>
             <li class="button"><a href="#tabs-4">Guardar</a></li>
-            <li class="button"><a href="#tabs-5">Vista Previa</a></li>
+            <li class="button" id="tab-5"><a href="#tabs-5">Vista Previa</a></li>
             <li>
                 <form action="#" method="post">
                     <input type="text" hidden id="Rut" name="Rut">

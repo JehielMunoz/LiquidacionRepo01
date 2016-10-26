@@ -133,7 +133,8 @@ if(!empty($_SESSION['Tipo']))
                 else{
                     echo"<td>No Imponible</td>";
                 }
-                echo "<td><input id='bono".$row2['id_Bono']."'  type=\"text\" class=\"entrega-dato\"></input></td>";
+                echo "<td><input id='bono".$row2['id_Bono']."' type=\"text\" placeholder='Ingresar monto' class=\"entrega-dato\"></input></td>";
+					echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos_Gratificaciones(".$row2['id_Bono'].",'1')\"></div></td>";
                 echo "</tr>";
             }   
             echo "</table>";
@@ -146,7 +147,7 @@ if(!empty($_SESSION['Tipo']))
             echo "<td>Agregar</div></td>";
             echo "</tr>";
             echo "<tr>";
-            echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Nombre_nueva_gratificacion\" name=\"Nombre_nueva_gratificacion\"></input></td>";
+            echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Nombre_nueva_gratificacion\" name=\"Nombre_nueva_gratificacion\" placeholder='Ingresar el nombre'></input></td>";
             echo "<td><select id=\"Tipo_nueva_gratificacion\" name=\"Tipo_nueva_gratificacion\">";
             echo            "<option value='Imponible'>Imponible</option>";
             echo            "<option value='no Imponible'>No Imponible</option>";

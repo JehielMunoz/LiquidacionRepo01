@@ -283,6 +283,31 @@ if(empty($_SESSION))
             echo "No posee.";
         }
     }
+
+   function descuentos_legales(){
+        if(!empty($_SESSION['Descuentos_Legal'])){
+            echo Formato_Dinero($_SESSION['Descuentos_Legal']);
+        }
+        
+    }
+    function Total_Imponible(){
+        if(!empty($_SESSION['Total_Imponible'])){
+            echo Formato_Dinero($_SESSION['Total_Imponible']);
+        }
+        
+    }
+    function Total_Tributable(){
+        if(!empty($_SESSION['Total_Tributable'])){
+            echo Formato_Dinero($_SESSION['Total_Tributable']);
+        }
+        
+    }
+    function Otros_descuentos(){
+        if(!empty($_SESSION['Descuentos_Otros'])){
+            echo Formato_Dinero($_SESSION['Descuentos_Otros']);
+        }
+        
+    }
 #------------------------------------------------------------------------------------------------------------------------
 # Estan funciones se tienen que  conectar a la base de datos por qué tienen que sacar informacion de otras tablas.
 #------------------------------------------------------------------------------------------------------------------------
@@ -380,6 +405,7 @@ if(empty($_SESSION))
 #--------------------------------------------------------------------------------------------------------------------------
 #---------- Funciones de ecuaciones --------------------------------------------
 #------------------------------------------------------------------------------------------
+
 
 function cal_Total_Imponible(){
     include("conex.php");
