@@ -268,4 +268,4 @@
                     </table>    
                 </td></tr>
             </table>
-<input type="submit" value="imprimir" onclick="Imprimir_tabla()" />
+<input type="button" name="imprimir" value="Imprimir" onclick="window.print();">

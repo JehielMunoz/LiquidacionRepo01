@@ -11,6 +11,15 @@ input[type="submit"]{
 input[type="submit"]:hover{
 	background-color:#ccc;}
 
+input[type="button"]{
+    margin-top:15px;
+    background:#aaa;
+    border:none;
+    padding:5px;
+    color:#fff;}
+
+input[type="button"]:hover{ background-color:#ccc;}
+
 #AutoNombre{
     height:30px;
     font-size:14px;
