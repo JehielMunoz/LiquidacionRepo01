@@ -10,7 +10,9 @@ function AsignarId(nam)
     
 }
 
-function al()
+function Remover_Rut_Formato(rut)
 {
-    alert("work");
+    rut=rut.replace('.', '');
+    rut=rut.replace('-', '');
+    return rut;
 }

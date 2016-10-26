@@ -8,6 +8,7 @@
             }
         #tabla_vista_previa tr:nth-child(even){ background-color:#ffffff;}
         #tabla_vista_previa td{
+                min-width:0px;
                 border:0px solid black;
                 height: 12px;
                 font-size: 12px;
@@ -74,7 +75,7 @@
             border: 1px solid black;
             font-weight:bold;
             text-align:center; 
-            width: 40%;
+            width: 55%;
             }
         #tabla_bonos_descuentos #Descuentos{
             height: 15px;

@@ -3,5 +3,14 @@
     session_start();
     session_destroy();
     session_unset();
-    header('location: index.php');
+
+    if(file_exists("./index.php"))
+    {
+        header('location: ./index.php');   
+        
+    }
+    else
+    {
+        header('location: ../index.php');   
+    }
 ?>

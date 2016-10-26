@@ -45,12 +45,6 @@
                 });
             });
         </script>
-        <script>
-            function Desconectar(){
-                <?php Desconectar(); ?>
-
-            }
-        </script>
         <script src="../Resources/Scripts/Asignar_datos_db.js"></script>   
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         
@@ -58,9 +52,9 @@
     <body>
 	<div id="top-header">
 		<h1><?php global $html_titulo_barra;print_Variable($html_titulo_barra);?></h1>
-		 <form action="../index.php" method="post">
+		 <form action="../php/desconexion.php" method="post">
         <div >       
-            <input type="submit" onclick='Desconectar()' id="user-status" name="Desconectar" formmethod="post" value="<?php echo $_SESSION['Usuario'];?>" > 
+            <input type="submit"  id="user-status" name="Desconectar" formmethod="post" value="<?php echo $_SESSION['Usuario'];?>" > 
 		</div>
         </form>
 	</div>
@@ -70,11 +64,11 @@
             {   
                 if($_SESSION['Tipo']!=="contador") // Pregunta el tipo de usuario 
                 {   
-                    echo "<a href=\"./index.php\">Agregar Nuevo Empleado</a>";     // Y muestra el contenido segun el tipo que sea.
+                    echo "<a href=\"../html/Agregar_empleado.php\">Agregar Nuevo Empleado</a>";     // Y muestra el contenido segun el tipo que sea.
                 }
             }
     ?>
-        <a href="../html/Agregar_empleado.php">Planilla Liquidacion</a>
+        <a href="../index.php">Planilla Liquidacion</a>
 		<a href="#">Licencias</a>
 		<a href="#">AFP</a>
 		<a href="#">IPS</a>

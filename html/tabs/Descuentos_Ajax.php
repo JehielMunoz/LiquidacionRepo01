@@ -15,6 +15,10 @@ if(!empty($_POST['tipo'])){
 if(!empty($_POST['monto'])){
     $monto = $_POST['monto'];
 }
+else
+{
+    $monto=0;
+}
 $dbServer = 'localhost';
 $dbUser = 'postgres';
 $dbPass = 'wii360';
@@ -115,8 +119,8 @@ if(!empty($_SESSION['Tipo']))
                 else{
                     echo "<td>Varios</td>";
                 }
-                echo "<td><input id='descuento".$row2['id_Descuento']."' type=\"text\" placeholder='Ingresar monto' class=\"entrega-dato\"></input></td>";
-                echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos(".$row2['id_Descuento'].",'1')\"></div></td>";					
+                echo "<td><input id='descuento".$row2['id_Descuento']."' type=\"text\" class=\"entrega-dato\"placeholder='Ingresar monto' ></input></td>";
+                echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos(".$row2['id_Descuento'].",'1')\"></div></td>";				
                 echo "</tr>";
             }   
             echo "</table>";
@@ -129,7 +133,7 @@ if(!empty($_SESSION['Tipo']))
             echo "<td>Agregar</div></td>";
             echo "</tr>";
             echo "<tr>";
-            echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Nombre_nuevo_descuento\" ></input></td>";
+            echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Nombre_nuevo_descuento\" placeholder='Ingrese el nombre'></input></td>";
             echo "<td><select id=\"Tipo_nuevo_descuento\">";
             echo            "<option value='Legal'>Legal</option>";
             echo            "<option value='Varios'>Varios</option>";

@@ -15,6 +15,10 @@ if(!empty($_POST['tipo'])){
 if(!empty($_POST['monto'])){
     $monto = $_POST['monto'];
 }
+else
+{
+    $monto=0;
+}
 $dbServer = 'localhost';
 $dbUser = 'postgres';
 $dbPass = 'wii360';
@@ -143,7 +147,7 @@ if(!empty($_SESSION['Tipo']))
             echo "<td>Agregar</div></td>";
             echo "</tr>";
             echo "<tr>";
-            echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Nombre_nueva_gratificacion\" name=\"Nombre_nueva_gratificacion\"></input></td>";
+            echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Nombre_nueva_gratificacion\" name=\"Nombre_nueva_gratificacion\" placeholder='Ingresar el nombre'></input></td>";
             echo "<td><select id=\"Tipo_nueva_gratificacion\" name=\"Tipo_nueva_gratificacion\">";
             echo            "<option value='Imponible'>Imponible</option>";
             echo            "<option value='no Imponible'>No Imponible</option>";

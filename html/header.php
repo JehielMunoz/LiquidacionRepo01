@@ -6,11 +6,24 @@
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/tabs_style.css">
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/tabs_style02.css">
     <link type="text/css" rel="stylesheet" href="./Resources/Style/estilo_tabla.css">
+    <link type="text/css" rel="stylesheet" href="./Resources/Style/imprimir.css">
     
     <script src="./Resources/Scripts/scripts.js"></script>
 	<script src="./Resources/Scripts/tabsO.js"></script>
 	<script src="./Resources/Scripts/tabs.js"></script>
 	<script>
+            function Imprimir_tabla(){
+            var cabezera="<!DOCTYPE html><html lang='es'><head><link type='text/css' rel='stylesheet' href='./Resources/Style/estilo_tabla.css'></head><body>"
+            var objeto=document.getElementById("tabla_vista_previa");  //obtenemos el objeto a imprimir
+            var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+            var footer="</body></html>"
+            ventana.document.write(cabezera.innerHTML);   
+            ventana.document.write(objeto.innerHTML);
+            ventana.document.write(footer.innerHTML);//imprimimos el HTML del objeto en la nueva ventana
+            ventana.document.close();  //cerramos el documento
+            ventana.print();  //imprimimos la ventana
+            ventana.close();  //cerramos la ventana
+            }
         $(function() {
             console.log( "1readysss!" ); // Lo hice para comprobar que el ajax estaba funcioando sin recargar la pagina. 
         });
@@ -39,7 +52,7 @@
                $.ajax({
                    type:"POST",
                    url:url,
-                   data: {Rut:$("#Rut").val(),AutoNombre:$("#AutoNombre").val()}, // Datos del post. Los cuales recupera del campo rut y nombre.
+                   data: {Rut: $("#Rut").val(),AutoNombre:$("#AutoNombre").val()}, // Datos del post. Los cuales recupera del campo rut y nombre.
                    success: function (data) { // Si la consulta tiene exito.
                     $("#tabs-1").html(data); // Remplzasa el contedio del div tabs-1
                     $("#tabs").tabs("option", "active", 0);
@@ -66,11 +79,6 @@
         });
     </script>
 	<script>
-        function Desconectar(){
-            <?php Desconectar(); ?>
-            
-        }
-        
         function TraerDatos_Gratificaciones(num,num2){
             if (window.XMLHttpRequest) objAjax1 = new XMLHttpRequest() ;//para Mozilla
             else if (window.ActiveXObject) objAjax1 = new ActiveXObject("Microsoft.XMLHTTP");
@@ -86,8 +94,7 @@
             }
             if(num2=='1'){
                 var monto=document.getElementById("bono"+num).value;
-            
-            if(monto!=0){ objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&monto="+monto);}
+                if(monto!=0){ objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&monto="+monto);}
             }
             if(num2=='2'){
                 objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2);		
@@ -95,7 +102,7 @@
             if(num2=='3'){
                 var nombre = document.getElementById('Nombre_nueva_gratificacion').value;
                 var tipo = document.getElementById('Tipo_nueva_gratificacion').value;
-               if(nombre!=""){ objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&nombre="+nombre+"&tipo="+tipo);}
+            if(nombre!=""){ objAjax1.send("id_rut1="+rut3+"&num1="+num+"&num2="+num2+"&nombre="+nombre+"&tipo="+tipo);}
             }
 			objAjax1.onreadystatechange = MotrarDatos_Gratificaciones;
 			}
@@ -118,8 +125,7 @@
             }
             if(num2=='1'){
                 var monto=document.getElementById("descuento"+num).value;
-               
-               if(monto!=0){ objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&monto="+monto);}
+                if(monto!=0){ objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&monto="+monto);}
             }
             if(num2=='2'){
                 objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2);
