@@ -198,8 +198,8 @@ if(!empty($_SESSION['Tipo']))
             echo "<tr>";
              echo "<td><input type=\"text\" name=\"nombre_credito\" class=\"entrega-dato\" id=\"Nombre_nuevo_credito\" placeholder='Ingrese el nombre del Credito'></input></td>";
             echo "<td><input type=\"number\" name=\"monto_credito\" class=\"entrega-dato\" id=\"Monto_nuevo_credito\" placeholder='Monto Mensual del Prestamo'></input></td>";
-            echo "<td><input type=\"date\" name=\"inicio_credito\" class=\"entrega-dato\" id=\"Inicio_nuevo_credito\" ></input></td>";
-            echo "<td><input type=\"date\" name=\"final_credito\" class=\"entrega-dato\" id=\"Termino_nuevo_credito\" ></input></td>";
+            echo "<td><input type=\"date\" name=\"inicio_credito\" class=\"entrega-dato\" id=\"Inicio_nuevo_credito\" placeholder='Año/Mes/Dia'></input></td>";
+            echo "<td><input type=\"date\" name=\"final_credito\" class=\"entrega-dato\" id=\"Termino_nuevo_credito\" placeholder='Año/Mes/Dia'></input></td>";
             echo "<td><div class=\"bAgregar\" class=\"entrega-dato\" onclick=\"TraerDatos('4','4')\"></div></td>";
             echo "</tr>";
             echo "</table>";
