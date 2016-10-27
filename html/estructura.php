@@ -30,10 +30,10 @@
         
         ?>
         <a href="./index.php">Planilla Liquidacion</a>
-        <a href="#">Licencias</a>
-        <a href="./html/Afp.php">AFP</a>
-        <a href="./html/Ips.php">IPS</a>
-        <a href="./html/Contacto.php">Contacto</a>
+        <a href="./html/Licencias.php">Licencias</a>
+        <a href="Afp.php">AFP</a>
+        <a href="Ips.php">IPS</a>
+        <a href="Contacto.php">Contacto</a>
         <a href="#">Servicio Tecnico</a>
     </div>
     <div id="tabs" class="barradiv">

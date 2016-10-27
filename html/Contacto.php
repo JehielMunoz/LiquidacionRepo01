@@ -69,16 +69,16 @@
             }
     ?>
         <a href="../index.php">Planilla Liquidacion</a>
-		<a href="#">Licencias</a>
-		<a href="./Afp.php">AFP</a>
-		<a href="./Ips.php">IPS</a>
-		<a href="./Contacto.php">Contacto</a>
+		<a href="Licencias.php">Licencias</a>
+		<a href="Afp.php">AFP</a>
+		<a href="Ips.php">IPS</a>
+		<a href="Contacto.php">Contacto</a>
 		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
-            <ul>
-                <li class="button" id="tabs-1" ><a href="#tabs-1">Contacto de Funcionarios.-</a></li>
-                <li><form action="./Contacto.php" method="post">
+            <div style="margin-bottom:-15px;"><ul>
+				<li>
+				<form action="./Contacto.php" method="post">
                         <input type="text"  id="Rut" name="c_Buscar"  required placeholder="Buscar personal por Rut...">
                         <input type="submit" id="btn-buscar" formmethod="post" value="Buscar Persona">
                     </form>
@@ -88,12 +88,12 @@
                        <input type="submit" value="Mostrar Todos.">
                         
                     </form>
-                </li>
-                
-			</ul>
+				</li>
+				</ul></div>
 			<div id="tabs-1">
             <div class="divplanilla">
-                <table>               
+                <table>
+					<h3 id="tCso">Contaco funcionarios</h3>
                     <th >Rut</th>
                     <th >Nombre</th>
                     <th >Telefono</th>

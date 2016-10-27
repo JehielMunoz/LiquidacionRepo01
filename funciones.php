@@ -365,11 +365,6 @@ if(empty($_SESSION))
         }
     }
     
-    function get_son(){
-        if(!empty($_SESSION['Liquido_pagar'])){
-            echo numtoletras($_SESSION['Liquido_pagar']);
-        }
-    }
 #------------------------------------------------------------------------------------------------------------------------
 # Estan funciones se tienen que  conectar a la base de datos por qué tienen que sacar informacion de otras tablas.
 #------------------------------------------------------------------------------------------------------------------------
@@ -390,30 +385,9 @@ if(empty($_SESSION))
             {
                 echo "<option value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
             }
+            
+        
     }
-	function Mostrar_Licencias()
-		{
-			include("conex.php");
-			$query = pg_query($dbconn, "SELECT * FROM \"tLicencias\"");
-			while($row = pg_fetch_assoc($query))
-			{
-				echo "<tr>
-				<td>".Formato_Rut($row['Rut'])."</td>";
-				if($row['Descuenta'])
-				{
-				echo "<td>Si.</td>";
-				}
-				else
-				{
-					"<td>No.</td>";
-				}
-				echo "
-				<td>".$row['Dias']."</td>
-				<td>".$row['F_inicio']."</td>
-				<td>".$row['F_final']."</td>
-				</tr>";
-			}
-		}
 
     function Mostrar_ISAPRE()
     {   
@@ -660,7 +634,6 @@ function gastos_extras(){
     }
     
 }
-
 #-----------------------------------------------------------------------------------------------------------------------
 #     conversion numeros
 #-------------------------------------------------------------------------------------------------------------------

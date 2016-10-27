@@ -69,29 +69,21 @@
             }
     ?>
         <a href="../index.php">Planilla Liquidacion</a>
-		<a href="#">Licencias</a>
-		<a href="./Afp.php">AFP</a>
-		<a href="./Ips.php">IPS</a>
-		<a href="./Contacto.php">Contacto</a>
+		<a href="Licencias.php">Licencias</a>
+		<a href="Afp.php">AFP</a>
+		<a href="Ips.php">IPS</a>
+		<a href="Contacto.php">Contacto</a>
 		<a href="#">Servicio Tecnico</a>
 	</div>
-	<div id="tabs" class="barradiv">
-            <ul>
-                <li class="button" id="tabs-1" ><a href="#tabs-1">IPS.-</a></li>
-                
-                
-			</ul>
-			<div id="tabs-1">
-            <div class="divplanilla">
-                <table>               
-                    
-                    <th >Nombre IPS</th>
-                    <th >Tasa IPS</th>
-                    <?php Mostrar_ISAPRE();?>
-                </table>
-            </div>
+	<div id="tabs" class="barradiv">		
+		<div id="tabs-1">
+				<table>               
+					<h3  id="tCso">Instituto de Previsión Social (IPS).</h3>	
+					<th >Nombre IPS</th>
+					<th >Tasa IPS</th>
+					<?php Mostrar_ISAPRE();?>
+				</table>
+		</div>
     </div>
-        
-        </div>
     </body>
 </html>

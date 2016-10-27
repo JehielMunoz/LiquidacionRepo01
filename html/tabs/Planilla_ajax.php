@@ -9,7 +9,7 @@
 		<div class="divplanilla">
 			<form>
 				<table>
-					<tr><th colspan="2">A</th></tr>
+					<tr><th colspan="2">Datos empleado</th></tr>
 					<tr>
 						<td>Nombre</td>
 						<td style="text-align:left;"><input type="text" size="61" class="entrega-dato" id="Nombre" name="nombre" disabled placeholder="Nombre empleado" disable value="<?php Nombre();?>"></td>

@@ -250,7 +250,7 @@
                         </tr>
                         <tr id="final_tabla_resultados">
                             <td colspan="2" id="final1_tabla_resultados">SON:</td>
-                            <td colspan="6" id="final2_tabla_resultados"></td>
+                            <td colspan="6" id="final2_tabla_resultados"><?php get_son();?></td>
                         </tr>
                     </table>    
                 </td></tr>

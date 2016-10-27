@@ -69,26 +69,22 @@
             }
     ?>
         <a href="../index.php">Planilla Liquidacion</a>
-		<a href="#">Licencias</a>
-		<a href="./Afp.php">AFP</a>
-		<a href="./Ips.php">IPS</a>
-		<a href="./Contacto.php">Contacto</a>
+		<a href="Licencias.php">Licencias</a>
+		<a href="Afp.php">AFP</a>
+		<a href="Ips.php">IPS</a>
+		<a href="Contacto.php">Contacto</a>
 		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
-            <ul>
-                <li class="button" id="tabs-1" ><a href="#tabs-1">AFP.-</a></li>
-                
-			</ul>
 			<div id="tabs-1">
-            <div class="divplanilla">
+            <!--<div class="divplanilla"> -->
                 <table>               
-                    
+                    <h3 id="tCso">Administradora de Fondos de Pensiones (AFP).</h3>
                     <th >Nombre AFP</th>
                     <th >Tasa AFP</th>
                     <?php Mostrar_AFP();?>
                 </table>
-            </div>
+            <!--</div>-->
     </div>
         
         </div>
