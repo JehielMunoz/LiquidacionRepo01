@@ -12,11 +12,13 @@ if(empty($_SESSION))
      $_SESSION['Afp'] = get_AFP();
      $_SESSION['Isapre'] = get_ISAPRE();
      $_SESSION['Contrato'] = get_Contrato();
+     get_cargos();
      cal_Total_Imponible();
      cal_Total_Descuentos();
      cal_sub_total();
      Liquido_Pagar();
      Liquido_Alcansado();
+     gastos_extras();
 }
        
 
@@ -155,6 +157,14 @@ if(empty($_SESSION))
         }
         
     }  
+
+    function Fecha_de_ingreso(){
+        if (!empty($_SESSION['Datos'])) 
+       {      
+            echo $_SESSION['Datos']["F_ingreso"];
+        }
+        
+    }
     
      function Sueldo_Bruto()
     {   
@@ -304,10 +314,57 @@ if(empty($_SESSION))
     }
     function Otros_descuentos(){
         if(!empty($_SESSION['Descuentos_Otros'])){
-            echo Formato_Dinero($_SESSION['Descuentos_Otros']);
+            if($_SESSION['Descuentos_Otros']==0){
+                echo "$ 0";
+            }
+            else{
+            echo Formato_Dinero($_SESSION['Descuentos_Otros']);}
         }
         
     }
+    function sub_Total(){
+        if(!empty($_SESSION['sub_Total'])){
+            echo Formato_Dinero($_SESSION['sub_Total']);
+        }
+        
+    }
+    function mostrar_liquido_alcansado(){
+        if(!empty($_SESSION['Liquido_Alcansado'])){
+            echo Formato_Dinero($_SESSION['Liquido_Alcansado']);
+        }
+    }
+    function mostrar_Sobre_giro(){
+        if(!empty($_SESSION['Sobre_giro'] )){
+            if($_SESSION['Sobre_giro']>0){
+                echo Formato_Dinero($_SESSION['Sobre_giro'] );
+                
+            }            
+            else{
+                echo "$0";
+            }
+        }
+    }
+    function Mostrar_gasto_extra_SIS(){
+        if(!empty($_SESSION['Gastos_extras_SIS'])){
+            echo Formato_Dinero($_SESSION['Gastos_extras_SIS']);
+        }
+    }
+    function Mostrar_gasto_extra_Mutual(){
+        if(!empty( $_SESSION['Gastos_extras_Mutual'])){
+            echo Formato_Dinero( $_SESSION['Gastos_extras_Mutual']);
+        }
+    }
+    function Mostrar_gasto_extra_Seguro_cesantia(){
+        if(!empty($_SESSION['Gastos_extras_Seguro_cesantia'])){
+            echo Formato_Dinero($_SESSION['Gastos_extras_Seguro_cesantia']);
+        }
+    }
+    function Mostrar_Cargos_empleado(){
+        if(!empty($_SESSION['Cargos_empleado'])){
+            echo $_SESSION['Cargos_empleado'];
+        }
+    }
+    
 #------------------------------------------------------------------------------------------------------------------------
 # Estan funciones se tienen que  conectar a la base de datos por qué tienen que sacar informacion de otras tablas.
 #------------------------------------------------------------------------------------------------------------------------
@@ -401,6 +458,23 @@ if(empty($_SESSION))
         }
         
     }
+    function get_cargos(){
+        include("conex.php");
+        $query = pg_query($dbconn, "SELECT \"tEmpleados\".\"Rut\", \"rel_tEmpleados_tCargos\".\"Rut\", \"tCargos\".\"Cargo\", \"rel_tEmpleados_tCargos\".\"id_Cargo\", \"tCargos\".\"id_Cargo\"FROM public.\"tEmpleados\", public.\"rel_tEmpleados_tCargos\", public.\"tCargos\" WHERE \"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tCargos\".\"Rut\" AND\"rel_tEmpleados_tCargos\".\"id_Cargo\" = \"tCargos\".\"id_Cargo\" AND \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."';");
+        $c=0;
+        $_SESSION['Cargos_empleado'] = " ";
+        while($row1 = pg_fetch_assoc($query)){
+            if($c==0){
+                $_SESSION['Cargos_empleado'] = $_SESSION['Cargos_empleado'].$row1['Cargo'];
+                $c+=1;
+            }
+            else{
+                $_SESSION['Cargos_empleado'] = $_SESSION['Cargos_empleado']." - ".$row1['Cargo'];
+            }
+        }
+        
+        
+    }
 
 #--------------------------------------------------------------------------------------------------------------------------
 #---------- Funciones de ecuaciones --------------------------------------------
@@ -418,7 +492,11 @@ function cal_Total_Imponible(){
         $_SESSION['Gratificaciones_Imponible'] += $row1['Monto'];
         }
         else{
-                $_SESSION['Gratificaciones_no_Imponible'] += $row1['Monto'];
+                if($row1['id_Bono']==26){
+                    $_SESSION['Asignacion_Familiar'] = $row1['Monto'];
+                }
+                else{
+                $_SESSION['Gratificaciones_no_Imponible'] += $row1['Monto'];}
             }
     }
     $_SESSION['Total_Imponible']= $_SESSION['Datos']["Sueldo_base"] + $_SESSION['Gratificaciones_Imponible'];
@@ -446,10 +524,12 @@ function cal_Total_Descuentos(){
         $_SESSION['Descuentos_Otros'] += $row1['Monto'];
         }
     }
+    
     Total_AFP();
     Total_Isapre();
     Total_Seguro();
-    $_SESSION['Total_Tributable'] = $_SESSION['Total_Imponible']- $_SESSION['Descuentos_Legal'];
+    $_SESSION['Total_Tributable'] = $_SESSION['Total_Imponible'] - $_SESSION['Total_seguro']- $_SESSION['Total_Isapre']-$_SESSION['Total_AFP'];
+    calculo_Descuentos_varios();
     $_SESSION['Total_Descuentos'] = $_SESSION['Descuentos_Otros'] + $_SESSION['Descuentos_Legal'];
     
 }
@@ -466,6 +546,9 @@ function Liquido_Pagar(){
     if ($_SESSION['Total_Haberes'] - $_SESSION['Descuentos_Legal'] - $_SESSION['Descuentos_Otros']>0){
         $_SESSION['Liquido_pagar'] = ($_SESSION['Total_Haberes']+$_SESSION['Asignacion_Familiar'])- $_SESSION['Descuentos_Legal'] -$_SESSION['Descuentos_Otros'];
         
+    }
+    else {
+        $_SESSION['Liquido_pagar']=0;
     }
       
 }
@@ -491,7 +574,38 @@ function Total_Seguro(){
     $_SESSION['Total_seguro'] = round(($row1['Tasa_seguro_cesantia'] * $_SESSION['Total_Imponible'])/100,0);
     $_SESSION['Descuentos_Legal'] +=$_SESSION['Total_seguro'];
 }
+function Sobre_giro(){
+    if ($_SESSION['Total_Haberes'] - $_SESSION['Descuentos_Legal'] - $_SESSION['Descuentos_Otros']<0){
+        $_SESSION['Sobre_giro'] =$_SESSION['Total_Haberes']- $_SESSION['Descuentos_Legal'] -$_SESSION['Descuentos_Otros'];
+        
+    }
+    else{
+        $_SESSION['Sobre_giro'] = 0;
+    }
+}
 
+function calculo_Descuentos_varios(){
+    include("conex.php");
+    $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."'");
+    $row1 = pg_fetch_assoc($query);
+    $_SESSION['Descuentos_Otros'] += $row1["Monto"];
+}
 
+function gastos_extras(){
+    include("conex.php");
+    $query = pg_query($dbconn, "SELECT * FROM \"rel_tEmpleados_tGastos_extra\" where \"Rut\" ='".$_SESSION['Rut']."'" );
+    while($row1 = pg_fetch_assoc($query)){
+        if($row1['id_Gasto']==4){
+            $_SESSION['Gastos_extras_Seguro_cesantia'] = $row1['Monto'];
+        }
+        if($row1['id_Gasto']==5){
+            $_SESSION['Gastos_extras_Mutual'] = $row1['Monto'];
+        }
+        if($row1['id_Gasto']==1){
+            $_SESSION['Gastos_extras_SIS'] = $row1['Monto'];
+        }
+    }
+    
+}
 
 ?>
