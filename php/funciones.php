@@ -388,6 +388,30 @@ if(empty($_SESSION))
             
         
     }
+    
+    function Mostrar_Licencias()
+    {
+        include("conex.php");
+        $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\"");
+        while($row = pg_fetch_assoc($query))
+        {
+            echo "<tr>
+            <td>".Formato_Rut($row['Rut'])."</td>";
+            if($row['Descuenta'])
+            {
+            echo "<td>Si.</td>";
+            }
+            else
+            {
+                "<td>No.</td>";
+            }
+            echo "
+            <td>".$row['Dias']."</td>
+            <td>".$row['F_inicio']."</td>
+            <td>".$row['F_final']."</td>
+            </tr>";
+        }
+    }
 
     function Mostrar_ISAPRE()
     {   

@@ -129,6 +129,16 @@
                 var final = document.getElementById('Termino_nuevo_credito').value;
                 objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&Nombre="+nombre+"&Monto="+monto+"&Inicio="+inicio+"&Final="+final);
             }
+            
+          
+            
+            if(num2=='5'){
+                var dias = document.getElementById('dias').value;
+                var descuenta = document.getElementById('descuenta').value;
+                var inicio = document.getElementById('Inicio_Licencia').value;
+                var final = document.getElementById('Termino_Licencia').value;
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&Dias="+dias+"&Descuenta="+descuenta+"&Inicio_l="+inicio+"&Final_l="+final);
+            }
             if(num2=='0'){
                 objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2);		
             }
