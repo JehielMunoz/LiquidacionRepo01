@@ -4,13 +4,25 @@
 <table id="tabla_vista_previa">
     <tr id="fila_1"><td>
         <table id="tabla_head">
-            <tr><td></td><td></td></tr>
-            <tr><td></td><td></td></tr>
-            <tr><td  class="letra_pequena">Sociedad Jardin infantil Mi Mundo</td><td></td></tr>
-            <tr><td  class="letra_pequena">77556-430-k</td><td></td></tr>
-            <tr><td  class="letra_pequena">Santa Cruz N°1064-Triguén</td><td></td></tr>
-            <tr><td  class="letra_pequena">(045)2869521</td><td></td></tr>
-            <tr><td  class="letra_pequena"></td><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+			<tr>
+				<td class="letra_pequena">Sociedad Jardin infantil Mi Mundo</td>
+				<td rowspan="5" class="espaciado_derecho"></td>
+			</tr>
+			<tr>
+				<td class="letra_pequena">77556-430-k</td>
+			</tr>
+			<tr>
+				<td class="letra_pequena">Santa Cruz N°1064-Triguén</td>
+			</tr>
+			<tr>
+				<td class="letra_pequena">(045)2869521</td>
+			</tr>
+			<tr>
+				<td class="letra_pequena"></td>
+			</tr>
+            <tr> <td></td></tr>
             <tr><td colspan="2" rowspan="2" id="titulo"><h1>LIQUIDACIÓN DE SUELDOS</h1></td></tr>
         </table>
             </td></tr>
@@ -25,7 +37,7 @@
                 <tr>
                     <td colspan="2" class="head_datos_letra_col1">RUT</td>
                     <td colspan="4" class="head_datos_letra_col2"><?php Rut();?></td>
-                    <td colspan="3" class="head_datos_horas">HORA REFORZAMIENTO, LEY SEP</td>
+                    <td colspan="3" class="head_datos_horas">HORA SEP</td>
                     <td class="head_datos_horas"></td>
                 </tr>
                 <tr>
@@ -37,7 +49,7 @@
                     <td colspan="2" class="head_datos_letra_col1">TIPO DE CONTRATO</td>
                     <td colspan="4" class="head_datos_letra_col2"><?php Tipo_Contrato();?></td>
                     <td class="head_datos_letra_col3"></td>
-                    <td colspan="3" rowspan="3" id="head_col4" class="head_datos_letra_col4"></td>
+                    <td colspan="3" rowspan="3" id="head_col4" class="head_datos_letra_col4">Fecha</td>
 
                 </tr>
                 <tr>
@@ -60,9 +72,9 @@
     <tr><td>
     <?php include "../../php/conex.php"?>
     <table  id="tabla_bonos_descuentos">
-        <tr>
+        <!--<tr>
             <td colspan="6" ></td>
-        </tr>
+        </tr>-->
         <tr>
             <td colspan="3" id="Haberes">HABERES</td>
             <td colspan="3" id="Descuentos">DESCUENTOS</td>
@@ -178,7 +190,7 @@
 
                         </tr>
                         <tr>
-                            <td class="resultados1_column1" colspan="3">TOTAL TRIBUTABLE</td>
+                            <td class="resultados2_column1" colspan="3">TOTAL TRIBUTABLE</td>
                             <td class="total_valores"><?php Total_Tributable();?></td>
                             <td class="resultados2_column4" colspan="3">DESCUENTOS LEGALES</td>
                             <td class="resultados2_column5"><?php descuentos_legales()?></td>
@@ -187,9 +199,9 @@
 
 
                         <tr>
-                            <td class="resultados2_column1">MUTUAL</td>
+                            <td class="resultados1_column1">MUTUAL</td>
                             <td  class="resultados2_column2" colspan="2">CESANTIA</td>
-                            <td class="resultados2_column3">SIS</td>
+                            <td class="resultados2_column3">S.I.S.</td>
 
                             <td colspan="3" class="resultados2_column4">DESCUENTOS VARIOS</td>
                             <td class="resultados2_column5"> $</td>
@@ -229,7 +241,7 @@
                         <tr>
                             <td colspan="8"></td>
                         </tr>
-                        <tr>
+                        <tr id="final_tabla_resultados">
                             <td colspan="2" id="final1_tabla_resultados">SON:</td>
                             <td colspan="6" id="final2_tabla_resultados"></td>
                         </tr>
@@ -245,8 +257,10 @@
                                 <div>hacer, por ninguno de los conectos comprendidos en esta liquidación.</div>                            
                                 </p><br/><br/><br></td>
                         </tr>
+						<tr>
+							<td class="espaciado_extra"></td><td class="espacios_blanco"></td><td class="espacios_blanco"></td><td class="espaciado_extra"></td>
+						</tr>
                         <tr>
-                            <td class="espacios_blanco1"></td>
                             <td id="firma_contador">
                                 <div class="negrita">REVISADO POR</div>
                                 <div >Paola Lucía Naguil Sánchez</div>
@@ -255,12 +269,11 @@
                             <td class="espacios_blanco"></td>
                             <td class="espacios_blanco"></td>
 
-                            <td id="firma_empleado" class="negrita">
-                                <div>RECIBI CONFORME</div>
-                                <br />
-                                <br />
+                            <td id="firma_empleado">
+                                <strong>RECIBI CONFORME</strong>
+                                <?php Nombre();?><br />
+                                <?php Rut();?><br />
                             </td>
-                            <td class="espacios_blanco2"></td>
                         </tr>
                         <tr>
                             <td coldspan="6"><br/><br/><br/></td>
