@@ -389,6 +389,33 @@ if(empty($_SESSION))
         
     }
 
+    function Mostrar_ISAPRE()
+    {   
+        
+        include("conex.php");
+        $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\"");
+        while($row = pg_fetch_assoc($query))
+        {
+            echo "<tr>
+            <td>".$row['ISAPRE']."</td>
+            <td>".$row['Tasa']."%</td>
+            </tr>";
+        }
+    }
+    function Mostrar_AFP()
+    {   
+        
+        include("conex.php");
+        $query = pg_query($dbconn, "SELECT * FROM \"tAFP\"");
+        while($row = pg_fetch_assoc($query))
+        {
+            echo "<tr>
+            <td>".$row['AFP']."</td>
+            <td>".$row['Tasa']."%</td>
+            </tr>";
+        }
+    }
+
     function get_ISAPRE()
     {       if(!empty($_SESSION['Datos']))
             {
