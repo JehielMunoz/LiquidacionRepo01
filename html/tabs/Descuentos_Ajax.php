@@ -19,6 +19,10 @@ else
 {
     $monto=0;
 }
+if(!empty($_POST['monto'])){
+    $monto = $_POST['monto'];
+}
+
 $dbServer = 'localhost';
 $dbUser = 'postgres';
 $dbPass = 'wii360';
@@ -60,6 +64,17 @@ if(!empty($_SESSION['Tipo']))
                 echo "Error en la conexion";
                 exit;
             }
+            
+            if($num!='0' && $num2==4){
+                $values = "('$rut','".$_POST['Nombre']."','".$_POST['Inicio']."','".$_POST['Final']."',".$_POST['Monto'].")";
+                $query = pg_query($dbconn,"insert into \"tPrestamos\"(\"Rut\",\"Nombre\",\"F_inicio\",\"F_final\",\"Monto\") values".$values );
+                
+                if (!$query) {
+                    echo "Falla en la consulta.\n";
+                    exit;
+                }    
+            }
+            
             if($num!='0' && $num2==1){
                 $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tDescuentos\"(\"id_Descuento\",\"Monto\",\"Rut\" ) values($num,$monto,'$rut');"); 
                 if (!$query) {
@@ -101,6 +116,34 @@ if(!empty($_SESSION['Tipo']))
             echo "</table>";
             echo "</td>";
             echo "<td>";
+            
+            $query = pg_query($dbconn, "SELECT *FROM public.\"tDescuentos\" WHERE \"tDescuentos\".\"id_Descuento\"  NOT IN (SELECT \"tDescuentos\".\"id_Descuento\" FROM public.\"tEmpleados\", public.\"rel_tEmpleados_tDescuentos\", public.\"tDescuentos\" WHERE (\"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tDescuentos\".\"Rut\" AND \"tDescuentos\".\"id_Descuento\" = \"rel_tEmpleados_tDescuentos\".\"id_Descuento\") AND (\"tEmpleados\".\"Rut\" = '$rut')); ");
+            if (!$query) {
+                echo "Error en la consulta.\n";
+                exit;
+            }
+            echo "<br />";
+            echo "<h2>Credito y Prestamos del Empleado</h2>";
+            echo "<br />";
+            echo "<table>";
+            /////// CALCULAR VALOR TOTAL DE MESES,.
+            $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='$rut'");
+            if (!$query) {
+                echo "Error en la consulta.\n";
+                exit;
+            }
+            while ($row1 = pg_fetch_assoc($query)) {
+                echo "<tr>";
+                echo "<td>".$row1['Nombre']."</td>";
+                echo "<td><input type=\"text\" class=\"entrega-dato\" disable name=\"Monto_Credito\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
+                echo "<td><input type=\"text\" class=\"entrega-dato\" disable name=\"inicio_credito\" placeholder=".$row1["F_inicio"]."></td>";
+                echo "<td><input type=\"text\" class=\"entrega-dato\" disable name=\"final_credito\" placeholder=".$row1["F_final"]."></td>";
+            
+                echo "</tr>";
+            }
+            echo "</table>";
+            echo "</td>";
+            
             $query = pg_query($dbconn, "SELECT *FROM public.\"tDescuentos\" WHERE \"tDescuentos\".\"id_Descuento\"  NOT IN (SELECT \"tDescuentos\".\"id_Descuento\" FROM public.\"tEmpleados\", public.\"rel_tEmpleados_tDescuentos\", public.\"tDescuentos\" WHERE (\"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tDescuentos\".\"Rut\" AND \"tDescuentos\".\"id_Descuento\" = \"rel_tEmpleados_tDescuentos\".\"id_Descuento\") AND (\"tEmpleados\".\"Rut\" = '$rut')); ");
             if (!$query) {
                 echo "Error en la consulta.\n";
@@ -140,6 +183,24 @@ if(!empty($_SESSION['Tipo']))
             echo "</select>";
             echo "</td>";
             echo "<td><div class=\"bAgregar\" class=\"entrega-dato\" onclick=\"TraerDatos('3','3')\"></div></td>";
+            echo "</tr>";
+            echo "</table>";
+            ///// CREDITO Y PRESSTAMO
+            echo "<br/>";
+            echo "<h2>Agregar Credito o Prestamo </h2>";
+            echo "<table>";
+            echo "<tr>";
+            echo "<td>Nombre</td>";
+            echo "<td>Monto Mensual</td>";
+            echo "<td>Fecha de inicio.</td>";
+            echo "<td>Fecha final.</div></td>";
+            echo "</tr>";
+            echo "<tr>";
+             echo "<td><input type=\"text\" name=\"nombre_credito\" class=\"entrega-dato\" id=\"Nombre_nuevo_credito\" placeholder='Ingrese el nombre del Credito'></input></td>";
+            echo "<td><input type=\"number\" name=\"monto_credito\" class=\"entrega-dato\" id=\"Monto_nuevo_credito\" placeholder='Monto Mensual del Prestamo'></input></td>";
+            echo "<td><input type=\"date\" name=\"inicio_credito\" class=\"entrega-dato\" id=\"Inicio_nuevo_credito\" ></input></td>";
+            echo "<td><input type=\"date\" name=\"final_credito\" class=\"entrega-dato\" id=\"Termino_nuevo_credito\" ></input></td>";
+            echo "<td><div class=\"bAgregar\" class=\"entrega-dato\" onclick=\"TraerDatos('4','4')\"></div></td>";
             echo "</tr>";
             echo "</table>";
         }

@@ -111,6 +111,7 @@
 				document.getElementById("tabs-2").innerHTML = objAjax1.responseText;
 				}
         }
+    
         function TraerDatos(num,num2){     
             if (window.XMLHttpRequest) objAjax2 = new XMLHttpRequest() ;//para Mozilla
             else if (window.ActiveXObject) objAjax2 = new ActiveXObject("Microsoft.XMLHTTP");
@@ -120,6 +121,14 @@
             var rut3 = rut2.replace("-","");
  			objAjax2.open("POST","./html/tabs/Descuentos_Ajax.php");
 			objAjax2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            
+            if(num2=='4'){
+                var nombre = document.getElementById('Nombre_nuevo_credito').value;
+                var monto = document.getElementById('Monto_nuevo_credito').value;
+                var inicio = document.getElementById('Inicio_nuevo_credito').value;
+                var final = document.getElementById('Termino_nuevo_credito').value;
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&Nombre="+nombre+"&Monto="+monto+"&Inicio="+inicio+"&Final="+final);
+            }
             if(num2=='0'){
                 objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2);		
             }
