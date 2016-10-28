@@ -1,0 +1,187 @@
+
+#tabla_vista_previa{ 
+	width: 830px;
+	font-size:14px;
+	font-family:Tahoma;
+	background-color:#fff;}
+
+#tabla_vista_previa tr:nth-child(even){ background-color:transparent !important;}
+#tabla_vista_previa td{
+	border:none;
+	height:12px;
+	padding:0.5px 2.5px;}
+
+/* CABECERA
+-------------------------------------------- */
+#tabla_head{ width:100%;}
+
+#tabla_head td{ text-align:center;}
+
+#tabla_head .letra_pequena{ font-size:12px;}
+
+#tabla_head .espaciado_derecho{ width:80%;}
+
+/* CABECERA DE DATOS DE EMPLEADO
+-------------------------------------------- */
+#tabla_head_datos{
+	width:100%;
+	text-align:center;
+	border:1px solid black;}
+
+#tabla_head_datos .head_datos_letra_col1{
+	width: 21%;
+	text-align:right;
+	font-weight:bold;
+	border-right: 1px solid black;}
+
+#tabla_head_datos .head_datos_letra_col2{
+	text-align:left; 
+	font-weight:bold;
+	width: 40%;}
+
+ #tabla_head_datos .head_datos_letra_col3{
+	width: 20%;
+	border-right: 1px solid black;}
+ 
+#tabla_head_datos .head_datos_letra_col4{
+	text-align:center;
+	text-transform:uppercase;
+	font-weight:bold;
+	border: 1px solid black;}
+
+#tabla_head_datos .head_datos_horas{
+	text-align:left; 
+	font-weight:bold;
+	width: 27%;
+	border: 2px solid black;}
+
+/* TABLA QUE MANEJA LOS BONOS Y DESCUENTOS
+-------------------------------------------- */
+
+#tabla_bonos_descuentos{
+	width: 100%;
+	margin-top:14px;
+	text-align: center;
+	border:1px solid #000;}
+
+#tabla_bonos_descuentos #Haberes{
+	width: 55%;
+	height: 15px;
+	font-size: 15px;
+	border: 1px solid black;
+	font-weight:bold;
+	text-align:center;}
+
+#tabla_bonos_descuentos #Descuentos{
+	height: 15px;
+	font-size: 15px;
+	border: 1px solid black;
+	border-right: 0px;
+	font-weight:bold;
+	text-align:center;}
+
+#tabla_bonos_descuentos .Haberes_column1{
+	width: 8%;
+	text-align: left;
+	border-right: 1px solid black;}
+
+#tabla_bonos_descuentos .Haberes_column2{
+	text-align: left; 
+	width: 34%;
+	border-right: 1px solid black;}
+
+#tabla_bonos_descuentos .Haberes_column3{
+	text-align: left; 
+	border-right: 1px solid black;}
+
+#tabla_bonos_descuentos .Descuentos_column1{
+	width: 6%; 
+	border-right: 1px solid black;}
+
+#tabla_bonos_descuentos .Descuentos_column2{
+	width: 24%;
+	text-align: left;
+	border-right: 1px solid black;}
+
+#tabla_bonos_descuentos .Descuentos_column3{ text-align: left;}
+
+#tabla_bonos_descuentos #total_haberes{
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+	border-right: 1px solid black;}
+
+#tabla_bonos_descuentos #total_descuento{
+	border: 1px solid black;}
+
+#tabla_vista_previa .total_valores{
+	border:1px solid black;
+	text-align: left;}
+
+/* TABLA RESULTADOS
+-------------------------------------------- */
+	
+#tabla_vista_previa #tabla_resultados{
+	width:100%;
+    margin-top:13px;}
+
+#tabla_resultados .resultados1_column1{
+	width:16.5%;
+	border:1px solid black;
+	text-align:center;}
+
+#tabla_resultados .resultados2_column1/*, #tabla_vista_previa .resultados1_column1*/{
+	width:16.5%;
+	border:1px solid black;
+	text-align:right;}
+
+#tabla_resultados .resultados2_column2{
+	width: 21%;
+	border: 1px solid black;
+	text-align: center;}
+
+#tabla_resultados .resultados2_column3{
+	width: 17.5%;
+	text-align: center;
+	border: 1px solid black;}
+
+#tabla_resultados .resultados2_column4{
+	border: 1px solid black;
+	text-align: right;}
+
+#tabla_resultados .resultados2_column5{
+	border:1px solid black;
+	text-align: left;
+	width: 15%;}
+
+#tabla_resultados .resultados3_column{
+	border:1px solid black;
+	text-align: left;}
+
+#tabla_resultados #final_tabla_resultados{ border:1px solid black;}
+
+#tabla_resultados #final1_tabla_resultados{
+	text-align: right;
+	font-weight:bold;}
+
+#tabla_resultados #final2_tabla_resultados{
+	text-align:left;}
+
+
+/* TABLA FOOTER
+-------------------------------------------- */
+
+#tabla_footer{ width:100%;}
+
+#tabla_footer_acuerdo{
+	text-align:center;
+	font-size:12px;}
+
+#firma_contador,#firma_empleado, .espaciado_extra{
+	width:18%;
+	text-align:center;}
+
+.espaciado_extra{ border-bottom:1px solid black !important;}
+
+#tabla_vista_previa .negrita{ font-weight:bold;}
+
+.espacios_blanco{ width:28%;}

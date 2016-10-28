@@ -5,7 +5,7 @@
 // titulo de la pagina
 $html_titulo = "Liquidacion De Sueldo.-";
 // titulo de la barra ejemplo
-$html_titulo_barra = "Lugar X";
+$html_titulo_barra = "Liquidaciones de sueldo";
 // descripcion de la pagina
 $html_descripcion = "";
 
