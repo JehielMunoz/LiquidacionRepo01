@@ -1,0 +1,18 @@
+@media print{
+	.menudiv, #top-header,.ui-tabs .ui-tabs-nav li{
+		display:none;
+	}
+	.ui-widget-header,.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active,.ui-widget.ui-widget-content{
+		border:none;
+		background:#fff;
+	}
+	#tabla_vista_previa{
+		top:-50px;
+        font-size:12px;
+		position:absolute;
+        left:-155px;
+		width:920px;
+        height:1200px;
+		border-collapse:collapse;
+		border:1px solid black;
+}
