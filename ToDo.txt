@@ -1,4 +1,4 @@
-2016-09-14
+﻿2016-09-14
 -agregar 2 tablas para los bonos, en una tabla se guarda tanto el id como el nombre del bono. en la siguiente tabla se guarda el rut del empleado, el id del bono que le corresponde y el monto de este.
 06-10-2016
 -Falta liberar memoria
@@ -37,7 +37,7 @@ Nuevo:
 Nuevo:
 
 -Se Corrigierion problemas de los deciles en el momento de sacar los sueldos.
--Gratificaciones y Descuentos Terminados.
+Gratificaciones y Descuentos Terminados.
 -Ahora se pueden agregar nuevas Gratificaciones.
 -Ahora se pueden agregar nuevos Descuentos.
 -Se incluyo el formato peso en Gratificaciones y Descuento.
