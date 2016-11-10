@@ -7,7 +7,7 @@
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/tabs_style02.css">
     <link type="text/css" rel="stylesheet" href="./Resources/Style/estilo_tabla.css">
     <link type="text/css" rel="stylesheet" href="./Resources/Style/imprimir.css">
-    
+    <meta charset='utf-8'>
     <script src="./Resources/Scripts/scripts.js"></script>
 	<script src="./Resources/Scripts/tabsO.js"></script>
 	<script src="./Resources/Scripts/tabs.js"></script>
@@ -162,7 +162,6 @@
 			}
 	</script>   
 	<script src="./Resources/Scripts/Asignar_datos_db.js"></script>   
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <!-- Hasta aquí llega el header -->
     

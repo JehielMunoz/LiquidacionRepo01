@@ -124,18 +124,19 @@ if(!empty($_SESSION['Tipo']))
                 echo "</tr>";
             }
             
-                
             $query = pg_query($dbconn, "Select * FROM \"tLicencias\" WHERE \"Rut\" ='$rut'");
             while ($row1 = pg_fetch_assoc($query)) {
                 echo "<tr>";
                 echo "<td>Licencias Medicas</td>";
-                if(!empty($_SESSION['Descuento_Licencias_dia']))
+                if(!empty($_SESSION['Descuentos_Licencias_dia']))
                 {
-                    echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=".Formato_Dinero($_SESSION['Desciento_Licencias_dia']*$row1['Dias'])."></td>"; 
+                    echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=".Formato_Dinero($_SESSION['Descuentos_Licencias_dia']*$row1['Dias'])."></td>"; 
                 }
-                echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=\"$0\"></td>";
+                else{
+                echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=\"$0\"></td>";}
                 echo "</tr>";
             }
+            
         
             
             echo "</table>";
