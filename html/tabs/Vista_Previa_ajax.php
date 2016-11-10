@@ -49,7 +49,7 @@
                     <td colspan="2" class="head_datos_letra_col1">TIPO DE CONTRATO</td>
                     <td colspan="4" class="head_datos_letra_col2"><?php Tipo_Contrato();?></td>
                     <td class="head_datos_letra_col3"></td>
-                    <td colspan="3" rowspan="3" id="head_col4" class="head_datos_letra_col4">Fecha</td>
+                    <td colspan="3" rowspan="3" id="head_col4" class="head_datos_letra_col4"><?php get_fecha_php(); ?> </td>
 
                 </tr>
                 <tr>
@@ -96,6 +96,7 @@
         $query1 = pg_query($dbconn, " SELECT * FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."'::bpchar;"); 
         $query2 = pg_query($dbconn, "SELECT * FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."'::bpchar;");   
         $query3 = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."'");
+        $query4 = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."'" );
         while ($contador<20){
             $row1 = pg_fetch_assoc($query1);
             echo "<tr>";
@@ -131,8 +132,14 @@
                         echo $row2['Descuento'];
                     }
                 else{
-                    $row2 = pg_fetch_assoc($query3);
-                    echo $row2['Nombre'];
+                    if($row2 =pg_fetch_assoc($query3)){
+                        echo $row2['Nombre'];
+                    }
+                    else{
+                        if($row2 = pg_fetch_assoc($query4)){
+                        echo $row2['Nombre_licencia'];
+                        }
+                    }
                 }
             }
             echo "</td>";
@@ -147,6 +154,11 @@
                 if(!empty($row2["Monto"])){
                     echo Formato_Dinero($row2["Monto"]);
                     }
+                else{
+                    if($row2 == true){
+                    echo Mostrar_licencia();
+                    }
+                }
             }
             echo "</td>";
             echo "</tr>";
