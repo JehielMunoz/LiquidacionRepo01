@@ -7,7 +7,7 @@
 	<link type="text/css" rel="stylesheet" href="./Resources/Style/tabs_style02.css">
     <link type="text/css" rel="stylesheet" href="./Resources/Style/estilo_tabla.css">
     <link type="text/css" rel="stylesheet" href="./Resources/Style/imprimir.css">
-    
+    <meta charset='utf-8'>
     <script src="./Resources/Scripts/scripts.js"></script>
 	<script src="./Resources/Scripts/tabsO.js"></script>
 	<script src="./Resources/Scripts/tabs.js"></script>
@@ -144,6 +144,13 @@
                 var tipo = document.getElementById('Tipo_nuevo_descuento').value;
                if(nombre!=""){ objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&nombre="+nombre+"&tipo="+tipo);}
             }
+			if(num2=='5'){ 
+                var dias = document.getElementById('dias').value; 
+                var descuenta = document.getElementById('descuenta').value; 
+                var inicio = document.getElementById('Inicio_Licencia').value; 
+                var final = document.getElementById('Termino_Licencia').value; 
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&Dias="+dias+"&Descuenta="+descuenta+"&Inicio_l="+inicio+"&Final_l="+final); 
+            } 
 			objAjax2.onreadystatechange = MostrarDatos;
 			}
 		function MostrarDatos(){
@@ -155,7 +162,6 @@
 			}
 	</script>   
 	<script src="./Resources/Scripts/Asignar_datos_db.js"></script>   
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <!-- Hasta aquí llega el header -->
     

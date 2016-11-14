@@ -834,6 +834,9 @@ button.ui-button::-moz-focus-inner {
 	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 	padding: .2em;
 }
+ui-tabs-nav{
+	background: #8C8A96 url(../Imagenes/devoops_pattern_b10.png) repeat;
+}
 .ui-tabs .ui-tabs-nav {
 	margin: 0;
 	padding: .2em .2em 0;
@@ -855,8 +858,11 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
 	margin-bottom: -1px;
-	padding-bottom: 1px;
 }
+ .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: 1px solid #c5c5c5 !important;
+	border-bottom-width: 0px !important;
+	background: #506E86 url(../Imagenes/devoops_pattern_b10.png) repeat !important;}
 .ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
 .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
 .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
@@ -908,9 +914,9 @@ body .ui-tooltip {
 	color: #333333;
 }
 .ui-widget-header {
-	border: 1px solid #dddddd;
-	background: #e9e9e9;
-	color: #333333;
+	border: 1px solid #8C8A96 !important;
+	background: #8C8A96 !important;
+	color: #333333 !important;
 	font-weight: bold;
 }
 .ui-widget-header a {
@@ -928,10 +934,11 @@ body .ui-tooltip {
 works properly when clicked or hovered */
 html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
-	border: 1px solid #c5c5c5;
+	border: 1px solid #c5c5c5 !important;
 	background: #f6f6f6;
 	font-weight: normal;
 	color: #454545;
+	margin:1px 0px 1px 0px !important;
 }
 .ui-state-default a,
 .ui-state-default a:link,
@@ -940,6 +947,7 @@ a.ui-button,
 a:link.ui-button,
 a:visited.ui-button,
 .ui-button {
+	border: 1px solid #c5c5c5;
 	color: #454545;
 	text-decoration: none;
 }
@@ -951,7 +959,10 @@ a:visited.ui-button,
 .ui-widget-header .ui-state-focus,
 .ui-button:hover,
 .ui-button:focus {
-	border: 1px solid #cccccc;
+	outline-style: none !important;
+	border: 1px solid #c5c5c5;
+	border-bottom-color: #F05941 !Important;
+	border-bottom-width: 2px !important;
 	background: #ededed;
 	font-weight: normal;
 	color: #2b2b2b;

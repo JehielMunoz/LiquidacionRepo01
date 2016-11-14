@@ -1,5 +1,4 @@
 <?php
-
 if(empty($_SESSION))
 {
     session_start();
@@ -15,7 +14,6 @@ if(empty($_SESSION))
      $_SESSION['Contrato'] = get_Contrato();
      get_cargos();
      cal_Total_Imponible();
-     licencias();
      cal_Total_Descuentos();
      cal_sub_total();
      Liquido_Pagar();
@@ -203,17 +201,11 @@ if(empty($_SESSION))
     }
     function Total_Asignacion()
     {
-		//echo var_dump($_SESSION['Asignacion_Familiar']);
         if(!empty($_SESSION['Asignacion_Familiar']))
         {  
-			if($_SESSION['Asignacion_Familiar']>0){
-            	echo Formato_Dinero($_SESSION['Asignacion_Familiar']);
-			}
+            echo Formato_Dinero($_SESSION['Asignacion_Familiar']);
+           
         }
-			else{
-				echo "$ 0";
-		}
-		
     }
     function Hora()
     {
@@ -321,15 +313,14 @@ if(empty($_SESSION))
         
     }
     function Otros_descuentos(){
-		//echo var_dump($_SESSION['Descuentos_Otros']);
         if(!empty($_SESSION['Descuentos_Otros'])){
-            if($_SESSION['Descuentos_Otros']>0){
-                echo Formato_Dinero($_SESSION['Descuentos_Otros']);
+            if($_SESSION['Descuentos_Otros']==0){
+                echo "$ 0";
             }
-		}
-		else{
-			echo "$ 0";
-		}        
+            else{
+            echo Formato_Dinero($_SESSION['Descuentos_Otros']);}
+        }
+        
     }
     function sub_Total(){
         if(!empty($_SESSION['sub_Total'])){
@@ -343,14 +334,14 @@ if(empty($_SESSION))
         }
     }
     function mostrar_Sobre_giro(){
-		//echo var_dump($_SESSION['Sobre_giro']);
         if(!empty($_SESSION['Sobre_giro'] )){
             if($_SESSION['Sobre_giro']>0){
                 echo Formato_Dinero($_SESSION['Sobre_giro'] );
-                }
+                
             }            
             else{
-                echo "$ 0";
+                echo "$0";
+            }
         }
     }
     function Mostrar_gasto_extra_SIS(){
@@ -374,29 +365,6 @@ if(empty($_SESSION))
         }
     }
     
-    function get_son(){
-        if(!empty($_SESSION['Liquido_pagar'])){
-            echo numtoletras($_SESSION['Liquido_pagar']);
-        }
-    }
-    function Mostrar_licencia(){
-        if(!empty($_SESSION['Descuentos_Licencias'])){
-            echo Formato_Dinero($_SESSION['Descuentos_Licencias']);
-        }
-    }
-
-    function get_fecha_php(){
-        setlocale(LC_ALL,"es_ES");
-        date_default_timezone_set('America/Santiago');
-        # si el servidor es incompatible con setlocale
-        $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
-        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        
-        echo $dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
-        #echo strftime("%A %d de %B del %Y");
-
-        
-    }
 #------------------------------------------------------------------------------------------------------------------------
 # Estan funciones se tienen que  conectar a la base de datos por qué tienen que sacar informacion de otras tablas.
 #------------------------------------------------------------------------------------------------------------------------
@@ -417,30 +385,9 @@ if(empty($_SESSION))
             {
                 echo "<option value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
             }
+            
+        
     }
-	function Mostrar_Licencias()
-		{
-			include("conex.php");
-			$query = pg_query($dbconn, "SELECT * FROM \"tLicencias\"");
-			while($row = pg_fetch_assoc($query))
-			{
-				echo "<tr>
-				<td>".Formato_Rut($row['Rut'])."</td>";
-				if($row['Descuenta'])
-				{
-				echo "<td>Si.</td>";
-				}
-				else
-				{
-					"<td>No.</td>";
-				}
-				echo "
-				<td>".$row['Dias']."</td>
-				<td>".$row['F_inicio']."</td>
-				<td>".$row['F_final']."</td>
-				</tr>";
-			}
-		}
 
     function Mostrar_ISAPRE()
     {   
@@ -611,7 +558,7 @@ function cal_Total_Descuentos(){
     $_SESSION['Total_Tributable'] = $_SESSION['Total_Imponible'] - $_SESSION['Total_seguro']- $_SESSION['Total_Isapre']-$_SESSION['Total_AFP'];
     calculo_Descuentos_varios();
     $_SESSION['Total_Descuentos'] = $_SESSION['Descuentos_Otros'] + $_SESSION['Descuentos_Legal'];
-	if($_SESSION['Total_Descuentos']==0){$_SESSION['Total_Descuentos']="$0";}
+    
 }
 
 function cal_sub_total(){
@@ -660,17 +607,15 @@ function Sobre_giro(){
         
     }
     else{
-        $_SESSION['Sobre_giro'] = "$ 0";
+        $_SESSION['Sobre_giro'] = 0;
     }
 }
 
 function calculo_Descuentos_varios(){
     include("conex.php");
     $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."'");
-    while($row1 = pg_fetch_assoc($query)){
+    $row1 = pg_fetch_assoc($query);
     $_SESSION['Descuentos_Otros'] += $row1["Monto"];
-    }
-    $_SESSION['Descuentos_Otros'] += $_SESSION['Descuentos_Licencias'];
 }
 
 function gastos_extras(){
@@ -689,22 +634,6 @@ function gastos_extras(){
     }
     
 }
-
-function licencias(){
-    include("conex.php"); 
-    $_SESSION['Descuentos_Licencias'] =0;
-    $_SESSION['Descuentos_Licencias_dia'] = 0;
-    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."'" );
-    while($row1 = pg_fetch_assoc($query)){
-        if($row1['Descuenta']=='t'){
-            $_SESSION['Descuentos_Licencias_dia'] = round($_SESSION['Total_Haberes']/30);
-            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $row1['Dias']);
-            
-        }
-        
-    }
-}
-
 #-----------------------------------------------------------------------------------------------------------------------
 #     conversion numeros
 #-------------------------------------------------------------------------------------------------------------------

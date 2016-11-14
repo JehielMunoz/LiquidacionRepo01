@@ -76,30 +76,15 @@
 		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
-            <div style="margin-bottom:-15px;"><ul>
-				<li>
-				<form action="./Contacto.php" method="post">
-                        <input type="text"  id="Rut" name="c_Buscar"  required placeholder="Buscar personal por Rut...">
-                        <input type="submit" id="btn-buscar" formmethod="post" value="Buscar Persona">
-                    </form>
-                </li>  
-                <li>
-                    <form action="./Contacto.php" method="post">
-                       <input type="submit" value="Mostrar Todos.">
-                        
-                    </form>
-				</li>
-				</ul></div>
 			<div id="tabs-1">
-            <div class="divplanilla">
-                <table>
-					<h3 id="tCso">Contaco funcionarios</h3>
-                    <th >Rut</th>
-                    <th >Nombre</th>
-                    <th >Telefono</th>
-                    <?php Mostrar_Contacto();?>
+            <!--<div class="divplanilla"> -->
+                <table>               
+                    <h3 id="tCso">Administradora de Fondos de Pensiones (AFP).</h3>
+                    <th >Nombre AFP</th>
+                    <th >Tasa AFP</th>
+                    <?php Mostrar_AFP();?>
                 </table>
-            </div>
+            <!--</div>-->
     </div>
         
         </div>

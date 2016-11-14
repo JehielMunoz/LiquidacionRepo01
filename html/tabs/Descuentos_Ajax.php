@@ -49,6 +49,7 @@ if(!empty($_SESSION['Tipo']))
                 echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
                 echo "</tr>";
             }
+            
             echo "</table>";
 
         }
@@ -68,6 +69,15 @@ if(!empty($_SESSION['Tipo']))
             if($num!='0' && $num2==4){
                 $values = "('$rut','".$_POST['Nombre']."','".$_POST['Inicio']."','".$_POST['Final']."',".$_POST['Monto'].")";
                 $query = pg_query($dbconn,"insert into \"tPrestamos\"(\"Rut\",\"Nombre\",\"F_inicio\",\"F_final\",\"Monto\") values".$values );
+                
+                if (!$query) {
+                    echo "Falla en la consulta.\n";
+                    exit;
+                }    
+            }
+             if($num!='0' && $num2==5){
+                $values = "('$rut','".$_POST['Descuenta']."',".$_POST['Dias'].",'".$_POST['Inicio_l']."','".$_POST['Final_l']."')";
+                $query = pg_query($dbconn,"insert into \"tLicencias\"(\"Rut\",\"Descuenta\",\"Dias\",\"F_inicio\",\"F_final\") values".$values );
                 
                 if (!$query) {
                     echo "Falla en la consulta.\n";
@@ -113,6 +123,22 @@ if(!empty($_SESSION['Tipo']))
                 echo "<td><div class=\"bEliminar\" onclick=\"TraerDatos(".$row1['id_Descuento'].",'2')\"></div></td>";
                 echo "</tr>";
             }
+            
+            $query = pg_query($dbconn, "Select * FROM \"tLicencias\" WHERE \"Rut\" ='$rut'");
+            while ($row1 = pg_fetch_assoc($query)) {
+                echo "<tr>";
+                echo "<td>Licencias Medicas</td>";
+                if(!empty($_SESSION['Descuentos_Licencias_dia']))
+                {
+                    echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=".Formato_Dinero($_SESSION['Descuentos_Licencias_dia']*$row1['Dias'])."></td>"; 
+                }
+                else{
+                echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=\"$0\"></td>";}
+                echo "</tr>";
+            }
+            
+        
+            
             echo "</table>";
             echo "</td>";
             echo "<td>";
@@ -198,9 +224,28 @@ if(!empty($_SESSION['Tipo']))
             echo "<tr>";
              echo "<td><input type=\"text\" name=\"nombre_credito\" class=\"entrega-dato\" id=\"Nombre_nuevo_credito\" placeholder='Ingrese el nombre del Credito'></input></td>";
             echo "<td><input type=\"number\" name=\"monto_credito\" class=\"entrega-dato\" id=\"Monto_nuevo_credito\" placeholder='Monto Mensual del Prestamo'></input></td>";
-            echo "<td><input type=\"date\" name=\"inicio_credito\" class=\"entrega-dato\" id=\"Inicio_nuevo_credito\" ></input></td>";
-            echo "<td><input type=\"date\" name=\"final_credito\" class=\"entrega-dato\" id=\"Termino_nuevo_credito\" ></input></td>";
+            echo "<td><input type=\"date\" name=\"inicio_credito\" class=\"entrega-dato\" id=\"Inicio_nuevo_credito\" placeholder='Año/Mes/Dia'></input></td>";
+            echo "<td><input type=\"date\" name=\"final_credito\" class=\"entrega-dato\" id=\"Termino_nuevo_credito\" placeholder='Año/Mes/Dia'></input></td>";
             echo "<td><div class=\"bAgregar\" class=\"entrega-dato\" onclick=\"TraerDatos('4','4')\"></div></td>";
+            echo "</tr>";
+            echo "</table>";
+            
+             ///// Licencias
+            echo "<br/>";
+            echo "<h2>Agregar Licencias </h2>";
+            echo "<table>";
+            echo "<tr>";
+            echo "<td>Dias de licencia.</td>";
+            echo "<td>Descuenta.</td>";
+            echo "<td>Fecha Inicial.</div></td>";
+            echo "<td>Fecha Final.</div></td>";
+            echo "</tr>";
+            echo "<tr>";
+            echo "<td><input type=\"number\" name=\"dias\" class=\"entrega-dato\" id=\"dias\" placeholder='Numero de dias de Licencia'></input></td>";
+            echo "<td>Si<input type=\"checkbox\" name=\"descuenta\" value=\"True\" class=\"entrega-dato\" id=\"descuenta\"></input>No<input type=\"checkbox\" name=\"descuenta\" class=\"entrega-dato\" value=\"False\" id=\"descuenta\"></input></td>";
+            echo "<td><input type=\"date\" name=\"inicio_credito\" class=\"entrega-dato\" id=\"Inicio_Licencia\" ></input></td>";
+            echo "<td><input type=\"date\" name=\"final_credito\" class=\"entrega-dato\" id=\"Termino_Licencia\" ></input></td>";
+            echo "<td><div class=\"bAgregar\" class=\"entrega-dato\" onclick=\"TraerDatos('4','5')\"></div></td>";
             echo "</tr>";
             echo "</table>";
         }

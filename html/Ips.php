@@ -75,33 +75,15 @@
 		<a href="Contacto.php">Contacto</a>
 		<a href="#">Servicio Tecnico</a>
 	</div>
-	<div id="tabs" class="barradiv">
-            <div style="margin-bottom:-15px;"><ul>
-				<li>
-				<form action="./Contacto.php" method="post">
-                        <input type="text"  id="Rut" name="c_Buscar"  required placeholder="Buscar personal por Rut...">
-                        <input type="submit" id="btn-buscar" formmethod="post" value="Buscar Persona">
-                    </form>
-                </li>  
-                <li>
-                    <form action="./Contacto.php" method="post">
-                       <input type="submit" value="Mostrar Todos.">
-                        
-                    </form>
-				</li>
-				</ul></div>
-			<div id="tabs-1">
-            <div class="divplanilla">
-                <table>
-					<h3 id="tCso">Contaco funcionarios</h3>
-                    <th >Rut</th>
-                    <th >Nombre</th>
-                    <th >Telefono</th>
-                    <?php Mostrar_Contacto();?>
-                </table>
-            </div>
+	<div id="tabs" class="barradiv">		
+		<div id="tabs-1">
+				<table>               
+					<h3  id="tCso">Instituto de Previsión Social (IPS).</h3>	
+					<th >Nombre IPS</th>
+					<th >Tasa IPS</th>
+					<?php Mostrar_ISAPRE();?>
+				</table>
+		</div>
     </div>
-        
-        </div>
     </body>
 </html>

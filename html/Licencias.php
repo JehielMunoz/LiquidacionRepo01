@@ -76,28 +76,20 @@
 		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
-            <div style="margin-bottom:-15px;"><ul>
-				<li>
-				<form action="./Contacto.php" method="post">
-                        <input type="text"  id="Rut" name="c_Buscar"  required placeholder="Buscar personal por Rut...">
-                        <input type="submit" id="btn-buscar" formmethod="post" value="Buscar Persona">
-                    </form>
-                </li>  
-                <li>
-                    <form action="./Contacto.php" method="post">
-                       <input type="submit" value="Mostrar Todos.">
-                        
-                    </form>
-				</li>
-				</ul></div>
+            <ul>
+                <li class="button" id="tabs-1" ><a href="#tabs-1">Licencias</a></li>
+                
+			</ul>
 			<div id="tabs-1">
             <div class="divplanilla">
-                <table>
-					<h3 id="tCso">Contaco funcionarios</h3>
-                    <th >Rut</th>
-                    <th >Nombre</th>
-                    <th >Telefono</th>
-                    <?php Mostrar_Contacto();?>
+                <table>               
+                    
+                    <th >Rut del Empleado</th>
+                    <th >Descuenta</th>
+                    <th >Duración</th>
+                    <th >Fecha de Incio de Licencia</th>
+                    <th >Fecha de Termino del Licencia</th>
+                    <?php Mostrar_Licencias();?>
                 </table>
             </div>
     </div>

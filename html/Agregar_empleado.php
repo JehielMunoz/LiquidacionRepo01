@@ -80,10 +80,10 @@ else
             }
             ?>
             <a href="../index.php">Planilla Liquidacion</a>
-            <a href="#">Licencias</a>
-            <a href="#">AFP</a>
-            <a href="#">IPS</a>
-            <a href="./Contacto.php">Contacto</a>
+            <a href="Licencias.php">Licencias</a>
+            <a href="Afp.php">AFP</a>
+            <a href="Ips.php">IPS</a>
+            <a href="Contacto.php">Contacto</a>
             <a href="#">Servicio Tecnico</a>
         </div>
          
