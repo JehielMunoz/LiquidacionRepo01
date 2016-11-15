@@ -27,9 +27,9 @@ else
         <link type="text/css" rel="stylesheet" href="../Resources/Style/estilo.css"/>
         <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style.css">
         <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style02.css">
-        <script src="../Resources/Scripts/scripts.js"></script>
         <script src="../Resources/Scripts/tabsO.js"></script>
         <script src="../Resources/Scripts/tabs.js"></script>
+        <script src="../Resources/Scripts/Registro.js"></script>
         <style>
             .divError{
                 position: absolute;
@@ -115,11 +115,11 @@ else
                             </tr>
                             <tr>
                                 <td>Rut</td>
-                                <td><input type="number" min="100000000" max="999999999" title="Debes ingresar un rut valido." maxlength="9" required class="entrega-dato"  placeholder="Ingrese rut sin los puntos ni guion."  id="Rut" name="r_Rut" ></td>
+                                <td><input type="text" required class="entrega-dato"  placeholder="Ingrese rut sin los puntos ni guion."  id="Registro_Rut" name="r_Rut" ></td>
                             </tr>
                             <tr>
                                 <td>Telefono Celular</td>
-                                <td><input type="number" min="10000000" max="99999999" title="Debes ingresar un rut valido." maxlength="8" required class="entrega-dato"  placeholder="Ingrese Telefono Celular."  id="Telefono" name="r_Telefono" ></td>
+                                <td><input type="text" title="Debes ingresar un rut valido."  required class="entrega-dato"  placeholder="Ingrese Telefono Celular."  id="Telefono" name="r_Telefono" ></td>
                             </tr>
                             <tr>
                                 <td>Fecha de Nacimiento</td>
