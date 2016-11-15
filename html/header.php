@@ -11,6 +11,8 @@
     <script src="./Resources/Scripts/scripts.js"></script>
 	<script src="./Resources/Scripts/tabsO.js"></script>
 	<script src="./Resources/Scripts/tabs.js"></script>
+    <script src="./Resources/Scripts/$Funciones.js"></script>   
+
 	<script>
             function Imprimir_tabla(){
             var cabezera="<!DOCTYPE html><html lang='es'><head><link type='text/css' rel='stylesheet' href='./Resources/Style/estilo_tabla.css'></head><body>"
@@ -27,6 +29,7 @@
         $(function() {
             console.log( "1readysss!" ); // Lo hice para comprobar que el ajax estaba funcioando sin recargar la pagina. 
         });
+        var $Persona = null; // Variable que guarda el rut y el nombre
         var id_nombre = <?php get_Personas();?>; 
         var id = [];
         var nombre = [];   
@@ -42,41 +45,11 @@
             $( "#AutoNombre" ).autocomplete({
             source: nombre,
             change: function(){   // Esto detecta el canbio en el campo de texto. Cuando se usa el autocompletado. Funcioa en chrome y firefox, IE NO LO HE PROBADO.
-                AsignarId($(this));
+                $Persona = AsignarId($(this));
             }
             });
         });
-        $(function(){ 
-           $("#btn-buscar,#tab-1").click(function(){ // Esto maneja el ajax. Cuando hago click en el boton para buscar. Hace una consulta por post y remplaza la planilla con la respuesta del pust.
-               var url = "./html/tabs/Planilla_ajax.php";
-               $.ajax({
-                   type:"POST",
-                   url:url,
-                   data: {Rut: $("#Rut").val(),AutoNombre:$("#AutoNombre").val()}, // Datos del post. Los cuales recupera del campo rut y nombre.
-                   success: function (data) { // Si la consulta tiene exito.
-                    $("#tabs-1").html(data); // Remplzasa el contedio del div tabs-1
-                    $("#tabs").tabs("option", "active", 0);
-                    }
-            
-               });
-            return false; // Igual  que al validar formularios, devuelve falso para que se ejecute el enviar del form.
-           });
-        });
-        $(function(){ 
-           $("#tab-5").click(function(){ // Esto maneja el ajax. Cuando hago click en el boton para buscar. Hace una consulta por post y remplaza la planilla con la respuesta del pust.
-               var url = "./html/tabs/Vista_Previa_ajax.php";
-               $.ajax({
-                   type:"POST",
-                   url:url,
-                   data: {Rut:$("#Rut").val(),AutoNombre:$("#AutoNombre").val()}, // Datos del post. Los cuales recupera del campo rut y nombre.
-                   success: function (data) { // Si la consulta tiene exito.
-                    $("#tabs-5").html(data); // Remplzasa el contedio del div tabs-1
-                    }
-            
-               });
-            return false; // Igual  que al validar formularios, devuelve falso para que se ejecute el enviar del form.
-           });
-        });
+        
     </script>
 	<script>
         function TraerDatos_Gratificaciones(num,num2){
@@ -161,7 +134,6 @@
 				}
 			}
 	</script>   
-	<script src="./Resources/Scripts/Asignar_datos_db.js"></script>   
 </head>
 <!-- Hasta aquí llega el header -->
     

@@ -85,7 +85,7 @@ if(empty($_SESSION))
         }
         while ($row = pg_fetch_assoc($query)) {
             
-            $data [] = [$row["Rut"],$row["Nombre"]];   
+            $data [] = [$row["Rut"],trim($row["Nombre"]," ")];   
         }
         echo json_encode($data);
     }
