@@ -21,12 +21,12 @@ $(function() {
         var $lenTelefono = $("#Telefono").val().length;
         var $Telefono = $("#Telefono").val();
         if ($lenTelefono < $rLenT) {
-            alert("Telefono demaciado corto. ( faltan (" + ($rLenT - $lenTelefono).toString() + ") digito/s.)");
+            alert("Telefono demaciado corto. ( falta/n (" + ($rLenT - $lenTelefono).toString() + ") digito/s.)");
             $("#Telefono").focus();
             return false;
         }
         if ($lenTelefono > $rLenT) {
-            alert("Telefono demaciado largo. ( sobran (" + ($lenTelefono - $rLenT).toString() + ") digito/s.)");
+            alert("Telefono demaciado largo. ( sobra/n (" + ($lenTelefono - $rLenT).toString() + ") digito/s.)");
             $("#Telefono").focus();
             return false;
 
