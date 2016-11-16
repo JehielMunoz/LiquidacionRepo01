@@ -1,33 +1,54 @@
-<?php 
+<?php
+    session_start();
+    $_SESSION['Usuario'] = "Javier";
+    chdir($_SERVER['DOCUMENT_ROOT']."/Liquidaciones-de-Sueldo/"); 
 
-    function Formato_Dinero($dinerint)
+ 
+    function Iniciar_Reporte()
     {
-    $string = $dinerint;
-    $len = round(strlen($string)/3, 0, PHP_ROUND_HALF_DOWN);
-    $contador = -3;
-    for ($i=0; $i<($len);$i++)
-    {
-        $string = substr_replace($string,'.',$contador,0);
-        $contador= $contador - 3 - 1;
-    }                    // 3 por la separacion de los puntos. y 1 por el nuevo caracter que se agrega.
-    
-        if ($string[0]==".")
-        {
-            $string = substr($string,1);
-        }
-        
-        $string = substr_replace($string,'$',0,0);
-        
-        return $string;        
+        $Carpeta = "./Reporte";
+        $File = "/".$_SESSION['Usuario'].".txt";
+        $Inicio = "#############################################".PHP_EOL."[".$_SESSION['Usuario']."]".PHP_EOL;
+        $Inicio_Hora = date("[H:m:s] ").$_SESSION['Usuario']." inicio session.".PHP_EOL;
+        // IMPORTANTE CONFIGURAR BIEN LA HORA EN EL SERVIDOR PHP .INI
+        if(!is_dir($Carpeta))
+        {   
+            mkdir($Carpeta,0777);
+        }       
+
+        file_put_contents($Carpeta.$File, $Inicio.$Inicio_Hora, FILE_APPEND);
     }
-    
-    $e = "122223314";
-//        1.223.453.123
-     
-    $telefono = 85245624;
-    $telefono = substr_replace($telefono,' ',3,0);
-    $telefono = substr_replace($telefono,' ',6,0); 
-    $telefono = substr_replace($telefono,'(09) ',0,0); 
-    
-    echo $telefono;
+
+    function Escribir_Reporte($Accion ="Hola mundo")
+    {
+        $Carpeta = "./Reporte";
+        $Hora = date("[H:m:s] ");
+        $File = "/".$_SESSION['Usuario'].".txt";
+        file_put_contents($Carpeta.$File,$Hora.$Accion.PHP_EOL, FILE_APPEND);
+    }
+
+    function Guardar_Reporte()
+    {
+        $Carpeta = "./Reporte";
+        $Reporte = "/".$_SESSION['Usuario'].".txt";
+        $Destino = "/".date("d-m-y").".txt";
+        $Termino = "#############################################".PHP_EOL;
+        $Termino_Hora = date("[H:i:s] ").$_SESSION['Usuario']." Termino session.".PHP_EOL;
+
+        file_put_contents($Carpeta.$Reporte, $Termino_Hora.$Termino, FILE_APPEND);
+       
+        if($Archivo = file_get_contents($Carpeta.$Reporte))
+        {
+            echo $Archivo;
+            file_put_contents($Carpeta.$Destino,$Archivo, FILE_APPEND);
+            unlink($Carpeta.$Reporte);  
+        }
+
+    }
+    Iniciar_Reporte();
+    Escribir_Reporte("Hizo tal cosa");
+    Escribir_Reporte("Borro otra cosa");
+    Escribir_Reporte("Hackeo el sistema.");
+    Escribir_Reporte("LO borro todo.");
+    Guardar_Reporte();
 ?>
