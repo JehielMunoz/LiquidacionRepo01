@@ -1,0 +1,82 @@
+#############################################
+[admin]
+[03:11:56] admin inicio session.
+[03:15:59] admin Termino session.
+#############################################
+#############################################
+[admin]
+[03:11:33] admin inicio session.
+[03:17:39] admin Termino session.
+#############################################
+#############################################
+[admin]
+[03:11:31] admin inicio session.
+#############################################
+[admin]
+[03:11:49] admin inicio session.
+#############################################
+[admin]
+[03:11:06] admin inicio session.
+[03:23:47] admin Termino session.
+#############################################
+#############################################
+[admin]
+[03:11:26] admin inicio session.
+[03:11:43] Se busco el rut: 094432855 de manera exitosa.
+[Dagoberto Antonio Valenzuela Jiménez              ]
+
+[03:11:52] Se busco el rut: 190763722 de manera exitosa.
+[Javier Araneda                                    ]
+
+[03:47:53] admin Termino session.
+#############################################
+#############################################
+[admin]
+[03:11:21] admin inicio session.
+[03:11:43] Se busco el rut: 190763722 de manera exitosa.
+-------[Javier Araneda]-------
+[03:11:29] Se busco el rut: 190763722 de manera exitosa.
+-----------[Javier Araneda]-----------
+[03:11:32] Se busco el rut: 157352814 de manera exitosa.
+-----------[Angélica Haidee Herrera Muñoz]-----------
+[03:11:38] Se busco el rut: 132822565 de manera exitosa.
+-----------[Richard Edgardo Naguil Sánchez]-----------
+[03:54:40] admin Termino session.
+#############################################
+#############################################
+[admin]
+[03:11:09] admin inicio session.
+[03:11:17] Se busco el rut: 157352814 de manera exitosa.
+[03:11:17] Empleado seleccionado [Angélica Haidee Herrera Muñoz].
+[03:11:29] Se busco el rut: 136287826 de manera exitosa.
+[03:11:29] Empleado seleccionado [Susana Andrea sepúlveda Medina].
+[03:11:34] Se busco el rut: 190763722 de manera exitosa.
+[03:11:34] Empleado seleccionado [Javier Araneda].
+[03:11:39] Se busco el rut: 094432855 de manera exitosa.
+[03:11:39] Empleado seleccionado [Dagoberto Antonio Valenzuela Jiménez].
+[03:11:42] Se busco el rut: 157352814 de manera exitosa.
+[03:11:42] Empleado seleccionado [Angélica Haidee Herrera Muñoz].
+[03:11:46] Se busco el rut: 136287826 de manera exitosa.
+[03:11:46] Empleado seleccionado [Susana Andrea sepúlveda Medina].
+[03:58:51] admin Termino session.
+#############################################
+#############################################
+[admin]
+[04:11:11] admin inicio session.
+[04:11:20] Se busco el rut: 190763722 de manera exitosa.
+[04:11:20] Empleado seleccionado [Javier Araneda].
+[04:11:42] Se busco el rut: 094432855 de manera exitosa.
+[04:11:42] Empleado seleccionado [Dagoberto Antonio Valenzuela Jiménez].
+[04:11:33] Se ha registrado un empleado con rut: 197854578
+[04:11:33] Se busco el rut: 197854578 de manera exitosa.
+[04:11:33] Empleado seleccionado [Bossun].
+[04:11:21] Se imprimio la liquidacion del Empleado con rut: 197854578
+[04:11:42] Se imprimio la liquidacion del Empleado con rut: 197854578
+[04:11:18] Se imprimio la liquidacion del Empleado con rut: 197854578
+[04:18:39] admin Termino session.
+#############################################
+#############################################
+[admin]
+[04:20:16] admin inicio session.
+[04:20:19] admin Termino session.
+#############################################
