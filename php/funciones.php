@@ -76,6 +76,98 @@ if(empty($_SESSION))
 #-----------------------------------------------------------------------------------------------------------------------------
 # funciones Para obtener la informacion de las personas
 #-----------------------------------------------------------------------------------------------------------------------------
+
+ //chdir($_SERVER['DOCUMENT_ROOT']."/Liquidaciones-de-Sueldo/"); 
+
+ 
+    function Iniciar_Reporte()
+    {
+        $Carpeta = "./Reporte";
+        $File = "/".$_SESSION['Usuario'].".txt";
+        $Inicio = "#############################################".PHP_EOL."[".$_SESSION['Usuario']."]".PHP_EOL;
+        $Inicio_Hora = date("[H:i:s] ").$_SESSION['Usuario']." inicio session.".PHP_EOL;
+        // IMPORTANTE CONFIGURAR BIEN LA HORA EN EL SERVIDOR PHP .INI
+        if(!is_dir($Carpeta))
+        {   
+            mkdir($Carpeta,0777);
+        }       
+
+        file_put_contents($Carpeta.$File, $Inicio.$Inicio_Hora, FILE_APPEND);
+    }
+
+    function Escribir_Reporte($Accion ="Hola mundo")
+    {
+        chdir($_SERVER['DOCUMENT_ROOT']."/Liquidaciones-de-Sueldo/");
+        $Carpeta = "./Reporte";
+        $Hora = date("[H:i:s] ");
+        $File = "/".$_SESSION['Usuario'].".txt";
+        file_put_contents($Carpeta.$File,$Hora.$Accion.PHP_EOL, FILE_APPEND);
+    }
+
+    function Guardar_Reporte()
+    {
+        $Carpeta = "../Reporte";
+        $Reporte = "/".$_SESSION['Usuario'].".txt";
+        $Destino = "/".date("d-m-y").".txt";
+        $Termino = "#############################################".PHP_EOL;
+        $Termino_Hora = date("[H:i:s] ").$_SESSION['Usuario']." Termino session.".PHP_EOL;
+
+        file_put_contents($Carpeta.$Reporte, $Termino_Hora.$Termino, FILE_APPEND);
+       
+        if($Archivo = file_get_contents($Carpeta.$Reporte))
+        {
+            echo $Archivo;
+            file_put_contents($Carpeta.$Destino,$Archivo, FILE_APPEND);
+            unlink($Carpeta.$Reporte);  
+        }
+
+    }
+
+
+
+#-----------------------------------------------------------------------------------------------------------------------------
+# funciones Para obtener la informacion de las personas
+#-----------------------------------------------------------------------------------------------------------------------------
+    function get_Empleado()
+    {
+         if (!empty($_POST["Rut"])) 
+         {
+            $_SESSION['Rut'] =  $_POST["Rut"];
+            $_SESSION['Datos'] = get_Datos();
+            $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
+            $_SESSION['Afp'] = get_AFP();
+            $_SESSION['Isapre'] = get_ISAPRE();
+            $_SESSION['Contrato'] = get_Contrato();
+            get_cargos();
+            cal_Total_Imponible();
+            licencias();
+            cal_Total_Descuentos();
+            cal_sub_total();
+            Liquido_Pagar();
+            Liquido_Alcansado();
+            gastos_extras();
+         }
+         elseif (!empty($_POST["r_Rut"])) 
+         {  
+            Escribir_Reporte("Se ha registrado un empleado con rut: ".$_POST["r_Rut"]);
+            $_SESSION['Rut'] =  $_POST["r_Rut"];
+            $_SESSION['Datos'] = get_Datos();
+            $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
+            $_SESSION['Afp'] = get_AFP();
+            $_SESSION['Isapre'] = get_ISAPRE();
+            $_SESSION['Contrato'] = get_Contrato();
+            get_cargos();
+            cal_Total_Imponible();
+            licencias();
+            cal_Total_Descuentos();
+            cal_sub_total();
+            Liquido_Pagar();
+            Liquido_Alcansado();
+            gastos_extras();
+         }
+         
+    }
+    
     function get_Personas(){ 
         include("conex.php");
         $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" ");
@@ -85,7 +177,7 @@ if(empty($_SESSION))
         }
         while ($row = pg_fetch_assoc($query)) {
             
-            $data [] = [$row["Rut"],$row["Nombre"]];   
+            $data [] = [$row["Rut"],trim($row["Nombre"]," ")];   
         }
         echo json_encode($data);
     }
@@ -93,6 +185,15 @@ if(empty($_SESSION))
             include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" where \"Rut\" = '".$_SESSION['Rut']."' ");
             $row = pg_fetch_assoc($query);
+            if(!empty($row))
+         {
+                Escribir_Reporte("Se busco el rut: ".$row['Rut']." de manera exitosa.");
+                Escribir_Reporte("Empleado seleccionado [".trim($row['Nombre']," "). "].");
+            }
+            else
+            {
+                Escribir_Reporte("Se busco el rut: ".$row['Rut']." , No se encontro el rut.");
+            }
             return $row;
     }
       

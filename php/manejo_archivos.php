@@ -1,7 +1,9 @@
 <?php
-    session_start();
-    $_SESSION['Usuario'] = "Javier";
-    chdir($_SERVER['DOCUMENT_ROOT']."/Liquidaciones-de-Sueldo/"); 
+#-----------------------------------------------------------------------------------------------------------------------------
+# funciones de manejos de archivos
+#-----------------------------------------------------------------------------------------------------------------------------
+
+// chdir($_SERVER['DOCUMENT_ROOT']."/Liquidaciones-de-Sueldo/"); ASi es como deberia estar settada el root.  
 
  
     function Iniciar_Reporte()
@@ -9,7 +11,7 @@
         $Carpeta = "./Reporte";
         $File = "/".$_SESSION['Usuario'].".txt";
         $Inicio = "#############################################".PHP_EOL."[".$_SESSION['Usuario']."]".PHP_EOL;
-        $Inicio_Hora = date("[H:m:s] ").$_SESSION['Usuario']." inicio session.".PHP_EOL;
+        $Inicio_Hora = date("[H:i:s] ").$_SESSION['Usuario']." inicio session.".PHP_EOL;
         // IMPORTANTE CONFIGURAR BIEN LA HORA EN EL SERVIDOR PHP .INI
         if(!is_dir($Carpeta))
         {   
@@ -22,7 +24,7 @@
     function Escribir_Reporte($Accion ="Hola mundo")
     {
         $Carpeta = "./Reporte";
-        $Hora = date("[H:m:s] ");
+        $Hora = date("[H:i:s] ");
         $File = "/".$_SESSION['Usuario'].".txt";
         file_put_contents($Carpeta.$File,$Hora.$Accion.PHP_EOL, FILE_APPEND);
     }
@@ -45,10 +47,4 @@
         }
 
     }
-    Iniciar_Reporte();
-    Escribir_Reporte("Hizo tal cosa");
-    Escribir_Reporte("Borro otra cosa");
-    Escribir_Reporte("Hackeo el sistema.");
-    Escribir_Reporte("LO borro todo.");
-    Guardar_Reporte();
 ?>

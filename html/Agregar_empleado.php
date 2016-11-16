@@ -27,7 +27,6 @@ else
         <link type="text/css" rel="stylesheet" href="../Resources/Style/estilo.css"/>
         <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style.css">
         <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style02.css">
-        <script src="../Resources/Scripts/scripts.js"></script>
         <script src="../Resources/Scripts/tabsO.js"></script>
         <script src="../Resources/Scripts/tabs.js"></script>
 		<script src="../Resources/Scripts/validaciones.js"></script>

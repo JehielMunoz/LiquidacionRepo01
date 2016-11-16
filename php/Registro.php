@@ -18,18 +18,7 @@ if($Registro_Usuario!=false)
         $Registro_Cargo = pg_query($dbconn,$q_Cargo);
     }    
 
-    $_SESSION['Rut'] =  $_POST["r_Rut"];   
-    $_SESSION['Datos'] = get_Datos();
-    $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");      
-    $_SESSION['Afp'] = get_AFP();
-    $_SESSION['Isapre'] = get_ISAPRE();
-    $_SESSION['Contrato'] = get_Contrato();
-    cal_Total_Imponible();
-    cal_Total_Descuentos();
-    cal_sub_total();
-    Liquido_Pagar();
-    Liquido_Alcansado();
-    
+    get_Empleado();
 
     header('location: ../index.php');  
 
