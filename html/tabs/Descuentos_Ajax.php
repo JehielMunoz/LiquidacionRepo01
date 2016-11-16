@@ -36,7 +36,7 @@ echo    "<table id =\"descuentos\">";
 // Aquí Comienza lo del Tipo de Usuario.
 if(!empty($_SESSION['Tipo']))
 {   
-    if($_SESSION['Tipo']!=="supervisor") // Pregunta el tipo de usuario 
+    if($_SESSION['Tipo']==="supervisor") // Pregunta el tipo de usuario 
     {   
         if(!empty($rut))
         {
