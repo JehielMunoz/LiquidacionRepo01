@@ -25,6 +25,7 @@ if(empty($_SESSION))
        
 
 #si no inicia en 0 la informacion // LO IDEAL SERIA DESTRUIR LAS VARIABLES CUANDO DEJEMOS DE USARLAS, AKA CUANDO LAS SUBIMOS A LA BASE DE DATOS. 
+
     function html_llamada($archivo){
         if (file_exists('./html/'.$archivo)) {
             include('./html/'.$archivo);
@@ -97,7 +98,7 @@ if(empty($_SESSION))
 
     function Escribir_Reporte($Accion ="Hola mundo")
     {
-        chdir($_SERVER['DOCUMENT_ROOT']."/Liquidaciones-de-Sueldo/");
+        chdir($_SERVER['DOCUMENT_ROOT']."/LiquidacionRepo01/");
         $Carpeta = "./Reporte";
         $Hora = date("[H:i:s] ");
         $File = "/".$_SESSION['Usuario'].".txt";
@@ -486,6 +487,17 @@ if(empty($_SESSION))
         }
     }
 
+    function Recargar_datos(){
+        get_cargos();
+        cal_Total_Imponible();
+        licencias();
+        cal_Total_Descuentos();
+        cal_sub_total();
+        Liquido_Pagar();
+        Liquido_Alcansado();
+        gastos_extras();
+        
+    }
     function get_fecha_php(){
         setlocale(LC_ALL,"es_ES");
         date_default_timezone_set('America/Santiago');
@@ -522,7 +534,7 @@ if(empty($_SESSION))
 	function Mostrar_Licencias()
 		{
 			include("conex.php");
-			$query = pg_query($dbconn, "SELECT * FROM \"tLicencias\"");
+			$query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" and \"Activo\"='t'");
 			while($row = pg_fetch_assoc($query))
 			{
 				echo "<tr>
@@ -767,7 +779,7 @@ function Sobre_giro(){
 
 function calculo_Descuentos_varios(){
     include("conex.php");
-    $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."'");
+    $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."' and \"Activo\"='t'");
     while($row1 = pg_fetch_assoc($query)){
     $_SESSION['Descuentos_Otros'] += $row1["Monto"];
     }
@@ -795,7 +807,7 @@ function licencias(){
     include("conex.php"); 
     $_SESSION['Descuentos_Licencias'] =0;
     $_SESSION['Descuentos_Licencias_dia'] = 0;
-    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."'" );
+    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."' and \"Activo\"='t'" );
     while($row1 = pg_fetch_assoc($query)){
         if($row1['Descuenta']=='t'){
             $_SESSION['Descuentos_Licencias_dia'] = round($_SESSION['Total_Haberes']/30);
