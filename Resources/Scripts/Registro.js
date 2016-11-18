@@ -30,7 +30,7 @@ $(function() {
             $("#Telefono").focus();
             return false;
 
-        } else if (isNaN($Rut)) {
+        } else if (isNaN($Telefono)) {
             alert("Ingrese un Telefono valido.");
             $("#Telefono").focus();
             return false;
