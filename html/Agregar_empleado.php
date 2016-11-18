@@ -2,7 +2,7 @@
 session_start();
 if(!empty($_SESSION['Usuario']))
 {   
-    if($_SESSION['Tipo']==="contador") // Pregunta el tipo de usuario 
+    if($_SESSION['Tipo']==="supervisor") // Pregunta el tipo de usuario 
     {   
         header('location: ../index.php');
         exit();

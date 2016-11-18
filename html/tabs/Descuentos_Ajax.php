@@ -82,7 +82,11 @@ if(!empty($_SESSION['Tipo']))
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
-                }    
+                }
+                else
+                {
+                    Escribir_Reporte("Se creo una licencia de". diferencia_Fecha($_POST['Inicio_l'],$_POST['Final_l']) ." días para el empleado: ".$_SESSION['Rut']);
+                }
             }
             
             if($num!='0' && $num2==1){
