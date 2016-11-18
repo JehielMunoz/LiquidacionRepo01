@@ -8,8 +8,8 @@
 <body>
     <div id="top-header">
         <h1>
-            <?php global $html_titulo_barra;print_Variable($html_titulo_barra);?>
-        </h1>
+            <?php global $html_titulo_barra;print_Variable($html_titulo_barra); ?> - <span id="n_Empleado"></span> <?php if(!empty($_SESSION['Rut'])){ echo "[ ".$_SESSION['Nombre']." ]";}?>
+        </h1> 
 
         <div>
             <form action="./php/desconexion.php" method="post">

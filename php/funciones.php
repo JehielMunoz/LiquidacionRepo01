@@ -124,6 +124,12 @@ if(empty($_SESSION))
 
     }
 
+    function diferencia_Fecha($date1,$date2)
+    {
+        $Fecha_Inicio = strtotime($date1);
+        $Fecha_Termino = strtotime($date2);
+        return ($Fecha_Termino-$Fecha_Inicio)/(60*60*24); //  Dividido en dias
+    }
 
 
 #-----------------------------------------------------------------------------------------------------------------------------

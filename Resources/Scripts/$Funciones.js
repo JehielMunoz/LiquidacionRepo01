@@ -23,13 +23,14 @@ $(function() {
                     $("#tabs-1").html(data); // Remplzasa el contedio del div tabs-1
                     $("#tabs").tabs("option", "active", 0);
                     $("#AutoNombre").val("");
+                    $("#n_Empleado").text("[ " + $Persona[1] + " ]");
                     $Persona = null;
                 }
 
             });
         }
-            return false; // Igual  que al validar formularios, devuelve falso para que se ejecute el enviar del form.
-        
+        return false; // Igual  que al validar formularios, devuelve falso para que se ejecute el enviar del form.
+
     });
     $("#tab-5").click(function() { // Esto maneja el ajax. Cuando hago click en el boton para buscar. Hace una consulta por post y remplaza la planilla con la respuesta del pust.
         var url = "./html/tabs/Vista_Previa_ajax.php";
@@ -52,8 +53,12 @@ function AsignarId(nam) {
 
     var $Nombre = $(nam).val(); // nombre a buscar el index 
     var index = nombre.indexOf($Nombre); // busca el index del nombre//
-    var $Rut = id[index]; // devuelve la id.
-    return [$Rut, $Nombre];
+    if (index < 0) {
+        return null;
+    } else {
+        var $Rut = id[index]; // devuelve la id.
+        return [$Rut, $Nombre];
+    }
 
 }
 
