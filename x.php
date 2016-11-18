@@ -45,10 +45,12 @@
         }
 
     }
-    Iniciar_Reporte();
-    Escribir_Reporte("Hizo tal cosa");
-    Escribir_Reporte("Borro otra cosa");
-    Escribir_Reporte("Hackeo el sistema.");
-    Escribir_Reporte("LO borro todo.");
-    Guardar_Reporte();
+    
+
+    $s1 = strtotime("2016-11-30");
+    $s2 = strtotime("2016-11-15");
+    echo ($s1 - $s2)/(60*60*24);
+    
+   
+
 ?>
