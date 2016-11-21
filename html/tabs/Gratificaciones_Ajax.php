@@ -32,7 +32,7 @@ $dbconn = pg_connect($conn_string);
 // Aquí Comienza lo del Tipo de Usuario.
 if(!empty($_SESSION['Tipo']))
 {   
-    if($_SESSION['Tipo']==="contador") // Pregunta el tipo de usuario 
+    if($_SESSION['Tipo']==="supervisor") // Pregunta el tipo de usuario 
     {   
         if(!empty($rut))
         {
@@ -70,6 +70,7 @@ if(!empty($_SESSION['Tipo']))
             }
             if($num!='0' && $num2==1){
                 $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tBonos\"(\"Rut\",\"id_Bono\",\"Monto\") values('$rut',$num,$monto);"); 
+                Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
@@ -78,6 +79,7 @@ if(!empty($_SESSION['Tipo']))
             }
             if($num!='0' && $num2==2){
                 $query = pg_query($dbconn,"delete from  \"rel_tEmpleados_tBonos\" where \"rel_tEmpleados_tBonos\".\"id_Bono\"=$num and \"rel_tEmpleados_tBonos\".\"Rut\" = '$rut' ;"); 
+                Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
