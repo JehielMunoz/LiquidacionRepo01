@@ -1,4 +1,5 @@
 <?php include '../../php/funciones.php';
+
 ?>
 <table id="tabla_vista_previa">
     <tr id="fila_1"><td>
@@ -94,8 +95,8 @@
     {
         $query1 = pg_query($dbconn, " SELECT * FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."'::bpchar;"); 
         $query2 = pg_query($dbconn, "SELECT * FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."'::bpchar;");   
-        $query3 = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."' and \"Activo\"='t'");
-        $query4 = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."' and \"Activo\"='t'" );
+        $query3 = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."'");
+        $query4 = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."'" );
         while ($contador<20){
             $row1 = pg_fetch_assoc($query1);
             echo "<tr>";
@@ -136,7 +137,7 @@
                     }
                     else{
                         if($row2 = pg_fetch_assoc($query4)){
-                        echo 'Licencias Medicas';
+                        echo $row2['Nombre_licencia'];
                         }
                     }
                 }
@@ -299,4 +300,4 @@
                     </table>    
                 </td></tr>
             </table>
-<input type="button" name="imprimir" value="Imprimir" onclick="window.print();<?php Escribir_Reporte("Se imprimio la liquidacion del Empleado con rut: ".$_SESSION['Rut'])."."?>">
+<input type="button" name="imprimir" value="Imprimir" onclick="window.print();">
