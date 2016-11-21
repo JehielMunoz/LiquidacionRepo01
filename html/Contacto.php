@@ -21,7 +21,8 @@
         <script src="../Resources/Scripts/scripts.js"></script>
         <script src="../Resources/Scripts/tabsO.js"></script>
         <script src="../Resources/Scripts/tabs.js"></script>
-        <script>
+        <script src="../Resources/Scripts/$Funciones.js"></script>
+        <script>    
             $(function() {
                 console.log( "1readysss!" ); // Lo hice para comprobar que el ajax estaba funcioando sin recargar la pagina. 
             });
@@ -37,7 +38,7 @@
                     id.push(id_nombre[x][0]) ;    
                     nombre.push(id_nombre[x][1]) ;    
                 }                        
-                $( "#AutoNombre" ).autocomplete({
+                $("#Rut").autocomplete({
                 source: nombre,
                 change: function(){   // Esto detecta el canbio en el campo de texto. Cuando se usa el autocompletado. Funcioa en chrome y firefox, IE NO LO HE PROBADO.
                     AsignarId($(this));
@@ -45,7 +46,6 @@
                 });
             });
         </script>
-        <script src="../Resources/Scripts/Asignar_datos_db.js"></script>   
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         
     </head>
@@ -79,7 +79,7 @@
             <div style="margin-bottom:-15px;"><ul>
 				<li>
 				<form action="./Contacto.php" method="post">
-                        <input type="text"  id="Rut" name="c_Buscar"  required placeholder="Buscar personal por Rut...">
+                        <input type="text"  id="Rut" name="c_Buscar"  required placeholder="Buscar personal por Nombre...">
                         <input type="submit" id="btn-buscar" formmethod="post" value="Buscar Persona">
                     </form>
                 </li>  
@@ -93,7 +93,7 @@
 			<div id="tabs-1">
             <div class="divplanilla">
                 <table>
-					<h3 id="tCso">Contaco funcionarios</h3>
+					<h3 id="tCso">Contacto funcionarios</h3>
                     <th >Rut</th>
                     <th >Nombre</th>
                     <th >Telefono</th>

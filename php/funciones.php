@@ -645,7 +645,7 @@ if(empty($_SESSION))
         {
             $query ="Select \"tEmpleados\".\"Rut\",\"tEmpleados\".\"Nombre\", \"tEmpleado_Fono\".\"N_telefono\" 
                       From \"tEmpleados\" Inner Join \"tEmpleado_Fono\" ON \"tEmpleados\".\"Rut\" = \"tEmpleado_Fono\".\"Rut\"
-                      Where \"tEmpleados\".\"Rut\" = '".$_POST['c_Buscar']."'
+                      Where \"tEmpleados\".\"Nombre\" = '".$_POST['c_Buscar']."'
                       order by \"tEmpleados\".\"Rut\"";
         }
         else
