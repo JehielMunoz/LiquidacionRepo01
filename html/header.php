@@ -32,7 +32,8 @@
         var $Persona = null; // Variable que guarda el rut y el nombre
         var id_nombre = <?php get_Personas();?>; 
         var id = [];
-        var nombre = [];   
+        var nombre = [];
+        var nombre_low = [];   
         $(function(){
             $("#tabs").tabs();
         });
@@ -40,14 +41,20 @@
             for (var x = 0; x < id_nombre.length; x++)
             {
                 id.push(id_nombre[x][0]) ;    
-                nombre.push(id_nombre[x][1]) ;    
+                nombre.push(id_nombre[x][1]) ;
+                nombre_low.push(id_nombre[x][1].toLowerCase()) ;
+
             }                        
-            $( "#AutoNombre" ).autocomplete({
+            $("#AutoNombre").autocomplete({
             source: nombre,
             change: function(){   // Esto detecta el canbio en el campo de texto. Cuando se usa el autocompletado. Funcioa en chrome y firefox, IE NO LO HE PROBADO.
                 $Persona = AsignarId($(this));
             }
             });
+            $('#AutoNombre').on('input', function(){
+                $Persona = AsignarId($(this));
+            });
+
         });
         
     </script>

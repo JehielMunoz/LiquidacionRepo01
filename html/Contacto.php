@@ -28,7 +28,8 @@
             });
             var id_nombre = <?php get_Personas();?>; 
             var id = [];
-            var nombre = [];   
+            var nombre = [];
+            var nombre_low = [];
             $(function(){
                 $("#tabs").tabs();
             });
@@ -36,14 +37,23 @@
                 for (var x = 0; x < id_nombre.length; x++)
                 {
                     id.push(id_nombre[x][0]) ;    
-                    nombre.push(id_nombre[x][1]) ;    
+                    nombre.push(id_nombre[x][1]);    
+                    nombre_low.push(id_nombre[x][1].toLowerCase());
                 }                        
                 $("#Rut").autocomplete({
                 source: nombre,
                 change: function(){   // Esto detecta el canbio en el campo de texto. Cuando se usa el autocompletado. Funcioa en chrome y firefox, IE NO LO HE PROBADO.
-                    AsignarId($(this));
+                AsignarId($(this));
                 }
                 });
+                 $('#Rut').on('input', function(){
+                 $Persona = AsignarId($(this));
+                 if($Persona != null)
+                 {
+                     $('#Rut').val($Persona[1]);
+                 }
+               
+             });
             });
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -80,7 +90,7 @@
 				<li>
 				<form action="./Contacto.php" method="post">
                         <input type="text"  id="Rut" name="c_Buscar"  required placeholder="Buscar personal por Nombre...">
-                        <input type="submit" id="btn-buscar" formmethod="post" value="Buscar Persona">
+                        <input type="submit" id="btn" formmethod="post" value="Buscar Persona">
                     </form>
                 </li>  
                 <li>

@@ -8,7 +8,7 @@
 <body>
     <div id="top-header">
         <h1>
-            <?php global $html_titulo_barra;print_Variable($html_titulo_barra); ?> - <span id="n_Empleado"></span> <?php if(!empty($_SESSION['Rut'])){ echo "[ ".$_SESSION['Nombre']." ]";}?>
+            <?php global $html_titulo_barra;print_Variable($html_titulo_barra); ?> - <span id="n_Empleado"> <?php if(!empty($_SESSION['Rut'])){ echo "[ ".$_SESSION['Nombre']." ]";}?> </span> 
         </h1> 
 
         <div>
