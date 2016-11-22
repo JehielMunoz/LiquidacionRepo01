@@ -193,7 +193,7 @@ if(empty($_SESSION))
         }
         while ($row = pg_fetch_assoc($query)) {
             
-            $data [] = [$row["Rut"],$row["Nombre"]];   
+            $data [] = [$row["Rut"],trim($row["Nombre"]," ")];   
         }
         echo json_encode($data);
     }
@@ -201,6 +201,15 @@ if(empty($_SESSION))
             include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" where \"Rut\" = '".$_SESSION['Rut']."' ");
             $row = pg_fetch_assoc($query);
+            if(!empty($row))
+         {
+                Escribir_Reporte("Se busco el rut: ".$row['Rut']." de manera exitosa.");
+                Escribir_Reporte("Empleado seleccionado [".trim($row['Nombre']," "). "].");
+            }
+            else
+            {
+                Escribir_Reporte("Se busco el rut: ".$row['Rut']." , No se encontro el rut.");
+            }
             return $row;
     }
       
@@ -493,6 +502,17 @@ if(empty($_SESSION))
         }
     }
 
+    function Recargar_datos(){
+        get_cargos();
+        cal_Total_Imponible();
+        licencias();
+        cal_Total_Descuentos();
+        cal_sub_total();
+        Liquido_Pagar();
+        Liquido_Alcansado();
+        gastos_extras();
+        
+    }
     function get_fecha_php(){
         setlocale(LC_ALL,"es_ES");
         date_default_timezone_set('America/Santiago');
@@ -835,7 +855,7 @@ function Sobre_giro(){
 
 function calculo_Descuentos_varios(){
     include("conex.php");
-    $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."'");
+    $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."' and \"Activo\"='t'");
     while($row1 = pg_fetch_assoc($query)){
     $_SESSION['Descuentos_Otros'] += $row1["Monto"];
     }

@@ -1,4 +1,4 @@
-2016-09-14
+﻿2016-09-14
 -agregar 2 tablas para los bonos, en una tabla se guarda tanto el id como el nombre del bono. en la siguiente tabla se guarda el rut del empleado, el id del bono que le corresponde y el monto de este.
 06-10-2016
 -Falta liberar memoria
@@ -46,3 +46,46 @@ Nuevo:
 Por Implementar:
 
 La página de licencias.
+
+07-10-2016
+
+ Nuevo:
+-Códigos fusionados entre rama Desarrollo php y nacho.
+-Planilla, Gratificaciones y Descuentos están semis-funcionando.
+
+
+Por implementar:
+-En planilla falta insertar Formulas.
+-En Gratificaciones falta insertar formulas.
+-En Gratificaciones falta agregar fórmulas para agregar nueva gratificación.
+-En Descuentos falta insertar formulas.
+-En Descuentos falta agregar fórmulas para agregar nueva gratificación.
+-Falta solucionar Problemas con Chrome.
+
+
+11-10-2016:
+-Arreglado el bug con Google Chrome.
+-Implementado el ajax y arreglado problemas de logica(?)
+-Idk
+
+19-10-2016
+
+Nuevo:
+- Se Cambio el estilo
+- se agrego nuevo sistema de login
+- ahora se encontrara la version del la plataforma en el index
+
+19-10-2016
+
+Nuevo: 
+
+-Se Corrigierion problemas de los deciles en el momento de sacar los sueldos.
+-Gratificaciones y Descuentos Terminados.
+-Ahora se pueden agregar nuevas Gratificaciones.
+-Ahora se pueden agregar nuevos Descuentos.
+-Se incluyo el formato peso en Gratificaciones y Descuento.
+-Se corrigio un pequeño problema con la base de datos.
+
+Por Implementar:
+
+La página de licencias. 

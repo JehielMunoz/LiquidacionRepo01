@@ -8,8 +8,8 @@
 <body>
     <div id="top-header">
         <h1>
-            <?php global $html_titulo_barra;print_Variable($html_titulo_barra);?>
-        </h1>
+            <?php global $html_titulo_barra;print_Variable($html_titulo_barra); ?> - <span id="n_Empleado"></span> <?php if(!empty($_SESSION['Rut'])){ echo "[ ".$_SESSION['Nombre']." ]";}?>
+        </h1> 
 
         <div>
             <form action="./php/desconexion.php" method="post">
@@ -22,7 +22,7 @@
         <?php 
             if(!empty($_SESSION['Tipo']))
             {   
-                if($_SESSION['Tipo']!=="contador") // Pregunta el tipo de usuario 
+                if($_SESSION['Tipo']!=="supervisor") // Pregunta el tipo de usuario 
                 {   
                     echo "<a href=\"./html/Agregar_empleado.php\">Agregar Nuevo Empleado</a>";     // Y muestra el contenido segun el tipo que sea.
                 }
@@ -52,10 +52,9 @@
             <li class="button" onclick='TraerDatos("0","0")'><a href="#tabs-3">Descuentos</a></li>
             <li class="button" id="tab-5"><a href="#tabs-5">Vista Previa</a></li>
             <li>
-                <form action="#" method="post">
-                    <input type="text" hidden id="Rut" name="Rut">
+                <form id="Buscar_Persona" method="post">
                     <input type="text" id="AutoNombre" name="AutoNombre" placeholder="Buscar personal...">
-                    <input type="submit" id="btn-buscar" formmethod="post" value="Buscar Persona">
+                    <button type="submit" id="btn-buscar" >Buscar Persona</button>
                 </form>
             </li>
             <!--Agregar Botones//Listas//Tabs aquí, El contenido va en contenido.php.-->

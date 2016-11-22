@@ -36,7 +36,7 @@ echo    "<table id =\"descuentos\">";
 // Aquí Comienza lo del Tipo de Usuario.
 if(!empty($_SESSION['Tipo']))
 {   
-    if($_SESSION['Tipo']==="contador") // Pregunta el tipo de usuario 
+    if($_SESSION['Tipo']==="supervisor") // Pregunta el tipo de usuario 
     {   
         if(!empty($rut))
         {
@@ -69,7 +69,7 @@ if(!empty($_SESSION['Tipo']))
             if($num!='0' && $num2==4){
                 $values = "('$rut','".$_POST['Nombre']."','".$_POST['Inicio']."','".$_POST['Final']."',".$_POST['Monto'].")";
                 $query = pg_query($dbconn,"insert into \"tPrestamos\"(\"Rut\",\"Nombre\",\"F_inicio\",\"F_final\",\"Monto\") values".$values );
-                
+                Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
@@ -82,7 +82,7 @@ if(!empty($_SESSION['Tipo']))
              if($num!='0' && $num2==5){
                 $values = "('$rut','".$_POST['Descuenta']."',".$_POST['Dias'].",'".$_POST['Inicio_l']."','".$_POST['Final_l']."')";
                 $query = pg_query($dbconn,"insert into \"tLicencias\"(\"Rut\",\"Descuenta\",\"Dias\",\"F_inicio\",\"F_final\") values".$values );
-                
+                Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
@@ -95,6 +95,7 @@ if(!empty($_SESSION['Tipo']))
             
             if($num!='0' && $num2==1){
                 $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tDescuentos\"(\"id_Descuento\",\"Monto\",\"Rut\" ) values($num,$monto,'$rut');"); 
+                Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
@@ -107,6 +108,7 @@ if(!empty($_SESSION['Tipo']))
             }
             if($num!='0' && $num2==2){
                 $query = pg_query($dbconn,"delete from  \"rel_tEmpleados_tDescuentos\" where \"rel_tEmpleados_tDescuentos\".\"id_Descuento\"=$num and \"rel_tEmpleados_tDescuentos\".\"Rut\" = '$rut' ;"); 
+                Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
