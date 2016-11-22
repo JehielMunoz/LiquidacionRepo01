@@ -73,7 +73,7 @@ else
             <?php 
             if(!empty($_SESSION['Tipo']))
             {   
-                if($_SESSION['Tipo']!=="contador") // Pregunta el tipo de usuario 
+                if($_SESSION['Tipo']!=="supervisor") // Pregunta el tipo de usuario 
                 {   
                     echo "<a href=\"../html/Agregar_empleado.php\">Agregar Nuevo Empleado</a>";     // Y muestra el contenido segun el tipo que sea.
                 }
