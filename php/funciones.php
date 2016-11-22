@@ -166,10 +166,10 @@ if(empty($_SESSION))
          }
          elseif (!empty($_POST["r_Rut"])) 
          {  
-            Escribir_Reporte("Se ha registrado un empleado con rut: ".$_POST["r_Rut"]);
             $_SESSION['Rut'] =  $_POST["r_Rut"];
             $_SESSION['Datos'] = get_Datos();
             $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
+            Escribir_Reporte("Se ha registrado un empleado con Nombre: [ ".$_SESSION['Nombre']." ] y con rut: ".$_POST["r_Rut"]);
             $_SESSION['Afp'] = get_AFP();
             $_SESSION['Isapre'] = get_ISAPRE();
             $_SESSION['Contrato'] = get_Contrato();
