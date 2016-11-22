@@ -42,6 +42,9 @@ else
     require './php/funciones.php';
     //Requiere que cargue el archivo conexion, con la informacion de la DB, para que el resto de la pagina carge.
     // Carga las variables y las funciones
+    require './php/funciones.php';
+    desactivar_licencias();
+    desactivar_Prestamos();
     require './php/Variables.php';
   
     // Arma el html de la pagina.

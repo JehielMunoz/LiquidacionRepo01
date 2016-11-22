@@ -137,7 +137,7 @@
                     }
                     else{
                         if($row2 = pg_fetch_assoc($query4)){
-                        echo $row2['Nombre_licencia'];
+                        echo 'Licencias Medicas';
                         }
                     }
                 }

@@ -21,13 +21,11 @@
         return $string;        
     }
     
-    $e = "122223314";
-//        1.223.453.123
-     
-    $telefono = 85245624;
-    $telefono = substr_replace($telefono,' ',3,0);
-    $telefono = substr_replace($telefono,' ',6,0); 
-    $telefono = substr_replace($telefono,'(09) ',0,0); 
+
+    $s1 = strtotime("2016-11-30");
+    $s2 = strtotime("2016-11-15");
+    echo ($s1 - $s2)/(60*60*24);
     
-    echo $telefono;
+   
+
 ?>

@@ -25,6 +25,8 @@ if(empty($_SESSION))
        
 
 #si no inicia en 0 la informacion // LO IDEAL SERIA DESTRUIR LAS VARIABLES CUANDO DEJEMOS DE USARLAS, AKA CUANDO LAS SUBIMOS A LA BASE DE DATOS. 
+
+
     function html_llamada($archivo){
         if (file_exists('./html/'.$archivo)) {
             include('./html/'.$archivo);
@@ -76,6 +78,112 @@ if(empty($_SESSION))
 #-----------------------------------------------------------------------------------------------------------------------------
 # funciones Para obtener la informacion de las personas
 #-----------------------------------------------------------------------------------------------------------------------------
+
+ //chdir($_SERVER['DOCUMENT_ROOT']."/Liquidaciones-de-Sueldo/"); 
+
+ 
+    function Iniciar_Reporte()
+    {
+        $Carpeta = "./Reporte";
+        $File = "/".$_SESSION['Usuario'].".txt";
+        $Inicio = "#############################################".PHP_EOL."[".$_SESSION['Usuario']."]".PHP_EOL;
+        $Inicio_Hora = date("[H:i:s] ").$_SESSION['Usuario']." inicio session.".PHP_EOL;
+        // IMPORTANTE CONFIGURAR BIEN LA HORA EN EL SERVIDOR PHP .INI
+        if(!is_dir($Carpeta))
+        {   
+            mkdir($Carpeta,0777);
+        }       
+
+        file_put_contents($Carpeta.$File, $Inicio.$Inicio_Hora, FILE_APPEND);
+    }
+
+    function Escribir_Reporte($Accion ="Hola mundo")
+    {
+        chdir($_SERVER['DOCUMENT_ROOT']."/LiquidacionRepo01/");
+        $Carpeta = "./Reporte";
+        $Hora = date("[H:i:s] ");
+        $File = "/".$_SESSION['Usuario'].".txt";
+        file_put_contents($Carpeta.$File,$Hora.$Accion.PHP_EOL, FILE_APPEND);
+    }
+
+    function Guardar_Reporte()
+    {
+        $Carpeta = "../Reporte";
+        $Reporte = "/".$_SESSION['Usuario'].".txt";
+        $Destino = "/".date("d-m-y").".txt";
+        $Termino = "#############################################".PHP_EOL;
+        $Termino_Hora = date("[H:i:s] ").$_SESSION['Usuario']." Termino session.".PHP_EOL;
+
+        file_put_contents($Carpeta.$Reporte, $Termino_Hora.$Termino, FILE_APPEND);
+       
+        if($Archivo = file_get_contents($Carpeta.$Reporte))
+        {
+            echo $Archivo;
+            file_put_contents($Carpeta.$Destino,$Archivo, FILE_APPEND);
+            unlink($Carpeta.$Reporte);  
+        }
+
+    }
+
+    function diferencia_Fecha($date1,$date2)
+    {
+        $Fecha_Inicio = strtotime($date1);
+        $Fecha_Termino = strtotime($date2);
+        return ($Fecha_Termino-$Fecha_Inicio)/(60*60*24); //  Dividido en dias
+    }
+
+    function get_Descuento($id)
+    {
+        
+        include '../../php/conex.php';
+
+        $query = pg_query($dbconn,"SELECT \"Descuento\" FROM \"tDescuentos\" WHERE \"id_Descuento\" =".$id);
+        return trim(pg_fetch_assoc($query)['Descuento']," ");
+    }
+
+#-----------------------------------------------------------------------------------------------------------------------------
+# funciones Para obtener la informacion de las personas
+#-----------------------------------------------------------------------------------------------------------------------------
+    function get_Empleado()
+    {
+         if (!empty($_POST["Rut"])) 
+         {
+            $_SESSION['Rut'] =  $_POST["Rut"];
+            $_SESSION['Datos'] = get_Datos();
+            $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
+            $_SESSION['Afp'] = get_AFP();
+            $_SESSION['Isapre'] = get_ISAPRE();
+            $_SESSION['Contrato'] = get_Contrato();
+            get_cargos();
+            cal_Total_Imponible();
+            licencias();
+            cal_Total_Descuentos();
+            cal_sub_total();
+            Liquido_Pagar();
+            Liquido_Alcansado();
+            gastos_extras();
+         }
+         elseif (!empty($_POST["r_Rut"])) 
+         {  
+            Escribir_Reporte("Se ha registrado un empleado con rut: ".$_POST["r_Rut"]);
+            $_SESSION['Rut'] =  $_POST["r_Rut"];
+            $_SESSION['Datos'] = get_Datos();
+            $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
+            $_SESSION['Afp'] = get_AFP();
+            $_SESSION['Isapre'] = get_ISAPRE();
+            $_SESSION['Contrato'] = get_Contrato();
+            get_cargos();
+            cal_Total_Imponible();
+            licencias();
+            cal_Total_Descuentos();
+            cal_sub_total();
+            Liquido_Pagar();
+            Liquido_Alcansado();
+            gastos_extras();
+         }
+         
+    }
+    
     function get_Personas(){ 
         include("conex.php");
         $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" ");
@@ -421,18 +529,18 @@ if(empty($_SESSION))
 	function Mostrar_Licencias()
 		{
 			include("conex.php");
-			$query = pg_query($dbconn, "SELECT * FROM \"tLicencias\"");
+			$query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Activo\"='t'");
 			while($row = pg_fetch_assoc($query))
 			{
 				echo "<tr>
 				<td>".Formato_Rut($row['Rut'])."</td>";
 				if($row['Descuenta'])
 				{
-				echo "<td>Si.</td>";
+				    echo "<td>Si.</td>";
 				}
 				else
 				{
-					"<td>No.</td>";
+					echo "<td>No.</td>";
 				}
 				echo "
 				<td>".$row['Dias']."</td>
@@ -442,6 +550,67 @@ if(empty($_SESSION))
 			}
 		}
 
+
+    function mostrar_impuesto()
+    {
+            include("conex.php");
+            $id=1;
+			while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
+			{
+				echo "
+                <tr>
+				    <td>".$row['fDesde']."</td>
+                    <td>".$row['fHasta']."</td>
+				    <td>".$row['Factor']."</td>
+				    <td>".$row['nDesde']."</td>
+				    <td>".$row['nHasta']."</td>
+				    <td>".$row['fRebaja']."</td>
+				    <td>".$row['nRebaja']."</td>
+				</tr>";
+                $id+=1;
+			}
+        
+        }
+    function mostrar_impuesto_editar()
+    {
+            include("conex.php");
+            $id=1;
+			while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
+			{
+                if($id==8){
+                echo "
+                    <tr>
+                        <td>".$row['id_Impuesto']."</td>
+                        <td><input name='".$row['id_Impuesto']."fdesde' type='number' min='0' step='0.00001' value='".$row['fDesde']."'></td>
+                        <td></td>
+                        <td><input name='".$row['id_Impuesto']."factor' type='number' min='0' step='0.00001' value='".$row['Factor']."'></td>
+                        <td><input name='".$row['id_Impuesto']."ndesde' type='number' min='0' value='".$row['nDesde']."'></td>
+                        <td></td>
+                        <td><input name='".$row['id_Impuesto']."frebaja' type='number' min='0' step='0.00001' value='".$row['fRebaja']."'></td>
+                        <td><input name='".$row['id_Impuesto']."nrebaja' type='number' min='0' value='".$row['nRebaja']."'></td>
+
+                    </tr>"; 
+                }
+                else 
+                {
+                echo "
+                    <tr>
+                        <td>".$row['id_Impuesto']."</td>
+                        <td><input name='".$row['id_Impuesto']."fdesde' type='number' min='0' step='0.00001' value='".$row['fDesde']."'></td>
+                        <td><input name='".$row['id_Impuesto']."fhasta' type='number' min='0' step='0.00001' value='".$row['fHasta']."'></td>
+                        <td><input name='".$row['id_Impuesto']."factor' type='number' min='0' step='0.00001' value='".$row['Factor']."'></td>
+                        <td><input name='".$row['id_Impuesto']."ndesde' type='number' min='0' value='".$row['nDesde']."'></td>
+                        <td><input name='".$row['id_Impuesto']."nhasta' type='number' min='0' value='".$row['nHasta']."'></td>
+                        <td><input name='".$row['id_Impuesto']."frebaja' type='number' min='0' step='0.00001' value='".$row['fRebaja']."'></td>
+                        <td><input name='".$row['id_Impuesto']."nrebaja' type='number' min='0' value='".$row['nRebaja']."'></td>
+
+                    </tr>";   
+                }
+
+                $id+=1;
+			}
+        
+        }
     function Mostrar_ISAPRE()
     {   
         
@@ -690,18 +859,91 @@ function gastos_extras(){
     
 }
 
+function desactivar_Prestamos(){
+    include("conex.php"); 
+    $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Activo\"='t'");
+    while($row1 =pg_fetch_assoc($query)){
+        list($year_final,$Mes_final,$Dia_final)= explode("-",$row1['F_final']);
+        if(intval(date('Y'))==intval($year_final) and intval($Mes_final)<12){
+            if(intval(date('n'))>intval($Mes_final) and intval(date('j'))>5){    
+                $query = pg_query($dbconn, "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";");
+            }
+        }
+        else{
+            if(intval(date('Y'))>intval($year_final) and intval($Mes_final)==12 and intval(date('j'))>5){
+                $query = pg_query($dbconn, "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";");
+            }
+        }
+    }
+}                   
+function desactivar_licencias(){
+    include("conex.php"); 
+    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Activo\" ='t'");
+    while($row1 = pg_fetch_assoc($query)){
+        list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
+        $year=intval($year_inicial);
+        $Mes=intval($Mes_inicial);
+        $Dias=$Dia_inicial+$row1['Dias'];
+        while(true){
+            if($Mes>=intval(date('n')) and $year>=intval(date('Y')) and intval(date('j'))>5){
+                if($Dias<=0){
+                    $query = pg_query($dbconn, "UPDATE \"tLicencias\" set \"Activo\" = 'f' where \"id_Licencia\" =".$row1['id_Licencia'].";" );
+                    break;
+                }
+                else{
+                    break;
+                }
+            }
+            $Mes=$Mes+1;
+            if($Mes>12){
+                $Mes=1;
+                $year=$year+1;
+            }
+            $Dias= $Dias-30;
+        }                  
+    }   
+}
+
 function licencias(){
     include("conex.php"); 
     $_SESSION['Descuentos_Licencias'] =0;
-    $_SESSION['Descuentos_Licencias_dia'] = 0;
-    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."'" );
+    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."' AND \"Activo\" ='t'");
     while($row1 = pg_fetch_assoc($query)){
         if($row1['Descuenta']=='t'){
-            $_SESSION['Descuentos_Licencias_dia'] = round($_SESSION['Total_Haberes']/30);
-            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $row1['Dias']);
-            
+            list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
+            $Mes=intval($Mes_inicial);
+            $Dias=$Dia_inicial+$row1['Dias'];
+            $year= intval($year_inicial);
+            if($Dias<=30){
+                $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $row1['Dias']);
+            }
+            else
+            {
+                if($Mes==intval(date('n')) and $year==intval(date('Y'))){
+                      $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * (30-$Dia_inicial));                  
+                }
+                else{
+                    while(true){
+                    $Mes=$Mes+1;
+                    if($Mes>12){
+                        $Mes=1;
+                        $year=$year+1;
+                    }
+                    $Dias= $Dias-30;
+                    if($Mes==intval(date('n')) and $year==intval(date('Y'))){
+                        if($Dias<=30){
+                            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $Dias);
+                            break;
+                        }
+                        else{
+                            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * 30);
+                            break;
+                            }
+                        }
+                    }
+                }
+            }                    
         }
-        
     }
 }
 
