@@ -556,11 +556,11 @@ if(empty($_SESSION))
 				<td>".Formato_Rut($row['Rut'])."</td>";
 				if($row['Descuenta'])
 				{
-				echo "<td>Si.</td>";
+				    echo "<td>Si.</td>";
 				}
 				else
 				{
-					"<td>No.</td>";
+					echo "<td>No.</td>";
 				}
 				echo "
 				<td>".$row['Dias']."</td>
@@ -570,6 +570,67 @@ if(empty($_SESSION))
 			}
 		}
 
+
+    function mostrar_impuesto()
+    {
+            include("conex.php");
+            $id=1;
+			while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
+			{
+				echo "
+                <tr>
+				    <td>".$row['fDesde']."</td>
+                    <td>".$row['fHasta']."</td>
+				    <td>".$row['Factor']."</td>
+				    <td>".$row['nDesde']."</td>
+				    <td>".$row['nHasta']."</td>
+				    <td>".$row['fRebaja']."</td>
+				    <td>".$row['nRebaja']."</td>
+				</tr>";
+                $id+=1;
+			}
+        
+        }
+    function mostrar_impuesto_editar()
+    {
+            include("conex.php");
+            $id=1;
+			while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
+			{
+                if($id==8){
+                echo "
+                    <tr>
+                        <td>".$row['id_Impuesto']."</td>
+                        <td><input name='".$row['id_Impuesto']."fdesde' type='number' min='0' step='0.00001' value='".$row['fDesde']."'></td>
+                        <td></td>
+                        <td><input name='".$row['id_Impuesto']."factor' type='number' min='0' step='0.00001' value='".$row['Factor']."'></td>
+                        <td><input name='".$row['id_Impuesto']."ndesde' type='number' min='0' value='".$row['nDesde']."'></td>
+                        <td></td>
+                        <td><input name='".$row['id_Impuesto']."frebaja' type='number' min='0' step='0.00001' value='".$row['fRebaja']."'></td>
+                        <td><input name='".$row['id_Impuesto']."nrebaja' type='number' min='0' value='".$row['nRebaja']."'></td>
+
+                    </tr>"; 
+                }
+                else 
+                {
+                echo "
+                    <tr>
+                        <td>".$row['id_Impuesto']."</td>
+                        <td><input name='".$row['id_Impuesto']."fdesde' type='number' min='0' step='0.00001' value='".$row['fDesde']."'></td>
+                        <td><input name='".$row['id_Impuesto']."fhasta' type='number' min='0' step='0.00001' value='".$row['fHasta']."'></td>
+                        <td><input name='".$row['id_Impuesto']."factor' type='number' min='0' step='0.00001' value='".$row['Factor']."'></td>
+                        <td><input name='".$row['id_Impuesto']."ndesde' type='number' min='0' value='".$row['nDesde']."'></td>
+                        <td><input name='".$row['id_Impuesto']."nhasta' type='number' min='0' value='".$row['nHasta']."'></td>
+                        <td><input name='".$row['id_Impuesto']."frebaja' type='number' min='0' step='0.00001' value='".$row['fRebaja']."'></td>
+                        <td><input name='".$row['id_Impuesto']."nrebaja' type='number' min='0' value='".$row['nRebaja']."'></td>
+
+                    </tr>";   
+                }
+
+                $id+=1;
+			}
+        
+        }
     function Mostrar_ISAPRE()
     {   
         
@@ -824,12 +885,12 @@ function desactivar_Prestamos(){
     while($row1 =pg_fetch_assoc($query)){
         list($year_final,$Mes_final,$Dia_final)= explode("-",$row1['F_final']);
         if(intval(date('Y'))==intval($year_final) and intval($Mes_final)<12){
-            if(intval(date('n'))>intval($Mes_final)){    
+            if(intval(date('n'))>intval($Mes_final) and intval(date('j'))>5){    
                 $query = pg_query($dbconn, "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";");
             }
         }
         else{
-            if(intval(date('Y'))>intval($year_final) and intval($Mes_final)==12){
+            if(intval(date('Y'))>intval($year_final) and intval($Mes_final)==12 and intval(date('j'))>5){
                 $query = pg_query($dbconn, "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";");
             }
         }
@@ -844,7 +905,7 @@ function desactivar_licencias(){
         $Mes=intval($Mes_inicial);
         $Dias=$Dia_inicial+$row1['Dias'];
         while(true){
-            if($Mes==intval(date('n')) and $year==intval(date('Y')) ){
+            if($Mes>=intval(date('n')) and $year>=intval(date('Y')) and intval(date('j'))>5){
                 if($Dias<=0){
                     $query = pg_query($dbconn, "UPDATE \"tLicencias\" set \"Activo\" = 'f' where \"id_Licencia\" =".$row1['id_Licencia'].";" );
                     break;
