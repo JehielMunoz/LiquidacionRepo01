@@ -10,6 +10,12 @@
 		<link type="text/css" rel="stylesheet" href="./Resources/Style/style.css"/>
 		<link type="text/css" rel="stylesheet" href="./Resources/Style/supersized.css"/>
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'/>
+		<!--Scripts-->
+		<script src="./Resources/Scripts/jquery-1.8.2.min.js"></script>
+		<script src="./Resources/Scripts/supersized.3.2.7.js"></script>
+		<script src="./Resources/Scripts/supersized-init.js"></script>
+		<script src="./Resources/Scripts/script.js"></script>
+		<script src="./Resources/Scripts/validaciones.js"></script>
 	</head>
 	<body>
 		<div class="page-container">
@@ -21,10 +27,5 @@
 				<div class="error"><span>+</span></div>
 			</form>
 		</div>
-		<!--Scripts-->
-		<script src="./Resources/Scripts/jquery-1.8.2.min.js"></script>
-		<script src="./Resources/Scripts/supersized.3.2.7.js"></script>
-		<script src="./Resources/Scripts/supersized-init.js"></script>
-		<script src="./Resources/Scripts/script.js"></script>
 	</body>
 </html>
