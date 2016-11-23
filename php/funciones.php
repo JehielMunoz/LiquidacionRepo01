@@ -564,10 +564,10 @@ if(empty($_SESSION))
 					"<td>No</td>";
 				}
 				echo "
-				<td>".$row['Dias']."</td>
+				<td><input type=text readonly value=\"".$row['Dias']."\"></td>
 				<td>".$row['F_inicio']."</td>
 				<td>".$row['F_final']."</td>
-				<td><a href=\"../../php/Desactivar_licencias.php?id_licencia=".$row['id_Licencia']."\"><button>Desactivar</button></a></td>
+				<td><a href=\"../php/Desactivar_licencias.php?id_licencia=".$row['id_Licencia']."\"><button>Desactivar</button></a></td>
                 
 				</tr>";
 			}

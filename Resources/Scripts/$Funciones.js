@@ -48,6 +48,10 @@ $(function() {
 
 
 
+
+
+
+
 function AsignarId(nam) {
 
     var $Nombre = $(nam).val(); // nombre a buscar el index 
