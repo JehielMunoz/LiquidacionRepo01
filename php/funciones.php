@@ -21,6 +21,7 @@ if(empty($_SESSION))
      Liquido_Pagar();
      Liquido_Alcansado();
      gastos_extras();
+     calculo_impuesto_unico();
 }
        
 
@@ -983,6 +984,40 @@ function licencias(){
     }
 }
 
+function calculo_impuesto_unico(){
+    include("conex.php");
+    $id=1;
+    while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
+    {
+        if($id==1){
+            if($_SESSION['Total_Tributable']>=$row['nDesde'] and $_SESSION['Total_Tributable']<$row['nHasta'] ){
+                break;
+            }
+            
+        }
+        else 
+        {
+            if($id==8){
+                if($_SESSION['Total_Tributable']>=$row['nDesde']){
+                    $query = pg_query($dbconn,"UPDATE \"rel_tEmpleados_tDescuentos\" SET \"Monto\"=".(($_SESSION['Total_Tributable']*$row['Factor'])-$row['nRebaja'])." where \"id_Descuento\"=4 and \"Rut\"='".$_SESSION['Rut']."' ");
+                    if(!$query){
+                        $query2= pg_query($dbconn,"INSERT INTO \"rel_tEmpleados_tDescuentos\" (\"id_Descuento\",\"Monto\",\"Rut\") Values (4,".(($_SESSION['Total_Tributable']*$row['Factor'])-$row['nRebaja']).",'".$_SESSION['Rut']."')" );
+                    }
+                }
+            }
+            else
+            {
+                if($_SESSION['Total_Tributable']>=$row['nDesde'] and $_SESSION['Total_Tributable']<$row['nHasta'] ){
+                    $query = pg_query($dbconn,"UPDATE \"rel_tEmpleados_tDescuentos\" SET \"Monto\"=".(($_SESSION['Total_Tributable']*$row['Factor'])-$row['nRebaja'])." where \"id_Descuento\"=4 and \"Rut\"='".$_SESSION['Rut']."' ");
+                    if(!$query){
+                        $query2= pg_query($dbconn,"INSERT INTO \"rel_tEmpleados_tDescuentos\" (\"id_Descuento\",\"Monto\",\"Rut\") Values (4,".(($_SESSION['Total_Tributable']*$row['Factor'])-$row['nRebaja']).",'".$_SESSION['Rut']."')" );
+                    }
+                }
+            }
+        }
+        $id+=1;
+    }     
+}
 #-----------------------------------------------------------------------------------------------------------------------
 #     conversion numeros
 #-------------------------------------------------------------------------------------------------------------------
