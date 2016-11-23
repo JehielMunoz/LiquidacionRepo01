@@ -564,11 +564,16 @@ if(empty($_SESSION))
 				{
 					echo "<td>No.</td>";
 				}
+                // PUEDES BUSCAR LOS READONLY DE EL FORM cuando se activa el submit.
 				echo "
-				<td>".$row['Dias']."</td>
+                <form method=\"post\" action=\"../php/Desactivar_licencias.php\"> 
+                <input name=\"id_modificar\" hidden type=text value=\"".$row['id_Licencia']."\">
+				<td><input name=\"dias\" type=text readonly value=\"".$row['Dias']."\"></td>
 				<td>".$row['F_inicio']."</td>
 				<td>".$row['F_final']."</td>
-				<td><a href=\"../../php/Desactivar_licencias.php?id_licencia=".$row['id_Licencia']."\"><button>Desactivar</button></a></td>
+				<td><button type=\"submit\">Modficar Dias</button></td></form>
+                <td><a href=\"../php/Desactivar_licencias.php?id_licencia=".$row['id_Licencia']."\"><button>Desactivar</button></a></td>
+				
                 
 				</tr>";
 			}
