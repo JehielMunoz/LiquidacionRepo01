@@ -100,7 +100,8 @@ if(empty($_SESSION))
 
     function Escribir_Reporte($Accion ="Hola mundo")
     {
-        chdir($_SERVER['DOCUMENT_ROOT']."/LiquidacionRepo01/");
+        chdir($_SERVER['DOCUMENT_ROOT']."/Liquidaciones-de-Sueldo/"); //Posible fix(?) NO , Hay que arreglarlo
+        
         $Carpeta = "./Reporte";
         $Hora = date("[H:i:s] ");
         $File = "/".$_SESSION['Usuario'].".txt";
@@ -166,10 +167,10 @@ if(empty($_SESSION))
          }
          elseif (!empty($_POST["r_Rut"])) 
          {  
-            Escribir_Reporte("Se ha registrado un empleado con rut: ".$_POST["r_Rut"]);
             $_SESSION['Rut'] =  $_POST["r_Rut"];
             $_SESSION['Datos'] = get_Datos();
             $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
+            Escribir_Reporte("Se ha registrado un empleado con Nombre: [ ".$_SESSION['Nombre']." ] y con rut: ".$_POST["r_Rut"]);
             $_SESSION['Afp'] = get_AFP();
             $_SESSION['Isapre'] = get_ISAPRE();
             $_SESSION['Contrato'] = get_Contrato();
@@ -567,6 +568,8 @@ if(empty($_SESSION))
 				<td>".$row['Dias']."</td>
 				<td>".$row['F_inicio']."</td>
 				<td>".$row['F_final']."</td>
+				<td><a href=\"../../php/Desactivar_licencias.php?id_licencia=".$row['id_Licencia']."\"><button>Desactivar</button></a></td>
+                
 				</tr>";
 			}
 		}
@@ -707,7 +710,7 @@ if(empty($_SESSION))
         {
             $query ="Select \"tEmpleados\".\"Rut\",\"tEmpleados\".\"Nombre\", \"tEmpleado_Fono\".\"N_telefono\" 
                       From \"tEmpleados\" Inner Join \"tEmpleado_Fono\" ON \"tEmpleados\".\"Rut\" = \"tEmpleado_Fono\".\"Rut\"
-                      Where \"tEmpleados\".\"Rut\" = '".$_POST['c_Buscar']."'
+                      Where \"tEmpleados\".\"Nombre\" = '".$_POST['c_Buscar']."'
                       order by \"tEmpleados\".\"Rut\"";
         }
         else
