@@ -100,7 +100,7 @@ if(empty($_SESSION))
 
     function Escribir_Reporte($Accion ="Hola mundo")
     {
-        chdir($_SERVER['DOCUMENT_ROOT']."/Liquidaciones-de-Sueldo/"); //Posible fix(?) NO , Hay que arreglarlo
+        chdir($_SERVER['DOCUMENT_ROOT']."/LiquidacionRepo01/"); //Posible fix(?) NO , Hay que arreglarlo
         
         $Carpeta = "./Reporte";
         $Hora = date("[H:i:s] ");
