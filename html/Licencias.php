@@ -41,13 +41,12 @@
                 }                        
                 $( "#AutoNombre" ).autocomplete({
                 source: nombre,
-                change: function(){   // Esto detecta el canbio en el campo de texto. Cuando se usa el autocompletado. Funcioa en chrome y firefox, IE NO LO HE PROBADO.
+                change: function(){   //Esto detecta el canbio en el campo de texto. Cuando se usa el autocompletado. Funcioa en chrome y firefox, IE NO LO HE PROBADO.
                     AsignarId($(this));
                 }
                 });
             });
-        </script>
-        <script src="../Resources/Scripts/Asignar_datos_db.js"></script>   
+        </script>   
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         
     </head>
