@@ -903,10 +903,10 @@ function desactivar_licencias(){
         list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
         $year=intval($year_inicial);
         $Mes=intval($Mes_inicial);
-        $Dias=$Dia_inicial+$row1['Dias'];
+        $Dias=($Dia_inicial-1)+$row1['Dias'];
         while(true){
-            if($Mes>=intval(date('n')) and $year>=intval(date('Y')) and intval(date('j'))>5){
-                if($Dias<=0){
+            if($Mes==intval(date('n')) and $year==intval(date('Y'))){
+                if($Dias<1 and intval(date('j'))>5){
                     $query = pg_query($dbconn, "UPDATE \"tLicencias\" set \"Activo\" = 'f' where \"id_Licencia\" =".$row1['id_Licencia'].";" );
                     break;
                 }
@@ -914,12 +914,12 @@ function desactivar_licencias(){
                     break;
                 }
             }
+            $Dias=$Dias-30;
             $Mes=$Mes+1;
             if($Mes>12){
                 $Mes=1;
                 $year=$year+1;
             }
-            $Dias= $Dias-30;
         }                  
     }   
 }
@@ -928,41 +928,57 @@ function licencias(){
     include("conex.php"); 
     $_SESSION['Descuentos_Licencias'] =0;
     $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."' AND \"Activo\" ='t'");
-    while($row1 = pg_fetch_assoc($query)){
+    $ultimo_val=0;
+    while($row1 = pg_fetch_assoc($query)){       
         if($row1['Descuenta']=='t'){
-            list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
-            $Mes=intval($Mes_inicial);
-            $Dias=$Dia_inicial+$row1['Dias'];
-            $year= intval($year_inicial);
-            if($Dias<=30){
-                $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $row1['Dias']);
-            }
-            else
-            {
-                if($Mes==intval(date('n')) and $year==intval(date('Y'))){
-                      $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * (30-$Dia_inicial));                  
+            if(intval(date('j'))<=5){
+                if($row1['Ultimo_val']>$ultimo_val){
+                    $ultimo_val=$row1['Ultimo_val'];
+                    $_SESSION['Descuentos_Licencias']=$row1['Ultimo_val']; 
                 }
                 else{
-                    while(true){
-                    $Mes=$Mes+1;
-                    if($Mes>12){
-                        $Mes=1;
-                        $year=$year+1;
-                    }
-                    $Dias= $Dias-30;
+                    break;
+                }
+            }
+            else{
+                list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
+                $Mes=intval($Mes_inicial);
+                $Dias=($Dia_inicial-1)+$row1['Dias'];
+                $year= intval($year_inicial);
+                if($Dias<31){
+                    $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $row1['Dias']);
+                    $query2= pg_query($dbconn, "UPDATE \"tLicencias\" SET \"Ultimo_val\"=".$_SESSION['Descuentos_Licencias']." WHERE \"id_Licencia\"=".$row1['id_Licencia'].";");
+                }
+                else
+                {
                     if($Mes==intval(date('n')) and $year==intval(date('Y'))){
-                        if($Dias<=30){
-                            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $Dias);
-                            break;
+                        $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30)*(30-($Dia_inicial-1))); 
+                        $query2= pg_query($dbconn, "UPDATE \"tLicencias\" SET \"Ultimo_val\"=".$_SESSION['Descuentos_Licencias']." WHERE \"id_Licencia\"=".$row1['id_Licencia'].";");
+                    }
+                    else{
+                        while(true){
+                        $Mes=$Mes+1;
+                        if($Mes>12){
+                            $Mes=1;
+                            $year=$year+1;
                         }
-                        else{
-                            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * 30);
-                            break;
+                        $Dias= $Dias-30;
+                        if($Mes==intval(date('n')) and $year==intval(date('Y'))){
+                            if($Dias<31){
+                                $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $Dias);
+                                $query2= pg_query($dbconn, "UPDATE \"tLicencias\" SET \"Ultimo_val\"=".$_SESSION['Descuentos_Licencias']." WHERE \"id_Licencia\"=".$row1['id_Licencia'].";");
+                                break;
+                            }
+                            else{
+                                $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * 30);
+                                $query2= pg_query($dbconn, "UPDATE \"tLicencias\" SET \"Ultimo_val\"=".$_SESSION['Descuentos_Licencias']." WHERE \"id_Licencia\"=".$row1['id_Licencia'].";");
+                                break;
+                                }
                             }
                         }
                     }
-                }
-            }                    
+                } 
+            }
         }
     }
 }
