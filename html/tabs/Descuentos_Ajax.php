@@ -69,31 +69,46 @@ if(!empty($_SESSION['Tipo']))
             if($num!='0' && $num2==4){
                 $values = "('$rut','".$_POST['Nombre']."','".$_POST['Inicio']."','".$_POST['Final']."',".$_POST['Monto'].")";
                 $query = pg_query($dbconn,"insert into \"tPrestamos\"(\"Rut\",\"Nombre\",\"F_inicio\",\"F_final\",\"Monto\") values".$values );
-                
-                if (!$query) {
-                    echo "Falla en la consulta.\n";
-                    exit;
-                }    
-            }
-             if($num!='0' && $num2==5){
-                $values = "('$rut','".$_POST['Descuenta']."',".$_POST['Dias'].",'".$_POST['Inicio_l']."','".$_POST['Final_l']."')";
-                $query = pg_query($dbconn,"insert into \"tLicencias\"(\"Rut\",\"Descuenta\",\"Dias\",\"F_inicio\",\"F_final\") values".$values );
-                
-                if (!$query) {
-                    echo "Falla en la consulta.\n";
-                    exit;
-                }    
-            }
-            
-            if($num!='0' && $num2==1){
-                $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tDescuentos\"(\"id_Descuento\",\"Monto\",\"Rut\" ) values($num,$monto,'$rut');"); 
+                Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
                 }
+                else
+                {
+                    Escribir_Reporte("Se agrego un credito llamado  ".$_POST['Nombre']." Por un Monto mensual: ".$_POST['Monto']. " para el empleado".$_SESSION['Rut']); // Quizas agregar fecha
+                 }   
+            }
+             if($num!='0' && $num2==5){
+                $values = "('$rut','".$_POST['Descuenta']."',".$_POST['Dias'].",'".$_POST['Inicio_l']."','".$_POST['Final_l']."')";
+                $query = pg_query($dbconn,"insert into \"tLicencias\"(\"Rut\",\"Descuenta\",\"Dias\",\"F_inicio\",\"F_final\") values".$values );
+                Recargar_datos();
+                if (!$query) {
+                    echo "Falla en la consulta.\n";
+                    exit;
+                }
+                else
+                {
+                    Escribir_Reporte("Se creo una licencia de". diferencia_Fecha($_POST['Inicio_l'],$_POST['Final_l']) ." días para el empleado: ".$_SESSION['Rut'].".");
+                }
+            }
+            
+            if($num!='0' && $num2==1){
+                $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tDescuentos\"(\"id_Descuento\",\"Monto\",\"Rut\" ) values($num,$monto,'$rut');"); 
+                Recargar_datos();
+                if (!$query) {
+                    echo "Falla en la consulta.\n";
+                    exit;
+                }
+                else
+                {
+                    $Nombre_Descuento = get_Descuento($num);
+                    Escribir_Reporte("Se agrego un descuento de ".$Nombre_Descuento." con un monto de $monto al empleado $rut.");
+                }
             }
             if($num!='0' && $num2==2){
                 $query = pg_query($dbconn,"delete from  \"rel_tEmpleados_tDescuentos\" where \"rel_tEmpleados_tDescuentos\".\"id_Descuento\"=$num and \"rel_tEmpleados_tDescuentos\".\"Rut\" = '$rut' ;"); 
+                Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
@@ -124,13 +139,13 @@ if(!empty($_SESSION['Tipo']))
                 echo "</tr>";
             }
             
-            $query = pg_query($dbconn, "Select * FROM \"tLicencias\" WHERE \"Rut\" ='$rut'");
+            $query = pg_query($dbconn, "Select * FROM \"tLicencias\" WHERE \"Rut\" ='$rut' and \"Activo\" ='t'");
             while ($row1 = pg_fetch_assoc($query)) {
                 echo "<tr>";
                 echo "<td>Licencias Medicas</td>";
-                if(!empty($_SESSION['Descuentos_Licencias_dia']))
+                if(!empty($_SESSION['Descuentos_Licencias']))
                 {
-                    echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=".Formato_Dinero($_SESSION['Descuentos_Licencias_dia']*$row1['Dias'])."></td>"; 
+                    echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=".Formato_Dinero($_SESSION['Descuentos_Licencias'])."></td>"; 
                 }
                 else{
                 echo "<td><input type=\"text\" disabled class=\"entrega-dato\" name=\"Mutual\" placeholder=\"$0\"></td>";}
@@ -153,7 +168,7 @@ if(!empty($_SESSION['Tipo']))
             echo "<br />";
             echo "<table>";
             /////// CALCULAR VALOR TOTAL DE MESES,.
-            $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='$rut'");
+            $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='$rut' and \"Activo\"='t' ");
             if (!$query) {
                 echo "Error en la consulta.\n";
                 exit;
@@ -176,7 +191,7 @@ if(!empty($_SESSION['Tipo']))
                 exit;
             }
             echo "<br />";
-            echo "<h2>Agregar Descuento al usuario</h2>";
+            echo "<h2>Agregar Descuento al empleado</h2>";
             echo "<br />";
             echo "<table>";
             while ($row2 = pg_fetch_assoc($query)) {

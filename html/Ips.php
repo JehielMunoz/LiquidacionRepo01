@@ -15,8 +15,8 @@
     <head>
         <title><?php global $html_titulo; print_Variable($html_titulo); ?></title> <!-- arreglar -->
         <link type="text/css" rel="stylesheet" href="../Resources/Style/estilo.css"/>
-        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style.css">
-        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style02.css">
+        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style.css"/>
+        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style02.css"/>
 
         <script src="../Resources/Scripts/scripts.js"></script>
         <script src="../Resources/Scripts/tabsO.js"></script>
@@ -72,18 +72,27 @@
 		<a href="Licencias.php">Licencias</a>
 		<a href="Afp.php">AFP</a>
 		<a href="Ips.php">IPS</a>
-		<a href="Contacto.php">Contacto</a>
-		<a href="#">Servicio Tecnico</a>
+        <a href="Contacto.php">Contacto</a>
+    <?php
+        if(!empty($_SESSION['Tipo']))
+            {   
+                if($_SESSION['Tipo']!="contador") // Pregunta el tipo de usuario 
+                {   
+                    echo "<a href='impuesto_unico.php'>Impuesto unico a la renta</a>";     // Y muestra el contenido segun el tipo que sea.
+                }
+            }
+    ?>
 	</div>
 	<div id="tabs" class="barradiv">		
 		<div id="tabs-1">
-				<table>               
-					<h3  id="tCso">Instituto de Previsión Social (IPS).</h3>	
-					<th >Nombre IPS</th>
-					<th >Tasa IPS</th>
-					<?php Mostrar_ISAPRE();?>
-				</table>
+            <table>               
+                <h3 id="tCso">Instituto de Previsión Social (IPS).</h3>	
+                <th>Nombre IPS</th>
+                <th>Tasa IPS</th>
+                <?php Mostrar_ISAPRE();?>
+            </table>
 		</div>
     </div>
-    </body>
-</html>
+    <?php
+        include("footer.php");
+    ?>

@@ -8,8 +8,8 @@
 <body>
     <div id="top-header">
         <h1>
-            <?php global $html_titulo_barra;print_Variable($html_titulo_barra);?>
-        </h1>
+            <?php global $html_titulo_barra;print_Variable($html_titulo_barra); ?> - <span id="n_Empleado"></span> <?php if(!empty($_SESSION['Rut'])){ echo "[ ".$_SESSION['Nombre']." ]";}?>
+        </h1> 
 
         <div>
             <form action="./php/desconexion.php" method="post">
@@ -31,9 +31,18 @@
         ?>
         <a href="./index.php">Planilla Liquidacion</a>
         <a href="./html/Licencias.php">Licencias</a>
-        <a href="Afp.php">AFP</a>
-        <a href="Ips.php">IPS</a>
-        <a href="Contacto.php">Contacto</a>
+        <a href="./html/Afp.php">AFP</a>
+        <a href="./html/Ips.php">IPS</a>
+    <?php
+        if(!empty($_SESSION['Tipo']))
+            {   
+                if($_SESSION['Tipo']!="contador") // Pregunta el tipo de usuario 
+                {   
+                    echo "<a href='./html/impuesto_unico.php'>Impuesto unico a la renta</a>";     // Y muestra el contenido segun el tipo que sea.
+                }
+            }
+    ?>
+        <a href="./html/Contacto.php">Contacto</a>
         <a href="#">Servicio Tecnico</a>
     </div>
     <div id="tabs" class="barradiv">
