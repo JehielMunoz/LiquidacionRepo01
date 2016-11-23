@@ -102,6 +102,18 @@
  			objAjax2.open("POST","./html/tabs/Descuentos_Ajax.php");
 			objAjax2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
             
+            if(num2=='7'){
+                var monto = document.getElementById('Monto_Credito').value;
+                var id_prestamo = num;
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&id_prestamo="+id_prestamo+"&monto="+monto);
+            }
+
+            if(num2=='6'){
+                var monto = document.getElementById('Monto_Descuento').value;
+                var id_descuento = num;
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&id_descuento="+id_descuento+"&monto="+monto);
+            }
+            
             if(num2=='4'){
                 var nombre = document.getElementById('Nombre_nuevo_credito').value;
                 var monto = document.getElementById('Monto_nuevo_credito').value;

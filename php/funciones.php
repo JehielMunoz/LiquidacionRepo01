@@ -557,16 +557,18 @@ if(empty($_SESSION))
 				<td>".Formato_Rut($row['Rut'])."</td>";
 				if($row['Descuenta'])
 				{
-				echo "<td>Si.</td>";
+				echo "<td>Si</td>";
 				}
 				else
 				{
-					"<td>No.</td>";
+					"<td>No</td>";
 				}
 				echo "
 				<td>".$row['Dias']."</td>
 				<td>".$row['F_inicio']."</td>
 				<td>".$row['F_final']."</td>
+				<td><a href=\"../../php/Desactivar_licencias.php?id_licencia=".$row['id_Licencia']."\"><button>Desactivar</button></a></td>
+                
 				</tr>";
 			}
 		}
