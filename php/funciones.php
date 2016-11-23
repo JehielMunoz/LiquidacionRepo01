@@ -141,6 +141,15 @@ if(empty($_SESSION))
         return trim(pg_fetch_assoc($query)['Descuento']," ");
     }
 
+    function get_Bono($id)
+    {
+        
+        include '../../php/conex.php';
+
+        $query = pg_query($dbconn,"SELECT \"Bono\" FROM \"tBonos\" WHERE \"id_Bono\" =".$id);
+        return trim(pg_fetch_assoc($query)['Bono']," ");
+    }
+
 #-----------------------------------------------------------------------------------------------------------------------------
 # funciones Para obtener la informacion de las personas
 #-----------------------------------------------------------------------------------------------------------------------------

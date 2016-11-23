@@ -75,22 +75,33 @@ if(!empty($_SESSION['Tipo']))
                     echo "Falla en la consulta.\n";
                     exit;
                 }
+                else{
+                    $Nombre_Bono = get_Bono($num);
+                    Escribir_Reporte("Se agrego una gratificacion de ".$Nombre_Bono." con un monto de $monto al empleado $rut.");
+                }
                 pg_free_result($query);
             }
             if($num!='0' && $num2==2){
+                $Nombre_Bono = get_Bono($num);
                 $query = pg_query($dbconn,"delete from  \"rel_tEmpleados_tBonos\" where \"rel_tEmpleados_tBonos\".\"id_Bono\"=$num and \"rel_tEmpleados_tBonos\".\"Rut\" = '$rut' ;"); 
                 Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
                 }
+                else{
+                    Escribir_Reporte("Se le quito una gratificacion de ".$Nombre_Bono." al empleado $rut.");
+                }
                 pg_free_result($query);
             }
             if($num!='0' && $num2==3){
                 if($tipo=='Imponible'){
-                    $query = pg_query("insert into \"tBonos\"(\"Bono\",\"Imponible\",\"Activo\") values('$nombre','t','t');"); }
+                    $query = pg_query("insert into \"tBonos\"(\"Bono\",\"Imponible\",\"Activo\") values('$nombre','t','t');"); 
+                    Escribir_Reporte("Se creo una gratificacion de ".$nombre." de tipo imponible.");
+                }
                 else{
                     $query = pg_query("insert into \"tBonos\"(\"Bono\",\"Imponible\",\"Activo\") values('$nombre','f','t');");
+                    Escribir_Reporte("Se creo una gratificacion de ".$nombre." de tipo no imponible.");
                 }
 
 

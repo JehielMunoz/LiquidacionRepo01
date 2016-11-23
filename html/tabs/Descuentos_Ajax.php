@@ -76,7 +76,7 @@ if(!empty($_SESSION['Tipo']))
                 }
                 else
                 {
-                    Escribir_Reporte("Se agrego un credito llamado  ".$_POST['Nombre']." Por un Monto mensual: ".$_POST['Monto']. " para el empleado".$_SESSION['Rut']); // Quizas agregar fecha
+                    Escribir_Reporte("Se agrego un credito llamado  ".$_POST['Nombre']." Por un Monto mensual: ".$_POST['Monto']. " para el empleado ".$_SESSION['Rut']); // Quizas agregar fecha
                  }   
             }
              if($num!='0' && $num2==5){
@@ -89,7 +89,7 @@ if(!empty($_SESSION['Tipo']))
                 }
                 else
                 {
-                    Escribir_Reporte("Se creo una licencia de". diferencia_Fecha($_POST['Inicio_l'],$_POST['Final_l']) ." días para el empleado: ".$_SESSION['Rut'].".");
+                    Escribir_Reporte("Se creo una licencia de ". diferencia_Fecha($_POST['Inicio_l'],$_POST['Final_l']) ." días para el empleado: ".$_SESSION['Rut'].".");
                 }
             }
             
@@ -107,20 +107,26 @@ if(!empty($_SESSION['Tipo']))
                 }
             }
             if($num!='0' && $num2==2){
+                $Nombre_Descuento = get_Descuento($num);
                 $query = pg_query($dbconn,"delete from  \"rel_tEmpleados_tDescuentos\" where \"rel_tEmpleados_tDescuentos\".\"id_Descuento\"=$num and \"rel_tEmpleados_tDescuentos\".\"Rut\" = '$rut' ;"); 
                 Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
                 }
+                else{
+                    Escribir_Reporte("Se borro un descuento de ".$Nombre_Descuento." del empleado $rut.");
+                }
                 pg_free_result($query);
             }
             if($num!='0' && $num2==3){
                 if($tipo=='Legal'){
-                    $query = pg_query("insert into \"tDescuentos\"(\"Descuento\",\"Tipo\",\"Activo\") values('$nombre','legal','t');"); 
+                    $query = pg_query("insert into \"tDescuentos\"(\"Descuento\",\"Tipo\",\"Activo\") values('$nombre','legal','t');");
+                    Escribir_Reporte("Se creo un descuento de ".$nombre." de tipo legal.");
                 }
                 else{
                     $query = pg_query("insert into \"tDescuentos\"(\"Descuento\",\"Tipo\",\"Activo\") values('$nombre','vario','t');");
+                    Escribir_Reporte("Se creo un descuento de ".$nombre." de tipo vario.");
                 }
             }
             $query = pg_query($dbconn, "SELECT * FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;");
