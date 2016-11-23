@@ -26,7 +26,7 @@ $(function() {
                     $("#tabs-1").html(data); // Remplzasa el contedio del div tabs-1
                     $("#tabs").tabs("option", "active", 0);
                     $("#AutoNombre").val("");
-                    $("#n_Empleado").html("[ " + $Persona[1] + " ]");
+                    $("#n_Empleado").text("[ " + $Persona[1] + " ]");
                     $Persona = null;
                 }
 
@@ -56,12 +56,11 @@ $(function() {
 function AsignarId(nam) {
 
     var $Nombre = $(nam).val(); // nombre a buscar el index 
-    var index = nombre_low.indexOf($Nombre.toLowerCase()); // busca el index del nombre//
+    var index = nombre.indexOf($Nombre); // busca el index del nombre//
     if (index < 0) {
         return null;
     } else {
         var $Rut = id[index]; // devuelve la id.
-        $Nombre = nombre[index];
         return [$Rut, $Nombre];
     }
 

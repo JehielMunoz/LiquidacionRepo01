@@ -33,6 +33,15 @@
         <a href="./html/Licencias.php">Licencias</a>
         <a href="./html/Afp.php">AFP</a>
         <a href="./html/Ips.php">IPS</a>
+    <?php
+        if(!empty($_SESSION['Tipo']))
+            {   
+                if($_SESSION['Tipo']!="contador") // Pregunta el tipo de usuario 
+                {   
+                    echo "<a href='./html/impuesto_unico.php'>Impuesto unico a la renta</a>";     // Y muestra el contenido segun el tipo que sea.
+                }
+            }
+    ?>
         <a href="./html/Contacto.php">Contacto</a>
         <a href="#">Servicio Tecnico</a>
     </div>
