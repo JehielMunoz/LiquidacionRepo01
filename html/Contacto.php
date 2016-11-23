@@ -82,6 +82,7 @@
 		<a href="Licencias.php">Licencias</a>
 		<a href="Afp.php">AFP</a>
 		<a href="Ips.php">IPS</a>
+        <a href="Contacto.php">Contacto</a>
     <?php
         if(!empty($_SESSION['Tipo']))
             {   
@@ -91,8 +92,6 @@
                 }
             }
     ?>
-		<a href="Contacto.php">Contacto</a>
-		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
             <div style="margin-bottom:-15px;"><ul>
@@ -122,5 +121,6 @@
     </div>
         
         </div>
-    </body>
-</html>
+    <?php
+        include("footer.php");
+    ?>

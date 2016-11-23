@@ -15,8 +15,8 @@
     <head>
         <title><?php global $html_titulo; print_Variable($html_titulo); ?></title> <!-- arreglar -->
         <link type="text/css" rel="stylesheet" href="../Resources/Style/estilo.css"/>
-        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style.css">
-        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style02.css">
+        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style.css"/>
+        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style02.css"/>
 
         <script src="../Resources/Scripts/scripts.js"></script>
         <script src="../Resources/Scripts/tabsO.js"></script>
@@ -72,6 +72,7 @@
 		<a href="Licencias.php">Licencias</a>
 		<a href="Afp.php">AFP</a>
 		<a href="Ips.php">IPS</a>
+        <a href="Contacto.php">Contacto</a>
     <?php
         if(!empty($_SESSION['Tipo']))
             {   
@@ -81,28 +82,24 @@
                 }
             }
     ?>
-		<a href="Contacto.php">Contacto</a>
-		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
-            <ul>
-                <li class="button" id="tabs-1" ><a href="#tabs-1">Licencias</a></li>
-                
-			</ul>
-			<div id="tabs-1">
+        <ul>
+            <li class="button" id="tabs-1" ><a href="#tabs-1">Licencias</a></li>
+        </ul>
+        <div id="tabs-1">
             <div class="divplanilla">
-                <table>               
-                    
-                    <th >Rut del Empleado</th>
-                    <th >Descuenta</th>
-                    <th >Duración</th>
-                    <th >Fecha de Incio de Licencia</th>
-                    <th >Fecha de Termino del Licencia</th>
+                <table>
+                    <th>Rut del Empleado</th>
+                    <th>Descuenta</th>
+                    <th>Duración</th>
+                    <th>Fecha de Incio de Licencia</th>
+                    <th>Fecha de Termino del Licencia</th>
                     <?php Mostrar_Licencias();?>
                 </table>
             </div>
-    </div>
-        
         </div>
-    </body>
-</html>
+    </div>
+    <?php
+        include("footer.php");
+    ?>
