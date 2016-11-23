@@ -159,4 +159,16 @@ $(document).ready(function(){
 		function (){
 			$(this).val( $(this).val().replace(/[^0-9]/,"") );}
 	);
+	
+	/* LOGIN
+	---------------------------------------------*/
+	$("#Usuario").bind("keyup blur",
+		function (){
+			$(this).val( $(this).val().replace(/[^A-Za-zñÑ_-]/,"") );}
+	);
+	
+	$("#Password").bind("keyup blur",
+		function (){
+			$(this).val( $(this).val().replace(/[^0-9A-Za-zñÑ]/,"") );}
+	);
 });
