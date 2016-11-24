@@ -56,15 +56,18 @@
             });
 
         });
+
+         
          $(function(){
-                $('#VolverPlanilla').click(Mostrar_y_ocultar);
                 $('#ModificarPlanilla').click(Mostrar_y_ocultar);
+                $('#VolverPlanilla').click(Mostrar_y_ocultar);
             });
             
             function Mostrar_y_ocultar(){
                 $('#Planilla').toggle("slow");
                 $('#m_Planilla').toggle("slow");
-                
+                $('#ModificarPlanilla').toggle("slow");
+                $('#VolverPlanilla').toggle("slow");
             }
                   
     </script>
