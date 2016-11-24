@@ -1,4 +1,11 @@
+
 <?php
+echo "<script>
+$(function(){
+    $('.entrega-dato').bind('keyup blur',bloqueaInput);
+});
+
+</script>";
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -179,7 +186,7 @@ if(!empty($_SESSION['Tipo']))
             while ($row1 = pg_fetch_assoc($query)) {
                 echo "<tr>";
                 echo "<td>".$row1['Descuento']."</td>";
-                echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Monto_Descuento\" name=\"Mutual\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
+                echo "<td><input type=\"text\" class=\"entrega-dato\" name=\"Mutual\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
                 echo "<td><div class=\"bEliminar\" onclick=\"TraerDatos(".$row1['id_Descuento'].",'2')\"></div></td>";
                 echo "<td><div><button  onclick=\"TraerDatos(".$row1['id_Descuento'].",'6')\">Modificar Monto </button></div></td>";
                 echo "</tr>";

@@ -56,17 +56,23 @@
             });
 
         });
+
+         
          $(function(){
-                $('#VolverPlanilla').click(Mostrar_y_ocultar);
                 $('#ModificarPlanilla').click(Mostrar_y_ocultar);
+                $('#VolverPlanilla').click(Mostrar_y_ocultar);
+                $("#descuentos :input.entrega-dato").bind("keyup blur",bloqueaInput);
             });
             
             function Mostrar_y_ocultar(){
                 $('#Planilla').toggle("slow");
                 $('#m_Planilla').toggle("slow");
-                
+                $('#ModificarPlanilla').toggle("slow");
+                $('#VolverPlanilla').toggle("slow");
             }
-                  
+        
+            function bloqueaInput(){
+                $(this).val( $(this).val().replace(/[^0-9]/,"") );}
     </script>
 	<script>
         function TraerDatos_Gratificaciones(num,num2){
