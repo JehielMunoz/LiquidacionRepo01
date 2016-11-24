@@ -6,7 +6,7 @@
             { 
                 include './conex.php';
                 include './funciones.php';
-                $query = pg_query($dbconn,"UPDATE  \"tEmpleados\" SET \"Nombre\" ='".$_POST['mNombre']."' , \"id_Contrato\"=".$_POST['mContrato'].", \"Sueldo_base\"=".$_POST['mSueldo'].", \"id_AFP\"=".$_POST['mAFP'].", \"Rut\"=".$_POST['mRut'].", \"id_ISAPRE\"=".$_POST['mIPS']." , \"N_horas\"=".$_POST['mHTrabajo'].", \"Paga_por_hora\"=".$_POST['mValorHora']." WHERE \"Rut\"='".$_SESSION["Rut"]."'" );
+                $query = pg_query($dbconn,"UPDATE  \"tEmpleados\" SET \"Nombre\" ='".$_POST['mNombre']."' , \"id_Contrato\"=".$_POST['mContrato'].", \"Sueldo_base\"=".$_POST['mSueldo'].", \"id_AFP\"=".$_POST['mAFP'].", \"id_ISAPRE\"=".$_POST['mIPS']." , \"N_horas\"=".$_POST['mHTrabajo'].", \"Paga_por_hora\"=".$_POST['mValorHora']." WHERE \"Rut\"='".$_SESSION["Rut"]."'" );
                 
 
                 
@@ -31,6 +31,9 @@
                     Liquido_Pagar();
                     Liquido_Alcansado();
                     gastos_extras();
+
+                    header('location: ../index.php');
+
                 }              
             }
             else
