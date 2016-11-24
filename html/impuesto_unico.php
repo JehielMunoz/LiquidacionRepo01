@@ -30,6 +30,7 @@
             $(function(){
                 $('#Modificar_Impuestos').click(Mostrar_y_ocultar);
                 $('#Mostrar_impuestos').click(Mostrar_y_ocultar);
+                $("input.t_modDatonum").bind("keyup blur",bloqueaInput);
             });
             
             function Mostrar_y_ocultar(){
@@ -37,6 +38,9 @@
                 $('#div_editar').toggle("slow");
                 
             }
+            
+            function bloqueaInput(){
+                $(this).val( $(this).val().replace(/[^0-9]/,"") );}
         </script>
         <script src="../Resources/Scripts/Asignar_datos_db.js"></script>   
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

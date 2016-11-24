@@ -44,7 +44,7 @@ if(!empty($_SESSION['Tipo']))
             while ($row1 = pg_fetch_assoc($query)) {
                 echo"<tr>";
                 echo"<td>".$row1['Bono']."</td>";
-                echo"<td><input disabled type=\"text\" class=\"entrega-dato\" placeholder=".Formato_Dinero($row1['Monto'])."></td>";
+                echo"<td><input type=\"text\" disabled class=\"entrega-dato\" placeholder=".Formato_Dinero($row1['Monto'])." ></td>";
                 if($row1['Imponible']=='t'){
                     echo"<td>Imponible</td>";
                 }
@@ -121,7 +121,7 @@ if(!empty($_SESSION['Tipo']))
             while ($row1 = pg_fetch_assoc($query)) {
                 echo"<tr>";
                 echo"<td>".$row1['Bono']."</td>";
-                echo"<td><input type=\"text\" class=\"entrega-dato\" placeholder=".Formato_Dinero($row1['Monto'])."></td>";
+                echo"<td><input type=\"text\" disabled class=\"entrega-dato\" placeholder=".Formato_Dinero($row1['Monto'])."></td>";
                 if($row1['Imponible']=='t'){
                     echo"<td>Imponible</td>";
                 }
@@ -151,7 +151,7 @@ if(!empty($_SESSION['Tipo']))
                 else{
                     echo"<td>No Imponible</td>";
                 }
-                echo "<td><input id='bono".$row2['id_Bono']."' type=\"text\" placeholder='Ingresar monto' class=\"entrega-dato\"></input></td>";
+                echo "<td><input id='bono".$row2['id_Bono']."' type=\"number\" min='0' placeholder='Ingresar monto' class=\"entrega-dato\"></input></td>";
 					echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos_Gratificaciones(".$row2['id_Bono'].",'1')\"></div></td>";
                 echo "</tr>";
             }   

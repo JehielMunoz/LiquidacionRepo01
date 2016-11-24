@@ -1,4 +1,10 @@
+
 <?php
+echo "
+<script>
+$('.entrega-dato').bind('keyup blur',bloqueaInput);
+</script>
+";
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -179,7 +185,7 @@ if(!empty($_SESSION['Tipo']))
             while ($row1 = pg_fetch_assoc($query)) {
                 echo "<tr>";
                 echo "<td>".$row1['Descuento']."</td>";
-                echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Monto_Descuento\" name=\"Mutual\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
+                echo "<td><input type=\"number\" min='0' class=\"entrega-dato\" name=\"Mutual\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
                 echo "<td><div class=\"bEliminar\" onclick=\"TraerDatos(".$row1['id_Descuento'].",'2')\"></div></td>";
                 echo "<td><div><button  onclick=\"TraerDatos(".$row1['id_Descuento'].",'6')\">Modificar Monto </button></div></td>";
                 echo "</tr>";
@@ -223,7 +229,7 @@ if(!empty($_SESSION['Tipo']))
             while ($row1 = pg_fetch_assoc($query)) {
                 echo "<tr>";
                 echo "<td>".$row1['Nombre']."</td>";
-                echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Monto_Credito\" disable name=\"Monto_Credito\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
+                echo "<td><input type=\"number\" min='0' class=\"entrega-dato\" id=\"Monto_Credito\" disable name=\"Monto_Credito\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
                 echo "<td><input type=\"text\" class=\"entrega-dato\" disable name=\"inicio_credito\" placeholder=".$row1["F_inicio"]."></td>";
                 echo "<td><input type=\"text\" class=\"entrega-dato\" disable name=\"final_credito\" placeholder=".$row1["F_final"]."></td>";
                 echo "<td><button onclick=\"TraerDatos(".$row1['id_Prestamo'].",'7')\"> Modificar Valor</button></td>";
@@ -251,7 +257,7 @@ if(!empty($_SESSION['Tipo']))
                 else{
                     echo "<td>Varios</td>";
                 }
-                echo "<td><input id='descuento".$row2['id_Descuento']."' type=\"text\" class=\"entrega-dato\"placeholder='Ingresar monto' ></input></td>";
+                echo "<td><input id='descuento".$row2['id_Descuento']."' type=\"number\" min='0' class=\"entrega-dato\"placeholder='Ingresar monto' ></input></td>";
                 echo "<td><div class=\"bAgregar\" onclick=\"TraerDatos(".$row2['id_Descuento'].",'1')\"></div></td>";				
                 echo "</tr>";
             }   

@@ -61,6 +61,7 @@
          $(function(){
                 $('#ModificarPlanilla').click(Mostrar_y_ocultar);
                 $('#VolverPlanilla').click(Mostrar_y_ocultar);
+                
             });
             
             function Mostrar_y_ocultar(){
@@ -69,7 +70,9 @@
                 $('#ModificarPlanilla').toggle("slow");
                 $('#VolverPlanilla').toggle("slow");
             }
-                  
+        
+            function bloqueaInput(){
+                $(this).val( $(this).val().replace(/[^0-9]/,"") );}
     </script>
 	<script>
         function TraerDatos_Gratificaciones(num,num2){
