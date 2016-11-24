@@ -56,7 +56,17 @@
             });
 
         });
-        
+         $(function(){
+                $('#VolverPlanilla').click(Mostrar_y_ocultar);
+                $('#ModificarPlanilla').click(Mostrar_y_ocultar);
+            });
+            
+            function Mostrar_y_ocultar(){
+                $('#Planilla').toggle("slow");
+                $('#m_Planilla').toggle("slow");
+                
+            }
+                  
     </script>
 	<script>
         function TraerDatos_Gratificaciones(num,num2){
