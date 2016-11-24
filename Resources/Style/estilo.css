@@ -100,14 +100,11 @@ td {
     text-transform: uppercase;
     padding: 6px 2px;
     margin: 2px auto;
-    background: #3C68B4 url(../Imagenes/devoops_pattern_b2.png) repeat;
+    background: #3C68B4 url(../Imagenes/devoops_pattern_b10.png) repeat;
     /*#ff720e*/
     text-decoration: none;
 }
 
-.menudiv a:hover {
-    background-color: #FCB040;
-}
 
 .barradiv {
     margin: 64px 0px 50px 155px;
