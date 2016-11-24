@@ -264,6 +264,14 @@ if(empty($_SESSION))
         $telefono = substr_replace($telefono,'(09) ',0,0); 
         return $telefono;
    }
+
+    function mRut()
+    {
+      if (!empty($_SESSION["Rut"]))
+        {
+            echo $_SESSION['Rut'];
+        }     
+    }
     function Rut()
     {
       if (!empty($_SESSION["Rut"]))
@@ -271,6 +279,7 @@ if(empty($_SESSION))
             echo Formato_Rut($_SESSION['Rut']);
         }     
     }
+    
     function Nombre()
     {
       if (!empty($_SESSION["Nombre"]))
@@ -280,6 +289,16 @@ if(empty($_SESSION))
 
 
     }
+
+    function mSueldo_Base(){   
+        if (!empty($_SESSION['Datos'])) 
+       {      
+            echo $_SESSION['Datos']["Sueldo_base"];
+        }
+        
+    }  
+
+
     function Sueldo_Base(){   
         if (!empty($_SESSION['Datos'])) 
        {      
@@ -355,6 +374,13 @@ if(empty($_SESSION))
         if(!empty($_SESSION['Datos']))
         {
             echo Formato_Dinero($_SESSION['Datos']["Paga_por_hora"]);    
+        }
+    }
+    function mValor_Hora()
+    {
+        if(!empty($_SESSION['Datos']))
+        {
+            echo $_SESSION['Datos']["Paga_por_hora"];    
         }
     }
 
@@ -557,6 +583,25 @@ if(empty($_SESSION))
                 echo "<option value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
             }
     }
+    function get_AFP_Modificador() 
+    {     
+            include("conex.php");
+
+            $query = pg_query($dbconn, "SELECT * FROM \"tAFP\"");
+            
+            while($row = pg_fetch_assoc($query))
+            {   if($row['id_AFP'] == $_SESSION['Datos']['id_AFP'])
+                {   
+                echo "<option selected value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
+                }
+                else
+                {
+                echo "<option value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
+
+                }
+            }
+    }
+
 	function Mostrar_Licencias()
 		{
 			include("conex.php");
@@ -686,26 +731,70 @@ if(empty($_SESSION))
             }
     }
 
+
+    function get_IPS_Modificador()
+    {       if(!empty($_SESSION['Datos']))
+            {
+            include("conex.php");
+            $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\"");
+            while($row = pg_fetch_assoc($query))
+            {   
+                if($row['id_ISAPRE'] == $_SESSION['Datos']['id_ISAPRE'])
+                {
+                    echo "<option selected value=\"".$row['id_ISAPRE']."\">".$row['ISAPRE']."</option>";
+                }
+
+                else
+                {
+                echo "<option value=\"".$row['id_ISAPRE']."\">".$row['ISAPRE']."</option>";
+                }
+            } 
+            }
+    }
+
+
+
     function get_ISAPRE_Registro()
+
     {       
             include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\"");
             while($row = pg_fetch_assoc($query))
-            {
+            {  
                 echo "<option value=\"".$row['id_ISAPRE']."\">".$row['ISAPRE']."</option>";
             }
           
             
     }
     function get_Contrato()
-    {       if(!empty($_SESSION['Datos']))
+    {       
+            if(!empty($_SESSION['Datos']))
             {
             include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tContratos\" where \"id_Contrato\" = '".$_SESSION['Datos']['id_Contrato']."' ");
             $row = pg_fetch_assoc($query);
             return $row;  
             }
+
     }
+    function get_Contrato_Modificador()
+    {
+            include("conex.php");
+            $query = pg_query($dbconn, "SELECT * FROM \"tContratos\" ");
+            while($row = pg_fetch_assoc($query))
+                {   
+                    if($row['id_Contrato'] == $_SESSION['Contrato']['id_Contrato'])
+                    {
+                        echo "<option selected value=\"".$row['id_Contrato']."\">".$row['Contrato']."</option>";
+                    }
+
+                    else
+                    {
+                    echo "<option value=\"".$row['id_Contrato']."\">".$row['Contrato']."</option>";
+                    }
+                }
+    }
+
     function get_Empleo_Registro()
     {
       include("conex.php");
