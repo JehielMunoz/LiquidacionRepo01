@@ -37,13 +37,9 @@ $(function() {
                 data: { Rut: $Persona[0], AutoNombre: $Persona[1] }, // Datos del post. Los cuales recupera del campo rut y nombre.
                 success: function(data) { // Si la consulta tiene exito.
                     $("#m_Planilla").html(data); // Remplzasa el contedio del div tabs-1
-                    $("#tabs").tabs("option", "active", 0);
-                    $("#AutoNombre").val("");
-                    $("#n_Empleado").text("[ " + $Persona[1] + " ]");
                 }
 
             });
-            $Persona = null;
         }
         return false; // Igual  que al validar formularios, devuelve falso para que se ejecute el enviar del form.
 

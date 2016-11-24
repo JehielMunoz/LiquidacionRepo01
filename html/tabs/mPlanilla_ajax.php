@@ -62,7 +62,5 @@
 						</table>
 		<button type="submit" id="ModificarPlanilla">Modificar Planilla</button>
 			</form>
-		<button class="boton_toggle" id="VolverPlanilla">Volver</button>
-		
 		</div>
 	

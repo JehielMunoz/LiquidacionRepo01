@@ -84,10 +84,10 @@
 						</tr>
 					</table>
 			</form>
+		</div>
 			<?php if(!empty($_SESSION['Rut'])){ ?>
 			<button class="boton_toggle" id="ModificarPlanilla">Modificar Planilla</button>
 			<?php } ?>
-		</div>
 		<div id="m_Planilla" style="display:none">
 		<h1>Modificar informacion empleado </h1>
 		<form action="./php/Modificar_datos.php" method="post">
@@ -146,7 +146,7 @@
 						</table>
 		<button type="submit" id="ModificarPlanilla">Modificar Planilla</button>
 			</form>
-		<button class="boton_toggle" id="VolverPlanilla">Volver</button>
-		
 		</div>
+		<button style="display:none" class="boton_toggle" id="VolverPlanilla">Volver</button>
+		
 	</div>

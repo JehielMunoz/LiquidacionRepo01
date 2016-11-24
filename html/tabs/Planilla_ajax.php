@@ -55,7 +55,7 @@
 							<td><input type="text" class="entrega-dato" disabled  placeholder="Tasa" name="lname" value="<?php tasa_AFP();?>"></td>
 							
 						<tr>
-					rut		<td>Cotizacion de Salud:</td>
+						<td>Cotizacion de Salud:</td>
 							
 							<td><input type="text" class="entrega-dato" disabled name="lname" placeholder="Nombre ISAPRE" value="<?php nombre_ISAPRE();?>"></td>
 							<td><input type="text" class="entrega-dato" disabled  placeholder="Valor" name="lname"  value="<?php Valor_Isapre();?>"></td>
@@ -83,8 +83,5 @@
 						</tr>
 					</table>
 			</form>
-			<?php if(!empty($_SESSION['Rut'])){ ?>
-			<button class="boton_toggle" id="ModificarPlanilla">Modificar Planilla</button>
-			<?php } ?>
 		
 		
