@@ -1,11 +1,11 @@
 $(document).ready(function(){
 	/* NOMBRE EMPLEADO
 	---------------------------------------------*/
-	$("#Nombre").bind("keyup blur",
+	$("#Nombre,#Rut").bind("keyup blur",
 		function (){
 			$(this).val( $(this).val().replace(/[^A-Z a-zÁ-Úá-úñÑ]/,"") );}
 	);
-	$("#Nombre").change(
+	$("#Nombre,#Rut").change(
 		function (){
 			if($(this).val().length < 1){
 				$(this).addClass("alerta");
@@ -171,4 +171,6 @@ $(document).ready(function(){
 		function (){
 			$(this).val( $(this).val().replace(/[^0-9A-Za-zñÑ]/,"") );}
 	);
+    
+    
 });

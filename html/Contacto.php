@@ -22,6 +22,7 @@
         <script src="../Resources/Scripts/tabsO.js"></script>
         <script src="../Resources/Scripts/tabs.js"></script>
         <script src="../Resources/Scripts/$Funciones.js"></script>
+        <script src="../Resources/Scripts/validaciones.js"></script>
         <script>    
             $(function() {
                 console.log( "1readysss!" ); // Lo hice para comprobar que el ajax estaba funcioando sin recargar la pagina. 
