@@ -19,9 +19,13 @@ else
 {
     $monto=0;
 }
-if(!empty($_POST['monto'])){
-    $monto = $_POST['monto'];
+if(!empty($_POST['id_descuento'])){
+    $id_descuento = $_POST['id_descuento'];
 }
+if(!empty($_POST['id_prestamo'])){
+    $id_prestamo = $_POST['id_prestamo'];
+}
+
 
 $dbServer = 'localhost';
 $dbUser = 'postgres';
@@ -65,7 +69,32 @@ if(!empty($_SESSION['Tipo']))
                 echo "Error en la conexion";
                 exit;
             }
+
             
+            if($num!='0' && $num2==7){
+                $query = pg_query($dbconn,"UPDATE  \"tPrestamos\" SET \"Monto\" = $monto WHERE \"id_Prestamo\" = $id_prestamo AND \"Rut\"='".$_SESSION["Rut"]."'" );
+                if (!$query) {
+                    echo "Falla en la consulta.\n";
+                    exit;
+                }
+                else
+                {
+                    Escribir_Reporte("Se modifico el Prestamo/Credito  X . Nuevo Monto  : ".$_POST['monto']. " para el empleado".$_SESSION['Rut']); // Quizas el nombre del credito
+                 }   
+            }         
+            
+            if($num!='0' && $num2==6){
+                $query = pg_query($dbconn,"UPDATE  \"rel_tEmpleados_tDescuentos\" SET \"Monto\" = $monto WHERE \"id_Descuento\" = $id_descuento AND \"Rut\"='".$_SESSION["Rut"]."'" );
+                if (!$query) {
+                    echo "Falla en la consulta.\n";
+                    exit;
+                }
+                else
+                {
+                    Escribir_Reporte("Se modifico el descuento X . Nuevo Monto  : ".$_POST['monto']. " para el empleado".$_SESSION['Rut']); // Quizas el nombre del DEscuento
+                 }   
+            }
+
             if($num!='0' && $num2==4){
                 $values = "('$rut','".$_POST['Nombre']."','".$_POST['Inicio']."','".$_POST['Final']."',".$_POST['Monto'].")";
                 $query = pg_query($dbconn,"insert into \"tPrestamos\"(\"Rut\",\"Nombre\",\"F_inicio\",\"F_final\",\"Monto\") values".$values );
@@ -140,8 +169,9 @@ if(!empty($_SESSION['Tipo']))
             while ($row1 = pg_fetch_assoc($query)) {
                 echo "<tr>";
                 echo "<td>".$row1['Descuento']."</td>";
-                echo "<td><input type=\"text\" class=\"entrega-dato\" name=\"Mutual\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
+                echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Monto_Descuento\" name=\"Mutual\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
                 echo "<td><div class=\"bEliminar\" onclick=\"TraerDatos(".$row1['id_Descuento'].",'2')\"></div></td>";
+                echo "<td><div><button  onclick=\"TraerDatos(".$row1['id_Descuento'].",'6')\">Modificar Monto </button></div></td>";
                 echo "</tr>";
             }
             
@@ -182,9 +212,10 @@ if(!empty($_SESSION['Tipo']))
             while ($row1 = pg_fetch_assoc($query)) {
                 echo "<tr>";
                 echo "<td>".$row1['Nombre']."</td>";
-                echo "<td><input type=\"text\" class=\"entrega-dato\" disable name=\"Monto_Credito\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
+                echo "<td><input type=\"text\" class=\"entrega-dato\" id=\"Monto_Credito\" disable name=\"Monto_Credito\" placeholder=".Formato_Dinero($row1["Monto"])."></td>";
                 echo "<td><input type=\"text\" class=\"entrega-dato\" disable name=\"inicio_credito\" placeholder=".$row1["F_inicio"]."></td>";
                 echo "<td><input type=\"text\" class=\"entrega-dato\" disable name=\"final_credito\" placeholder=".$row1["F_final"]."></td>";
+                echo "<td><button onclick=\"TraerDatos(".$row1['id_Prestamo'].",'7')\"> Modificar Valor</button></td>";
             
                 echo "</tr>";
             }

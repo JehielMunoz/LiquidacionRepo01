@@ -21,6 +21,7 @@ if(empty($_SESSION))
      Liquido_Pagar();
      Liquido_Alcansado();
      gastos_extras();
+     calculo_impuesto_unico();
 }
        
 
@@ -99,7 +100,8 @@ if(empty($_SESSION))
 
     function Escribir_Reporte($Accion ="Hola mundo")
     {
-        chdir($_SERVER['DOCUMENT_ROOT']."/LiquidacionRepo01/");
+        chdir($_SERVER['DOCUMENT_ROOT']."/LiquidacionRepo01/"); //Posible fix(?) NO , Hay que arreglarlo
+        
         $Carpeta = "./Reporte";
         $Hora = date("[H:i:s] ");
         $File = "/".$_SESSION['Usuario'].".txt";
@@ -174,10 +176,10 @@ if(empty($_SESSION))
          }
          elseif (!empty($_POST["r_Rut"])) 
          {  
-            Escribir_Reporte("Se ha registrado un empleado con rut: ".$_POST["r_Rut"]);
             $_SESSION['Rut'] =  $_POST["r_Rut"];
             $_SESSION['Datos'] = get_Datos();
             $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
+            Escribir_Reporte("Se ha registrado un empleado con Nombre: [ ".$_SESSION['Nombre']." ] y con rut: ".$_POST["r_Rut"]);
             $_SESSION['Afp'] = get_AFP();
             $_SESSION['Isapre'] = get_ISAPRE();
             $_SESSION['Contrato'] = get_Contrato();
@@ -262,6 +264,14 @@ if(empty($_SESSION))
         $telefono = substr_replace($telefono,'(09) ',0,0); 
         return $telefono;
    }
+
+    function mRut()
+    {
+      if (!empty($_SESSION["Rut"]))
+        {
+            echo $_SESSION['Rut'];
+        }     
+    }
     function Rut()
     {
       if (!empty($_SESSION["Rut"]))
@@ -269,6 +279,7 @@ if(empty($_SESSION))
             echo Formato_Rut($_SESSION['Rut']);
         }     
     }
+    
     function Nombre()
     {
       if (!empty($_SESSION["Nombre"]))
@@ -278,6 +289,16 @@ if(empty($_SESSION))
 
 
     }
+
+    function mSueldo_Base(){   
+        if (!empty($_SESSION['Datos'])) 
+       {      
+            echo $_SESSION['Datos']["Sueldo_base"];
+        }
+        
+    }  
+
+
     function Sueldo_Base(){   
         if (!empty($_SESSION['Datos'])) 
        {      
@@ -353,6 +374,13 @@ if(empty($_SESSION))
         if(!empty($_SESSION['Datos']))
         {
             echo Formato_Dinero($_SESSION['Datos']["Paga_por_hora"]);    
+        }
+    }
+    function mValor_Hora()
+    {
+        if(!empty($_SESSION['Datos']))
+        {
+            echo $_SESSION['Datos']["Paga_por_hora"];    
         }
     }
 
@@ -555,6 +583,25 @@ if(empty($_SESSION))
                 echo "<option value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
             }
     }
+    function get_AFP_Modificador() 
+    {     
+            include("conex.php");
+
+            $query = pg_query($dbconn, "SELECT * FROM \"tAFP\"");
+            
+            while($row = pg_fetch_assoc($query))
+            {   if($row['id_AFP'] == $_SESSION['Datos']['id_AFP'])
+                {   
+                echo "<option selected value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
+                }
+                else
+                {
+                echo "<option value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
+
+                }
+            }
+    }
+
 	function Mostrar_Licencias()
 		{
 			include("conex.php");
@@ -571,10 +618,17 @@ if(empty($_SESSION))
 				{
 					echo "<td>No.</td>";
 				}
+                // PUEDES BUSCAR LOS READONLY DE EL FORM cuando se activa el submit.
 				echo "
-				<td>".$row['Dias']."</td>
+                <form method=\"post\" action=\"../php/Desactivar_licencias.php\"> 
+                <input name=\"id_modificar\" hidden type=text value=\"".$row['id_Licencia']."\">
+				<td><input name=\"dias\" type=text readonly value=\"".$row['Dias']."\"></td>
 				<td>".$row['F_inicio']."</td>
 				<td>".$row['F_final']."</td>
+				<td><button type=\"submit\">Modficar Dias</button></td></form>
+                <td><a href=\"../php/Desactivar_licencias.php?id_licencia=".$row['id_Licencia']."\"><button>Desactivar</button></a></td>
+				
+                
 				</tr>";
 			}
 		}
@@ -677,26 +731,70 @@ if(empty($_SESSION))
             }
     }
 
+
+    function get_IPS_Modificador()
+    {       if(!empty($_SESSION['Datos']))
+            {
+            include("conex.php");
+            $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\"");
+            while($row = pg_fetch_assoc($query))
+            {   
+                if($row['id_ISAPRE'] == $_SESSION['Datos']['id_ISAPRE'])
+                {
+                    echo "<option selected value=\"".$row['id_ISAPRE']."\">".$row['ISAPRE']."</option>";
+                }
+
+                else
+                {
+                echo "<option value=\"".$row['id_ISAPRE']."\">".$row['ISAPRE']."</option>";
+                }
+            } 
+            }
+    }
+
+
+
     function get_ISAPRE_Registro()
+
     {       
             include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\"");
             while($row = pg_fetch_assoc($query))
-            {
+            {  
                 echo "<option value=\"".$row['id_ISAPRE']."\">".$row['ISAPRE']."</option>";
             }
           
             
     }
     function get_Contrato()
-    {       if(!empty($_SESSION['Datos']))
+    {       
+            if(!empty($_SESSION['Datos']))
             {
             include("conex.php");
             $query = pg_query($dbconn, "SELECT * FROM \"tContratos\" where \"id_Contrato\" = '".$_SESSION['Datos']['id_Contrato']."' ");
             $row = pg_fetch_assoc($query);
             return $row;  
             }
+
     }
+    function get_Contrato_Modificador()
+    {
+            include("conex.php");
+            $query = pg_query($dbconn, "SELECT * FROM \"tContratos\" ");
+            while($row = pg_fetch_assoc($query))
+                {   
+                    if($row['id_Contrato'] == $_SESSION['Contrato']['id_Contrato'])
+                    {
+                        echo "<option selected value=\"".$row['id_Contrato']."\">".$row['Contrato']."</option>";
+                    }
+
+                    else
+                    {
+                    echo "<option value=\"".$row['id_Contrato']."\">".$row['Contrato']."</option>";
+                    }
+                }
+    }
+
     function get_Empleo_Registro()
     {
       include("conex.php");
@@ -715,7 +813,7 @@ if(empty($_SESSION))
         {
             $query ="Select \"tEmpleados\".\"Rut\",\"tEmpleados\".\"Nombre\", \"tEmpleado_Fono\".\"N_telefono\" 
                       From \"tEmpleados\" Inner Join \"tEmpleado_Fono\" ON \"tEmpleados\".\"Rut\" = \"tEmpleado_Fono\".\"Rut\"
-                      Where \"tEmpleados\".\"Rut\" = '".$_POST['c_Buscar']."'
+                      Where \"tEmpleados\".\"Nombre\" = '".$_POST['c_Buscar']."'
                       order by \"tEmpleados\".\"Rut\"";
         }
         else
@@ -912,10 +1010,10 @@ function desactivar_licencias(){
         list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
         $year=intval($year_inicial);
         $Mes=intval($Mes_inicial);
-        $Dias=$Dia_inicial+$row1['Dias'];
+        $Dias=($Dia_inicial-1)+$row1['Dias'];
         while(true){
-            if($Mes>=intval(date('n')) and $year>=intval(date('Y')) and intval(date('j'))>5){
-                if($Dias<=0){
+            if($Mes==intval(date('n')) and $year==intval(date('Y'))){
+                if($Dias<1 and intval(date('j'))>5){
                     $query = pg_query($dbconn, "UPDATE \"tLicencias\" set \"Activo\" = 'f' where \"id_Licencia\" =".$row1['id_Licencia'].";" );
                     break;
                 }
@@ -923,12 +1021,12 @@ function desactivar_licencias(){
                     break;
                 }
             }
+            $Dias=$Dias-30;
             $Mes=$Mes+1;
             if($Mes>12){
                 $Mes=1;
                 $year=$year+1;
             }
-            $Dias= $Dias-30;
         }                  
     }   
 }
@@ -937,45 +1035,95 @@ function licencias(){
     include("conex.php"); 
     $_SESSION['Descuentos_Licencias'] =0;
     $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."' AND \"Activo\" ='t'");
-    while($row1 = pg_fetch_assoc($query)){
+    $ultimo_val=0;
+    while($row1 = pg_fetch_assoc($query)){       
         if($row1['Descuenta']=='t'){
-            list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
-            $Mes=intval($Mes_inicial);
-            $Dias=$Dia_inicial+$row1['Dias'];
-            $year= intval($year_inicial);
-            if($Dias<=30){
-                $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $row1['Dias']);
-            }
-            else
-            {
-                if($Mes==intval(date('n')) and $year==intval(date('Y'))){
-                      $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * (30-$Dia_inicial));                  
+            if(intval(date('j'))<=5){
+                if($row1['Ultimo_val']>$ultimo_val){
+                    $ultimo_val=$row1['Ultimo_val'];
+                    $_SESSION['Descuentos_Licencias']=$row1['Ultimo_val']; 
                 }
                 else{
-                    while(true){
-                    $Mes=$Mes+1;
-                    if($Mes>12){
-                        $Mes=1;
-                        $year=$year+1;
-                    }
-                    $Dias= $Dias-30;
+                    break;
+                }
+            }
+            else{
+                list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
+                $Mes=intval($Mes_inicial);
+                $Dias=($Dia_inicial-1)+$row1['Dias'];
+                $year= intval($year_inicial);
+                if($Dias<31){
+                    $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $row1['Dias']);
+                    $query2= pg_query($dbconn, "UPDATE \"tLicencias\" SET \"Ultimo_val\"=".$_SESSION['Descuentos_Licencias']." WHERE \"id_Licencia\"=".$row1['id_Licencia'].";");
+                }
+                else
+                {
                     if($Mes==intval(date('n')) and $year==intval(date('Y'))){
-                        if($Dias<=30){
-                            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $Dias);
-                            break;
+                        $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30)*(30-($Dia_inicial-1))); 
+                        $query2= pg_query($dbconn, "UPDATE \"tLicencias\" SET \"Ultimo_val\"=".$_SESSION['Descuentos_Licencias']." WHERE \"id_Licencia\"=".$row1['id_Licencia'].";");
+                    }
+                    else{
+                        while(true){
+                        $Mes=$Mes+1;
+                        if($Mes>12){
+                            $Mes=1;
+                            $year=$year+1;
                         }
-                        else{
-                            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * 30);
-                            break;
+                        $Dias= $Dias-30;
+                        if($Mes==intval(date('n')) and $year==intval(date('Y'))){
+                            if($Dias<31){
+                                $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $Dias);
+                                $query2= pg_query($dbconn, "UPDATE \"tLicencias\" SET \"Ultimo_val\"=".$_SESSION['Descuentos_Licencias']." WHERE \"id_Licencia\"=".$row1['id_Licencia'].";");
+                                break;
+                            }
+                            else{
+                                $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * 30);
+                                $query2= pg_query($dbconn, "UPDATE \"tLicencias\" SET \"Ultimo_val\"=".$_SESSION['Descuentos_Licencias']." WHERE \"id_Licencia\"=".$row1['id_Licencia'].";");
+                                break;
+                                }
                             }
                         }
                     }
-                }
-            }                    
+                } 
+            }
         }
     }
 }
 
+function calculo_impuesto_unico(){
+    include("conex.php");
+    $id=1;
+    while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
+    {
+        if($id==1){
+            if($_SESSION['Total_Tributable']>=$row['nDesde'] and $_SESSION['Total_Tributable']<$row['nHasta'] ){
+                break;
+            }
+            
+        }
+        else 
+        {
+            if($id==8){
+                if($_SESSION['Total_Tributable']>=$row['nDesde']){
+                    $query = pg_query($dbconn,"UPDATE \"rel_tEmpleados_tDescuentos\" SET \"Monto\"=".(($_SESSION['Total_Tributable']*$row['Factor'])-$row['nRebaja'])." where \"id_Descuento\"=4 and \"Rut\"='".$_SESSION['Rut']."' ");
+                    if(!$query){
+                        $query2= pg_query($dbconn,"INSERT INTO \"rel_tEmpleados_tDescuentos\" (\"id_Descuento\",\"Monto\",\"Rut\") Values (4,".(($_SESSION['Total_Tributable']*$row['Factor'])-$row['nRebaja']).",'".$_SESSION['Rut']."')" );
+                    }
+                }
+            }
+            else
+            {
+                if($_SESSION['Total_Tributable']>=$row['nDesde'] and $_SESSION['Total_Tributable']<$row['nHasta'] ){
+                    $query = pg_query($dbconn,"UPDATE \"rel_tEmpleados_tDescuentos\" SET \"Monto\"=".(($_SESSION['Total_Tributable']*$row['Factor'])-$row['nRebaja'])." where \"id_Descuento\"=4 and \"Rut\"='".$_SESSION['Rut']."' ");
+                    if(!$query){
+                        $query2= pg_query($dbconn,"INSERT INTO \"rel_tEmpleados_tDescuentos\" (\"id_Descuento\",\"Monto\",\"Rut\") Values (4,".(($_SESSION['Total_Tributable']*$row['Factor'])-$row['nRebaja']).",'".$_SESSION['Rut']."')" );
+                    }
+                }
+            }
+        }
+        $id+=1;
+    }     
+}
 #-----------------------------------------------------------------------------------------------------------------------
 #     conversion numeros
 #-------------------------------------------------------------------------------------------------------------------

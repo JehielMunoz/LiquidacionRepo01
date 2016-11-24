@@ -1,12 +1,13 @@
 
 #tabla_vista_previa{ 
-	width: 830px;
+	width:940px;
 	font-size:14px;
 	font-family:Tahoma;
 	background-color:#fff;}
 
 #tabla_vista_previa tr:nth-child(even){ background-color:transparent !important;}
 #tabla_vista_previa td{
+	min-width:100px;
 	border:none;
 	height:12px;
 	padding:0.5px 2.5px;}
@@ -44,6 +45,7 @@
 	border-right: 1px solid black;}
  
 #tabla_head_datos .head_datos_letra_col4{
+	min-width:150px;
 	text-align:center;
 	text-transform:uppercase;
 	font-weight:bold;
@@ -81,21 +83,22 @@
 	text-align:center;}
 
 #tabla_bonos_descuentos .Haberes_column1{
-	width: 8%;
-	text-align: left;
-	border-right: 1px solid black;}
+	max-width:75px;
+	text-align:left;
+	border-right:1px solid black;}
 
 #tabla_bonos_descuentos .Haberes_column2{
 	text-align: left; 
-	width: 34%;
+	max-width:300px;
 	border-right: 1px solid black;}
 
 #tabla_bonos_descuentos .Haberes_column3{
-	text-align: left; 
+	width:80px;
+	text-align:right;
 	border-right: 1px solid black;}
 
 #tabla_bonos_descuentos .Descuentos_column1{
-	width: 6%; 
+	width:75px; 
 	border-right: 1px solid black;}
 
 #tabla_bonos_descuentos .Descuentos_column2{
@@ -103,7 +106,7 @@
 	text-align: left;
 	border-right: 1px solid black;}
 
-#tabla_bonos_descuentos .Descuentos_column3{ text-align: left;}
+#tabla_bonos_descuentos .Descuentos_column3{ width:80px;text-align:right;}
 
 #tabla_bonos_descuentos #total_haberes{
 	border-bottom: 1px solid black;
@@ -115,7 +118,7 @@
 
 #tabla_vista_previa .total_valores{
 	border:1px solid black;
-	text-align: left;}
+	text-align:right;}
 
 /* TABLA RESULTADOS
 -------------------------------------------- */
@@ -150,12 +153,12 @@
 
 #tabla_resultados .resultados2_column5{
 	border:1px solid black;
-	text-align: left;
+	text-align:right;
 	width: 15%;}
 
 #tabla_resultados .resultados3_column{
 	border:1px solid black;
-	text-align: left;}
+	text-align:right;}
 
 #tabla_resultados #final_tabla_resultados{ border:1px solid black;}
 
@@ -185,3 +188,9 @@
 #tabla_vista_previa .negrita{ font-weight:bold;}
 
 .espacios_blanco{ width:28%;}
+
+#tabla_bonos_descuentos .Descuentos_column3::first-letter,
+#tabla_vista_previa .total_valores::first-letter,
+#tabla_bonos_descuentos .Haberes_column3::first-letter,
+#tabla_resultados .resultados3_column::first-letter,
+#tabla_resultados .resultados2_column5::first-letter{ float:left;}

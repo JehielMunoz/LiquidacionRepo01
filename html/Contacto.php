@@ -21,13 +21,15 @@
         <script src="../Resources/Scripts/scripts.js"></script>
         <script src="../Resources/Scripts/tabsO.js"></script>
         <script src="../Resources/Scripts/tabs.js"></script>
-        <script>
+        <script src="../Resources/Scripts/$Funciones.js"></script>
+        <script>    
             $(function() {
                 console.log( "1readysss!" ); // Lo hice para comprobar que el ajax estaba funcioando sin recargar la pagina. 
             });
             var id_nombre = <?php get_Personas();?>; 
             var id = [];
-            var nombre = [];   
+            var nombre = [];
+            var nombre_low = [];
             $(function(){
                 $("#tabs").tabs();
             });
@@ -35,17 +37,25 @@
                 for (var x = 0; x < id_nombre.length; x++)
                 {
                     id.push(id_nombre[x][0]) ;    
-                    nombre.push(id_nombre[x][1]) ;    
+                    nombre.push(id_nombre[x][1]);    
+                    nombre_low.push(id_nombre[x][1].toLowerCase());
                 }                        
-                $( "#AutoNombre" ).autocomplete({
+                $("#Rut").autocomplete({
                 source: nombre,
                 change: function(){   // Esto detecta el canbio en el campo de texto. Cuando se usa el autocompletado. Funcioa en chrome y firefox, IE NO LO HE PROBADO.
-                    AsignarId($(this));
+                AsignarId($(this));
                 }
                 });
+                 $('#Rut').on('input', function(){
+                 $Persona = AsignarId($(this));
+                 if($Persona != null)
+                 {
+                     $('#Rut').val($Persona[1]);
+                 }
+               
+             });
             });
         </script>
-        <script src="../Resources/Scripts/Asignar_datos_db.js"></script>   
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         
     </head>
@@ -62,7 +72,7 @@
 	<?php
 		if(!empty($_SESSION['Tipo']))
             {   
-                if($_SESSION['Tipo']!=="contador") // Pregunta el tipo de usuario 
+                if($_SESSION['Tipo']!=="supervisor") // Pregunta el tipo de usuario 
                 {   
                     echo "<a href=\"../html/Agregar_empleado.php\">Agregar Nuevo Empleado</a>";     // Y muestra el contenido segun el tipo que sea.
                 }
@@ -72,6 +82,7 @@
 		<a href="Licencias.php">Licencias</a>
 		<a href="Afp.php">AFP</a>
 		<a href="Ips.php">IPS</a>
+        <a href="Contacto.php">Contacto</a>
     <?php
         if(!empty($_SESSION['Tipo']))
             {   
@@ -81,15 +92,13 @@
                 }
             }
     ?>
-		<a href="Contacto.php">Contacto</a>
-		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
             <div style="margin-bottom:-15px;"><ul>
 				<li>
 				<form action="./Contacto.php" method="post">
-                        <input type="text"  id="Rut" name="c_Buscar"  required placeholder="Buscar personal por Rut...">
-                        <input type="submit" id="btn-buscar" formmethod="post" value="Buscar Persona">
+                        <input type="text"  id="Rut" name="c_Buscar"  required placeholder="Buscar personal por Nombre...">
+                        <input type="submit" id="btn" formmethod="post" value="Buscar Persona">
                     </form>
                 </li>  
                 <li>
@@ -102,7 +111,7 @@
 			<div id="tabs-1">
             <div class="divplanilla">
                 <table>
-					<h3 id="tCso">Contaco funcionarios</h3>
+					<h3 id="tCso">Contacto funcionarios</h3>
                     <th >Rut</th>
                     <th >Nombre</th>
                     <th >Telefono</th>
@@ -112,5 +121,6 @@
     </div>
         
         </div>
-    </body>
-</html>
+    <?php
+        include("footer.php");
+    ?>
