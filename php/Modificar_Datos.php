@@ -17,6 +17,9 @@
                 }
                 else
                 {
+                    
+                    Escribir_Reporte("Se han modificado los datos del empleado con rut: ".$_POST["mRut"].".");
+                    
                     $_SESSION['Rut'] =  $_POST["mRut"];
                     $_SESSION['Datos'] = get_Datos();
                     $_SESSION['Nombre'] = trim($_SESSION['Datos']['Nombre']," ");     
