@@ -1,4 +1,5 @@
 <?php 
+include("funciones.php");
 $url = explode("/",$_SERVER['HTTP_REFERER']);
 if (end($url)=="Licencias.php")
 {
@@ -16,6 +17,11 @@ if (end($url)=="Licencias.php")
             }
             header('location: ../html/Licencias.php');
             echo "1";
+        
+            $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"id_Licencia\" =".$_POST['id_modificar']);
+            $fila = pg_fetch_assoc($query);
+            Escribir_Reporte("Se han modificado los dias de licencia del empleado con rut: ".$fila['Rut']." a ".$_POST['dias']." dias.");
+        
             exit();
     }
 
@@ -31,6 +37,11 @@ if (end($url)=="Licencias.php")
         }
         header('location: ../html/Licencias.php');
         echo "2";
+        
+        $query2 = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"id_Licencia\" =".$_GET['id_licencia']);
+        $fila = pg_fetch_assoc($query2);
+        Escribir_Reporte("Se ha eliminado una licencia del empleado con rut: ".$fila['Rut'].".");
+        
         exit();
     }
     else
