@@ -138,8 +138,12 @@ if(empty($_SESSION))
     {
         
         include '../../php/conex.php';
-
-        $query = pg_query($dbconn,"SELECT \"Descuento\" FROM \"tDescuentos\" WHERE \"id_Descuento\" =".$id);
+        $sql = "SELECT \"Descuento\" FROM \"tDescuentos\" WHERE \"id_Descuento\" =".$id."";
+        $query = pg_query($dbconn,$sql);
+        if(!$query){
+            echo "<script>alert('Error en la busqueda
+                ')</script>";
+        }
         return trim(pg_fetch_assoc($query)['Descuento']," ");
     }
 
@@ -147,8 +151,12 @@ if(empty($_SESSION))
     {
         
         include '../../php/conex.php';
-
-        $query = pg_query($dbconn,"SELECT \"Bono\" FROM \"tBonos\" WHERE \"id_Bono\" =".$id);
+        $sql = "SELECT \"Bono\" FROM \"tBonos\" WHERE \"id_Bono\" =".$id."";
+        $query = pg_query($dbconn,$sql);
+        if(!$query){
+            echo "<script>alert('Error en la busqueda
+                ')</script>";
+        }
         return trim(pg_fetch_assoc($query)['Bono']," ");
     }
 
@@ -197,7 +205,8 @@ if(empty($_SESSION))
     
     function get_Personas(){ 
         include("conex.php");
-        $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" ");
+        $sql= "SELECT * FROM \"tEmpleados\" ";
+        $query = pg_query($dbconn, $sql);
         if (!$query) {
             echo "en el query.\n";
             exit;
@@ -210,7 +219,8 @@ if(empty($_SESSION))
     }
     function get_Datos(){
             include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tEmpleados\" where \"Rut\" = '".$_SESSION['Rut']."' ");
+            $sql = "SELECT * FROM \"tEmpleados\" where \"Rut\" = '".$_SESSION['Rut']."' ";
+            $query = pg_query($dbconn, $sql );
             $row = pg_fetch_assoc($query);
             if(!empty($row))
          {
@@ -569,7 +579,8 @@ if(empty($_SESSION))
     {       if(!empty($_SESSION['Datos']))
             {
             include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tAFP\" where \"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."'");
+            $sql= "SELECT * FROM \"tAFP\" where \"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."'";
+            $query = pg_query($dbconn,$sql);
             $row = pg_fetch_assoc($query);
             return $row;
             }
@@ -577,7 +588,8 @@ if(empty($_SESSION))
     function get_AFP_Registro() 
     {     
             include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tAFP\"");
+            $sql= "SELECT * FROM \"tAFP\"";
+            $query = pg_query($dbconn, $sql);
             while($row = pg_fetch_assoc($query))
             {
                 echo "<option value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
@@ -586,9 +598,8 @@ if(empty($_SESSION))
     function get_AFP_Modificador() 
     {     
             include("conex.php");
-
-            $query = pg_query($dbconn, "SELECT * FROM \"tAFP\"");
-            
+            $sql = "SELECT * FROM \"tAFP\"";
+            $query = pg_query($dbconn, $sql);
             while($row = pg_fetch_assoc($query))
             {   if($row['id_AFP'] == $_SESSION['Datos']['id_AFP'])
                 {   
@@ -605,7 +616,8 @@ if(empty($_SESSION))
 	function Mostrar_Licencias()
 		{
 			include("conex.php");
-			$query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Activo\"='t'");
+            $sql = "SELECT * FROM \"tLicencias\" where \"Activo\"='t'";
+			$query = pg_query($dbconn,$sql);
 			while($row = pg_fetch_assoc($query))
 			{
 				echo "<tr>
@@ -638,7 +650,8 @@ if(empty($_SESSION))
     {
             include("conex.php");
             $id=1;
-			while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
+            $sql = "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ";
+			while($row = pg_fetch_assoc(pg_query($dbconn, $sql)))
 			{
 				echo "
                 <tr>
@@ -658,7 +671,8 @@ if(empty($_SESSION))
     {
             include("conex.php");
             $id=1;
-			while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
+            $sql = "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ";
+			while($row = pg_fetch_assoc(pg_query($dbconn, $sql)))
 			{
                 if($id==8){
                 echo "
@@ -698,7 +712,8 @@ if(empty($_SESSION))
     {   
         
         include("conex.php");
-        $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\"");
+        $sql= "SELECT * FROM \"tISAPRE\"";
+        $query = pg_query($dbconn, $sql);
         while($row = pg_fetch_assoc($query))
         {
             echo "<tr>
@@ -711,7 +726,8 @@ if(empty($_SESSION))
     {   
         
         include("conex.php");
-        $query = pg_query($dbconn, "SELECT * FROM \"tAFP\"");
+        $sql = "SELECT * FROM \"tAFP\"";
+        $query = pg_query($dbconn,$sql );
         while($row = pg_fetch_assoc($query))
         {
             echo "<tr>
@@ -725,7 +741,8 @@ if(empty($_SESSION))
     {       if(!empty($_SESSION['Datos']))
             {
             include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\" where \"id_ISAPRE\" = '".$_SESSION['Datos']['id_ISAPRE']."' ");
+            $sql = "SELECT * FROM \"tISAPRE\" where \"id_ISAPRE\" = '".$_SESSION['Datos']['id_ISAPRE']."' ";
+            $query = pg_query($dbconn,$sql);
             $row = pg_fetch_assoc($query);
             return $row; 
             }
@@ -736,7 +753,8 @@ if(empty($_SESSION))
     {       if(!empty($_SESSION['Datos']))
             {
             include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\"");
+            $sql = "SELECT * FROM \"tISAPRE\"";
+            $query = pg_query($dbconn, $sql );
             while($row = pg_fetch_assoc($query))
             {   
                 if($row['id_ISAPRE'] == $_SESSION['Datos']['id_ISAPRE'])
@@ -758,7 +776,8 @@ if(empty($_SESSION))
 
     {       
             include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tISAPRE\"");
+            $sql = "SELECT * FROM \"tISAPRE\"";
+            $query = pg_query($dbconn, $sql );
             while($row = pg_fetch_assoc($query))
             {  
                 echo "<option value=\"".$row['id_ISAPRE']."\">".$row['ISAPRE']."</option>";
@@ -771,7 +790,8 @@ if(empty($_SESSION))
             if(!empty($_SESSION['Datos']))
             {
             include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tContratos\" where \"id_Contrato\" = '".$_SESSION['Datos']['id_Contrato']."' ");
+            $sql = "SELECT * FROM \"tContratos\" where \"id_Contrato\" = '".$_SESSION['Datos']['id_Contrato']."' ";
+            $query = pg_query($dbconn, $sql);
             $row = pg_fetch_assoc($query);
             return $row;  
             }
@@ -780,7 +800,8 @@ if(empty($_SESSION))
     function get_Contrato_Modificador()
     {
             include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tContratos\" ");
+            $sql= "SELECT * FROM \"tContratos\" ";
+            $query = pg_query($dbconn,$sql );
             while($row = pg_fetch_assoc($query))
                 {   
                     if($row['id_Contrato'] == $_SESSION['Contrato']['id_Contrato'])
@@ -798,7 +819,8 @@ if(empty($_SESSION))
     function get_Empleo_Registro()
     {
       include("conex.php");
-            $query = pg_query($dbconn, "SELECT * FROM \"tCargos\"");
+            $sql = "SELECT * FROM \"tCargos\" ";
+            $query = pg_query($dbconn, $sql);
             while($row = pg_fetch_assoc($query))
             {
                 echo "<input type=\"checkbox\"  name=Cargo[] value=\"".$row['id_Cargo']."\">".$row['Cargo']."<br>";
@@ -836,7 +858,8 @@ if(empty($_SESSION))
     }
     function get_cargos(){
         include("conex.php");
-        $query = pg_query($dbconn, "SELECT \"tEmpleados\".\"Rut\", \"rel_tEmpleados_tCargos\".\"Rut\", \"tCargos\".\"Cargo\", \"rel_tEmpleados_tCargos\".\"id_Cargo\", \"tCargos\".\"id_Cargo\"FROM public.\"tEmpleados\", public.\"rel_tEmpleados_tCargos\", public.\"tCargos\" WHERE \"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tCargos\".\"Rut\" AND\"rel_tEmpleados_tCargos\".\"id_Cargo\" = \"tCargos\".\"id_Cargo\" AND \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."';");
+        $sql = "SELECT \"tEmpleados\".\"Rut\", \"rel_tEmpleados_tCargos\".\"Rut\", \"tCargos\".\"Cargo\", \"rel_tEmpleados_tCargos\".\"id_Cargo\", \"tCargos\".\"id_Cargo\"FROM public.\"tEmpleados\", public.\"rel_tEmpleados_tCargos\", public.\"tCargos\" WHERE \"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tCargos\".\"Rut\" AND\"rel_tEmpleados_tCargos\".\"id_Cargo\" = \"tCargos\".\"id_Cargo\" AND \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."';";
+        $query = pg_query($dbconn, $sql );
         $c=0;
         $_SESSION['Cargos_empleado'] = " ";
         while($row1 = pg_fetch_assoc($query)){
@@ -862,7 +885,8 @@ function cal_Total_Imponible(){
     $_SESSION['Gratificaciones_Imponible']=0;
     $_SESSION['Gratificaciones_no_Imponible']=0;
     $_SESSION['Asignacion_Familiar']= 0;
-    $query = pg_query($dbconn, " SELECT \"tEmpleados\".\"Rut\", \"tBonos\".\"Bono\", \"tBonos\".\"Activo\", \"tBonos\".\"id_Bono\", \"tBonos\".\"Imponible\",\"rel_tEmpleados_tBonos\".\"Monto\" FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."'::bpchar;");
+    $sql = " SELECT \"tEmpleados\".\"Rut\", \"tBonos\".\"Bono\", \"tBonos\".\"Activo\", \"tBonos\".\"id_Bono\", \"tBonos\".\"Imponible\",\"rel_tEmpleados_tBonos\".\"Monto\" FROM \"tBonos\" JOIN \"rel_tEmpleados_tBonos\" ON \"tBonos\".\"id_Bono\" = \"rel_tEmpleados_tBonos\".\"id_Bono\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tBonos\".\"Rut\" = \"tEmpleados\".\"Rut\" WHERE \"tEmpleados\".\"Rut\" = '".$_SESSION['Rut']."'::bpchar;";
+    $query = pg_query($dbconn, $sql );
     while ($row1 = pg_fetch_assoc($query)) {
         if($row1['Imponible']=="t"){
         $_SESSION['Gratificaciones_Imponible'] += $row1['Monto'];
@@ -889,7 +913,8 @@ function cal_Total_Descuentos(){
     include("conex.php");
     $_SESSION['Descuentos_Legal']=0;
     $_SESSION['Descuentos_Otros']=0;
-    $query = pg_query($dbconn, "SELECT \"tEmpleados\".\"Rut\",\"tEmpleados\".\"Nombre\",\"tDescuentos\".\"Descuento\",\"tDescuentos\".\"Tipo\",\"rel_tEmpleados_tDescuentos\".\"Monto\",\"tDescuentos\".\"id_Descuento\" FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;");
+    $sql = "SELECT \"tEmpleados\".\"Rut\",\"tEmpleados\".\"Nombre\",\"tDescuentos\".\"Descuento\",\"tDescuentos\".\"Tipo\",\"rel_tEmpleados_tDescuentos\".\"Monto\",\"tDescuentos\".\"id_Descuento\" FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;";
+    $query = pg_query($dbconn, $sql);
     while  ($row1 = pg_fetch_assoc($query)){
         if($row1['Tipo'] == 'legal '){
                 if($row1['id_Descuento']<>2){
@@ -930,14 +955,16 @@ function Liquido_Pagar(){
 }
 function Total_AFP(){
     include("conex.php");
-    $query = pg_query($dbconn, " SELECT * FROM \"tAFP\" WHERE \"tAFP\".\"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."';");
+    $sql = " SELECT * FROM \"tAFP\" WHERE \"tAFP\".\"id_AFP\" = '".$_SESSION['Datos']['id_AFP']."';";
+    $query = pg_query($dbconn,$sql );
     $row1 = pg_fetch_assoc($query);
     $_SESSION['Total_AFP'] = round(($row1['Tasa'] * $_SESSION['Total_Imponible'])/100,0);
     $_SESSION['Descuentos_Legal'] += $_SESSION['Total_AFP'] ;
 }
 function Total_Isapre(){
     include("conex.php");
-    $query = pg_query($dbconn, " SELECT * FROM \"tISAPRE\" WHERE \"tISAPRE\".\"id_ISAPRE\" = '".$_SESSION['Isapre']['id_ISAPRE']."';");
+    $sql =  " SELECT * FROM \"tISAPRE\" WHERE \"tISAPRE\".\"id_ISAPRE\" = '".$_SESSION['Isapre']['id_ISAPRE']."';";
+    $query = pg_query($dbconn,$sql);
     $row1 = pg_fetch_assoc($query);
     $_SESSION['Total_Isapre'] = round(($row1['Tasa'] * $_SESSION['Total_Imponible'])/100,0);
     $_SESSION['Descuentos_Legal'] +=$_SESSION['Total_Isapre'];
@@ -945,7 +972,8 @@ function Total_Isapre(){
 
 function Total_Seguro(){
     include("conex.php");
-    $query = pg_query($dbconn, " SELECT * FROM \"tContratos\" WHERE \"tContratos\".\"id_Contrato\" = '".$_SESSION['Contrato']['id_Contrato']."';");
+    $sql =  " SELECT * FROM \"tContratos\" WHERE \"tContratos\".\"id_Contrato\" = '".$_SESSION['Contrato']['id_Contrato']."';";
+    $query = pg_query($dbconn,$sql);
     $row1 = pg_fetch_assoc($query);
     $_SESSION['Total_seguro'] = round(($row1['Tasa_seguro_cesantia'] * $_SESSION['Total_Imponible'])/100,0);
     $_SESSION['Descuentos_Legal'] +=$_SESSION['Total_seguro'];
@@ -962,7 +990,8 @@ function Sobre_giro(){
 
 function calculo_Descuentos_varios(){
     include("conex.php");
-    $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."' and \"Activo\"='t'");
+    $sql = "SELECT * FROM \"tPrestamos\" where \"Rut\" ='".$_SESSION['Rut']."' and \"Activo\"='t'";
+    $query = pg_query($dbconn, $sql);
     while($row1 = pg_fetch_assoc($query)){
     $_SESSION['Descuentos_Otros'] += $row1["Monto"];
     }
@@ -971,7 +1000,8 @@ function calculo_Descuentos_varios(){
 
 function gastos_extras(){
     include("conex.php");
-    $query = pg_query($dbconn, "SELECT * FROM \"rel_tEmpleados_tGastos_extra\" where \"Rut\" ='".$_SESSION['Rut']."'" );
+    $sql = "SELECT * FROM \"rel_tEmpleados_tGastos_extra\" where \"Rut\" ='".$_SESSION['Rut']."'" ;
+    $query = pg_query($dbconn, $sql);
     while($row1 = pg_fetch_assoc($query)){
         if($row1['id_Gasto']==4){
             $_SESSION['Gastos_extras_Seguro_cesantia'] = $row1['Monto'];
@@ -988,24 +1018,38 @@ function gastos_extras(){
 
 function desactivar_Prestamos(){
     include("conex.php"); 
-    $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Activo\"='t'");
+    $sql = "SELECT * FROM \"tPrestamos\" where \"Activo\"='t'";
+    $query = pg_query($dbconn, $sql);
     while($row1 =pg_fetch_assoc($query)){
         list($year_final,$Mes_final,$Dia_final)= explode("-",$row1['F_final']);
         if(intval(date('Y'))==intval($year_final) and intval($Mes_final)<12){
-            if(intval(date('n'))>intval($Mes_final) and intval(date('j'))>5){    
-                $query = pg_query($dbconn, "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";");
+            if(intval(date('n'))>intval($Mes_final) and intval(date('j'))>5){  
+                $sql2= "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";";
+                $query = pg_query($dbconn, $sql2 );
+                if(!$query){
+                echo "<script>alert('Error al modificar los datos.
+                ')</script>";
+                
+                }
             }
         }
         else{
             if(intval(date('Y'))>intval($year_final) and intval($Mes_final)==12 and intval(date('j'))>5){
-                $query = pg_query($dbconn, "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";");
+                $sql2 =  "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";";
+                $query = pg_query($dbconn,$sql2);
+                if(!$query){
+                echo "<script>alert('Error al modificar los datos.
+                ')</script>";
+                
+                }
             }
         }
     }
 }                   
 function desactivar_licencias(){
     include("conex.php"); 
-    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Activo\" ='t'");
+    $sql = "SELECT * FROM \"tLicencias\" where \"Activo\" ='t'";
+    $query = pg_query($dbconn, $sql);
     while($row1 = pg_fetch_assoc($query)){
         list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
         $year=intval($year_inicial);
@@ -1014,7 +1058,11 @@ function desactivar_licencias(){
         while(true){
             if($Mes==intval(date('n')) and $year==intval(date('Y'))){
                 if($Dias<1 and intval(date('j'))>5){
-                    $query = pg_query($dbconn, "UPDATE \"tLicencias\" set \"Activo\" = 'f' where \"id_Licencia\" =".$row1['id_Licencia'].";" );
+                    $sql2 =  "UPDATE \"tLicencias\" set \"Activo\" = 'f' where \"id_Licencia\" =".$row1['id_Licencia'].";";
+                    $query = pg_query($dbconn, $sql2 );
+                    if(!$query){
+                        echo "<script>alert('Error al modificar al desactivar')</script>";
+                    }
                     break;
                 }
                 else{

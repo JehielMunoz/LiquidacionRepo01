@@ -44,7 +44,8 @@ if(!empty($_SESSION['Tipo']))
     {   
         if(!empty($rut))
         {
-            $query = pg_query($dbconn, "SELECT * FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;");
+            $sql = "SELECT * FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;";
+            $query = pg_query($dbconn, $sql);
             echo "<h2>Descuentos del usuario</h2>";
             echo "<br/>";
             while ($row1 = pg_fetch_assoc($query)) {
@@ -72,7 +73,8 @@ if(!empty($_SESSION['Tipo']))
 
             
             if($num!='0' && $num2==7){
-                $query = pg_query($dbconn,"UPDATE  \"tPrestamos\" SET \"Monto\" = $monto WHERE \"id_Prestamo\" = $id_prestamo AND \"Rut\"='".$_SESSION["Rut"]."'" );
+                $sql = "UPDATE  \"tPrestamos\" SET \"Monto\" = $monto WHERE \"id_Prestamo\" = $id_prestamo AND \"Rut\"='".$_SESSION["Rut"]."'" ;
+                $query = pg_query($dbconn, $sql);
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
@@ -84,7 +86,8 @@ if(!empty($_SESSION['Tipo']))
             }         
             
             if($num!='0' && $num2==6){
-                $query = pg_query($dbconn,"UPDATE  \"rel_tEmpleados_tDescuentos\" SET \"Monto\" = $monto WHERE \"id_Descuento\" = $id_descuento AND \"Rut\"='".$_SESSION["Rut"]."'" );
+                $sql = "UPDATE  \"rel_tEmpleados_tDescuentos\" SET \"Monto\" = $monto WHERE \"id_Descuento\" = $id_descuento AND \"Rut\"='".$_SESSION["Rut"]."'";
+                $query = pg_query($dbconn, $sql );
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
@@ -97,7 +100,8 @@ if(!empty($_SESSION['Tipo']))
 
             if($num!='0' && $num2==4){
                 $values = "('$rut','".$_POST['Nombre']."','".$_POST['Inicio']."','".$_POST['Final']."',".$_POST['Monto'].")";
-                $query = pg_query($dbconn,"insert into \"tPrestamos\"(\"Rut\",\"Nombre\",\"F_inicio\",\"F_final\",\"Monto\") values".$values );
+                $sql = "insert into \"tPrestamos\"(\"Rut\",\"Nombre\",\"F_inicio\",\"F_final\",\"Monto\") values".$values." ";
+                $query = pg_query($dbconn, $sql);
                 Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
@@ -110,7 +114,8 @@ if(!empty($_SESSION['Tipo']))
             }
              if($num!='0' && $num2==5){
                 $values = "('$rut','".$_POST['Descuenta']."',".$_POST['Dias'].",'".$_POST['Inicio_l']."','".$_POST['Final_l']."')";
-                $query = pg_query($dbconn,"insert into \"tLicencias\"(\"Rut\",\"Descuenta\",\"Dias\",\"F_inicio\",\"F_final\") values".$values );
+                $sql = "insert into \"tLicencias\"(\"Rut\",\"Descuenta\",\"Dias\",\"F_inicio\",\"F_final\") values".$values."";
+                $query = pg_query($dbconn,$Sql);
                 Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
@@ -123,7 +128,8 @@ if(!empty($_SESSION['Tipo']))
             }
             
             if($num!='0' && $num2==1){
-                $query = pg_query($dbconn,"insert into \"rel_tEmpleados_tDescuentos\"(\"id_Descuento\",\"Monto\",\"Rut\" ) values($num,$monto,'$rut');"); 
+                $sql = "insert into \"rel_tEmpleados_tDescuentos\"(\"id_Descuento\",\"Monto\",\"Rut\" ) values($num,$monto,'$rut');";
+                $query = pg_query($dbconn, $sql); 
                 Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
@@ -137,7 +143,8 @@ if(!empty($_SESSION['Tipo']))
             }
             if($num!='0' && $num2==2){
                 $Nombre_Descuento = get_Descuento($num);
-                $query = pg_query($dbconn,"delete from  \"rel_tEmpleados_tDescuentos\" where \"rel_tEmpleados_tDescuentos\".\"id_Descuento\"=$num and \"rel_tEmpleados_tDescuentos\".\"Rut\" = '$rut' ;"); 
+                $sql = "delete from  \"rel_tEmpleados_tDescuentos\" where \"rel_tEmpleados_tDescuentos\".\"id_Descuento\"=$num and \"rel_tEmpleados_tDescuentos\".\"Rut\" = '$rut' ;";
+                $query = pg_query($dbconn, $sql); 
                 Recargar_datos();
                 if (!$query) {
                     echo "Falla en la consulta.\n";
@@ -150,15 +157,18 @@ if(!empty($_SESSION['Tipo']))
             }
             if($num!='0' && $num2==3){
                 if($tipo=='Legal'){
-                    $query = pg_query("insert into \"tDescuentos\"(\"Descuento\",\"Tipo\",\"Activo\") values('$nombre','legal','t');");
+                    $sql="insert into \"tDescuentos\"(\"Descuento\",\"Tipo\",\"Activo\") values('$nombre','legal','t');";
+                    $query = pg_query($dbconn,$sql);
                     Escribir_Reporte("Se creo un descuento de ".$nombre." de tipo legal.");
                 }
                 else{
-                    $query = pg_query("insert into \"tDescuentos\"(\"Descuento\",\"Tipo\",\"Activo\") values('$nombre','vario','t');");
+                    $sql = "insert into \"tDescuentos\"(\"Descuento\",\"Tipo\",\"Activo\") values('$nombre','vario','t');";
+                    $query = pg_query($dbconn,$sql);
                     Escribir_Reporte("Se creo un descuento de ".$nombre." de tipo vario.");
                 }
             }
-            $query = pg_query($dbconn, "SELECT * FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;");
+            $sql = "SELECT * FROM \"rel_tEmpleados_tDescuentos\" JOIN \"tEmpleados\" ON \"rel_tEmpleados_tDescuentos\".\"Rut\" = \"tEmpleados\".\"Rut\" JOIN \"tDescuentos\" ON \"rel_tEmpleados_tDescuentos\".\"id_Descuento\" = \"tDescuentos\".\"id_Descuento\" WHERE \"tEmpleados\".\"Rut\" = '$rut'::bpchar;";
+            $query = pg_query($dbconn, $sql);
             if (!$query) {
                 echo "Error en la consulta.\n";
                 exit;
@@ -174,8 +184,8 @@ if(!empty($_SESSION['Tipo']))
                 echo "<td><div><button  onclick=\"TraerDatos(".$row1['id_Descuento'].",'6')\">Modificar Monto </button></div></td>";
                 echo "</tr>";
             }
-            
-            $query = pg_query($dbconn, "Select * FROM \"tLicencias\" WHERE \"Rut\" ='$rut' and \"Activo\" ='t'");
+            $sql = "Select * FROM \"tLicencias\" WHERE \"Rut\" ='$rut' and \"Activo\" ='t'";
+            $query = pg_query($dbconn, $sql);
             while ($row1 = pg_fetch_assoc($query)) {
                 echo "<tr>";
                 echo "<td>Licencias Medicas</td>";
@@ -193,8 +203,8 @@ if(!empty($_SESSION['Tipo']))
             echo "</table>";
             echo "</td>";
             echo "<td>";
-            
-            $query = pg_query($dbconn, "SELECT *FROM public.\"tDescuentos\" WHERE \"tDescuentos\".\"id_Descuento\"  NOT IN (SELECT \"tDescuentos\".\"id_Descuento\" FROM public.\"tEmpleados\", public.\"rel_tEmpleados_tDescuentos\", public.\"tDescuentos\" WHERE (\"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tDescuentos\".\"Rut\" AND \"tDescuentos\".\"id_Descuento\" = \"rel_tEmpleados_tDescuentos\".\"id_Descuento\") AND (\"tEmpleados\".\"Rut\" = '$rut')); ");
+            $sql = "SELECT *FROM public.\"tDescuentos\" WHERE \"tDescuentos\".\"id_Descuento\"  NOT IN (SELECT \"tDescuentos\".\"id_Descuento\" FROM public.\"tEmpleados\", public.\"rel_tEmpleados_tDescuentos\", public.\"tDescuentos\" WHERE (\"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tDescuentos\".\"Rut\" AND \"tDescuentos\".\"id_Descuento\" = \"rel_tEmpleados_tDescuentos\".\"id_Descuento\") AND (\"tEmpleados\".\"Rut\" = '$rut')); ";
+            $query = pg_query($dbconn, $sql);
             if (!$query) {
                 echo "Error en la consulta.\n";
                 exit;
@@ -204,7 +214,8 @@ if(!empty($_SESSION['Tipo']))
             echo "<br />";
             echo "<table>";
             /////// CALCULAR VALOR TOTAL DE MESES,.
-            $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Rut\" ='$rut' and \"Activo\"='t' ");
+            $sql = "SELECT * FROM \"tPrestamos\" where \"Rut\" ='$rut' and \"Activo\"='t' ";
+            $query = pg_query($dbconn, $sql );
             if (!$query) {
                 echo "Error en la consulta.\n";
                 exit;
@@ -221,8 +232,8 @@ if(!empty($_SESSION['Tipo']))
             }
             echo "</table>";
             echo "</td>";
-            
-            $query = pg_query($dbconn, "SELECT *FROM public.\"tDescuentos\" WHERE \"tDescuentos\".\"id_Descuento\"  NOT IN (SELECT \"tDescuentos\".\"id_Descuento\" FROM public.\"tEmpleados\", public.\"rel_tEmpleados_tDescuentos\", public.\"tDescuentos\" WHERE (\"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tDescuentos\".\"Rut\" AND \"tDescuentos\".\"id_Descuento\" = \"rel_tEmpleados_tDescuentos\".\"id_Descuento\") AND (\"tEmpleados\".\"Rut\" = '$rut')); ");
+            $sql = "SELECT *FROM public.\"tDescuentos\" WHERE \"tDescuentos\".\"id_Descuento\"  NOT IN (SELECT \"tDescuentos\".\"id_Descuento\" FROM public.\"tEmpleados\", public.\"rel_tEmpleados_tDescuentos\", public.\"tDescuentos\" WHERE (\"tEmpleados\".\"Rut\" = \"rel_tEmpleados_tDescuentos\".\"Rut\" AND \"tDescuentos\".\"id_Descuento\" = \"rel_tEmpleados_tDescuentos\".\"id_Descuento\") AND (\"tEmpleados\".\"Rut\" = '$rut')); ";
+            $query = pg_query($dbconn,$sql );
             if (!$query) {
                 echo "Error en la consulta.\n";
                 exit;
