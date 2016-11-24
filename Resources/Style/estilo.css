@@ -422,3 +422,14 @@ footer{
 	margin-top:15px;
 	font-size:11px;
 	color:#3c3c3c;}
+
+.t_impuesto, .t_modImpuesto{
+    max-width:1020px;
+    margin:10px auto 20px;}
+
+.t_impuesto td, .t_modImpuesto td{ min-width:0px;}
+
+.t_modImpuesto .t_modDatonum{
+	max-width:90px;
+    border:1px solid #aaa;
+    padding:1px 1.5px;}

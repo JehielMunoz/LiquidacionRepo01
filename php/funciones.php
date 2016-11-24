@@ -678,30 +678,30 @@ if(empty($_SESSION))
                 echo "
                     <tr>
                         <td>".$row['id_Impuesto']."</td>
-                        <td><input name='".$row['id_Impuesto']."fdesde' type='number' min='0' step='0.00001' value='".$row['fDesde']."'></td>
+                        <td><input name='".$row['id_Impuesto']."fdesde' type='number' min='0' step='0.00001' class='t_modDatonum' value='".$row['fDesde']."'></td>
                         <td></td>
-                        <td><input name='".$row['id_Impuesto']."factor' type='number' min='0' step='0.00001' value='".$row['Factor']."'></td>
-                        <td><input name='".$row['id_Impuesto']."ndesde' type='number' min='0' value='".$row['nDesde']."'></td>
+                        <td><input name='".$row['id_Impuesto']."factor' type='number' min='0' step='0.00001' class='t_modDatonum' value='".$row['Factor']."'></td>
+                        <td><input name='".$row['id_Impuesto']."ndesde' type='number' min='0' class='t_modDatonum' value='".$row['nDesde']."'></td>
                         <td></td>
-                        <td><input name='".$row['id_Impuesto']."frebaja' type='number' min='0' step='0.00001' value='".$row['fRebaja']."'></td>
-                        <td><input name='".$row['id_Impuesto']."nrebaja' type='number' min='0' value='".$row['nRebaja']."'></td>
+                        <td><input name='".$row['id_Impuesto']."frebaja' type='number' min='0' step='0.00001' class='t_modDatonum' value='".$row['fRebaja']."'></td>
+                        <td><input name='".$row['id_Impuesto']."nrebaja' type='number' min='0' class='t_modDatonum' value='".$row['nRebaja']."'></td>
 
-                    </tr>"; 
+                    </tr>";
                 }
                 else 
                 {
                 echo "
                     <tr>
                         <td>".$row['id_Impuesto']."</td>
-                        <td><input name='".$row['id_Impuesto']."fdesde' type='number' min='0' step='0.00001' value='".$row['fDesde']."'></td>
-                        <td><input name='".$row['id_Impuesto']."fhasta' type='number' min='0' step='0.00001' value='".$row['fHasta']."'></td>
-                        <td><input name='".$row['id_Impuesto']."factor' type='number' min='0' step='0.00001' value='".$row['Factor']."'></td>
-                        <td><input name='".$row['id_Impuesto']."ndesde' type='number' min='0' value='".$row['nDesde']."'></td>
-                        <td><input name='".$row['id_Impuesto']."nhasta' type='number' min='0' value='".$row['nHasta']."'></td>
-                        <td><input name='".$row['id_Impuesto']."frebaja' type='number' min='0' step='0.00001' value='".$row['fRebaja']."'></td>
-                        <td><input name='".$row['id_Impuesto']."nrebaja' type='number' min='0' value='".$row['nRebaja']."'></td>
+                        <td><input name='".$row['id_Impuesto']."fdesde' type='number' min='0' step='0.00001' class='t_modDatonum' value='".$row['fDesde']."'></td>
+                        <td><input name='".$row['id_Impuesto']."fhasta' type='number' min='0' step='0.00001' class='t_modDatonum' value='".$row['fHasta']."'></td>
+                        <td><input name='".$row['id_Impuesto']."factor' type='number' min='0' step='0.00001' class='t_modDatonum' value='".$row['Factor']."'></td>
+                        <td><input name='".$row['id_Impuesto']."ndesde' type='number' min='0' class='t_modDatonum' value='".$row['nDesde']."'></td>
+                        <td><input name='".$row['id_Impuesto']."nhasta' type='number' min='0' class='t_modDatonum' value='".$row['nHasta']."'></td>
+                        <td><input name='".$row['id_Impuesto']."frebaja' type='number' min='0' class='t_modDatonum' step='0.00001' value='".$row['fRebaja']."'></td>
+                        <td><input name='".$row['id_Impuesto']."nrebaja' type='number' min='0' class='t_modDatonum' value='".$row['nRebaja']."'></td>
 
-                    </tr>";   
+                    </tr>";
                 }
 
                 $id+=1;
