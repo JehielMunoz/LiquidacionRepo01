@@ -597,6 +597,8 @@ if(empty($_SESSION))
     }
     function get_AFP_Modificador() 
     {     
+            if(!empty($_SESSION['Rut']))
+            {
             include("conex.php");
             $sql = "SELECT * FROM \"tAFP\"";
             $query = pg_query($dbconn, $sql);
@@ -610,6 +612,7 @@ if(empty($_SESSION))
                 echo "<option value=\"".$row['id_AFP']."\">".$row['AFP']."</option>";
 
                 }
+            }
             }
     }
 
@@ -796,7 +799,9 @@ if(empty($_SESSION))
 
     }
     function get_Contrato_Modificador()
-    {
+    {       
+            if(!empty($_SESSION['Rut']))
+            {
             include("conex.php");
             $sql= "SELECT * FROM \"tContratos\" ";
             $query = pg_query($dbconn,$sql );
@@ -812,6 +817,7 @@ if(empty($_SESSION))
                     echo "<option value=\"".$row['id_Contrato']."\">".$row['Contrato']."</option>";
                     }
                 }
+            }
     }
 
     function get_Empleo_Registro()
