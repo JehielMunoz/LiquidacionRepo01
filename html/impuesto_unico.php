@@ -118,9 +118,8 @@
                     <input type="submit" value="Volver" id="Mostrar_impuestos">
                 </div>
             </div>
+        </div>   
     </div>
-        
-        </div>
     <?php
         include("footer.php");
     ?>

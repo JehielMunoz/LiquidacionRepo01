@@ -650,8 +650,7 @@ if(empty($_SESSION))
     {
             include("conex.php");
             $id=1;
-            $sql = "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ";
-			while($row = pg_fetch_assoc(pg_query($dbconn, $sql)))
+			while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
 			{
 				echo "
                 <tr>
@@ -666,13 +665,12 @@ if(empty($_SESSION))
                 $id+=1;
 			}
         
-        }
+    }
     function mostrar_impuesto_editar()
     {
             include("conex.php");
             $id=1;
-            $sql = "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ";
-			while($row = pg_fetch_assoc(pg_query($dbconn, $sql)))
+			while($row = pg_fetch_assoc(pg_query($dbconn, "SELECT * FROM \"tImpuesto\" where \"id_Impuesto\"=$id ")))
 			{
                 if($id==8){
                 echo "

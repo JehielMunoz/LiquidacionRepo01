@@ -83,5 +83,8 @@
 						</tr>
 					</table>
 			</form>
+    			<?php if(!empty($_SESSION['Rut'])){ ?>
+			<button class="boton_toggle" id="ModificarPlanilla">Modificar Planilla</button>
+			<?php } ?>
 		
 		
