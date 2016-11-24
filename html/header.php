@@ -61,7 +61,7 @@
          $(function(){
                 $('#ModificarPlanilla').click(Mostrar_y_ocultar);
                 $('#VolverPlanilla').click(Mostrar_y_ocultar);
-                $("#descuentos :input.entrega-dato").bind("keyup blur",bloqueaInput);
+                
             });
             
             function Mostrar_y_ocultar(){
