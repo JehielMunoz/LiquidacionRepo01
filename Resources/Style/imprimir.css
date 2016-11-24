@@ -1,4 +1,6 @@
 @media print{
+	body{ color:#000 !important;}
+	
 	.menudiv, #top-header,.ui-tabs .ui-tabs-nav li{
 		display:none;
 	}
@@ -14,5 +16,7 @@
 		width:920px;
         height:1200px;
 		border-collapse:collapse;
-		border:1px solid black;
+		border:none;}
+	
+	#tabla_head .letra_pequena{ min-width: 200px;}
 }

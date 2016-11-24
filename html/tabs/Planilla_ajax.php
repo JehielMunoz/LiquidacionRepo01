@@ -5,8 +5,7 @@
     }
         
 ?>
-    <div id="tabs-1">					<!--Div Planilla Liquidacion-->
-		<div class="divplanilla">
+    
 			<form>
 				<table>
 					<tr><th colspan="2">Datos empleado</th></tr>
@@ -16,7 +15,7 @@
 					</tr>
 					<tr>
 						<td>Rut</td>
-						<td><input type="text" class="entrega-dato" disable placeholder="Rut" disabled id="Ruta" name="rut" value="<?php Rut();?>"></td>
+						<td><input type="text" class="entrega-dato"  disable placeholder="Rut" disabled id="Ruta" name="rut" value="<?php Rut();?>"></td>
 					</tr>
 					<tr>
 						<td>Sueldo base</td>
@@ -56,7 +55,7 @@
 							<td><input type="text" class="entrega-dato" disabled  placeholder="Tasa" name="lname" value="<?php tasa_AFP();?>"></td>
 							
 						<tr>
-							<td>Cotizacion de Salud:</td>
+						<td>Cotizacion de Salud:</td>
 							
 							<td><input type="text" class="entrega-dato" disabled name="lname" placeholder="Nombre ISAPRE" value="<?php nombre_ISAPRE();?>"></td>
 							<td><input type="text" class="entrega-dato" disabled  placeholder="Valor" name="lname"  value="<?php Valor_Isapre();?>"></td>
@@ -84,5 +83,5 @@
 						</tr>
 					</table>
 			</form>
-		</div>
-	</div>
+		
+		

@@ -16,8 +16,8 @@
     <head>
         <title><?php global $html_titulo; print_Variable($html_titulo); ?></title> <!-- arreglar -->
         <link type="text/css" rel="stylesheet" href="../Resources/Style/estilo.css"/>
-        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style.css">
-        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style02.css">
+        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style.css"/>
+        <link type="text/css" rel="stylesheet" href="../Resources/Style/tabs_style02.css"/>
 
         <script src="../Resources/Scripts/scripts.js"></script>
         <script src="../Resources/Scripts/tabsO.js"></script>
@@ -30,6 +30,7 @@
             $(function(){
                 $('#Modificar_Impuestos').click(Mostrar_y_ocultar);
                 $('#Mostrar_impuestos').click(Mostrar_y_ocultar);
+                $("input.t_modDatonum").bind("keyup blur",bloqueaInput);
             });
             
             function Mostrar_y_ocultar(){
@@ -37,6 +38,9 @@
                 $('#div_editar').toggle("slow");
                 
             }
+            
+            function bloqueaInput(){
+                $(this).val( $(this).val().replace(/[^0-9]/,"") );}
         </script>
         <script src="../Resources/Scripts/Asignar_datos_db.js"></script>   
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -65,6 +69,7 @@
 		<a href="Licencias.php">Licencias</a>
 		<a href="Afp.php">AFP</a>
 		<a href="Ips.php">IPS</a>
+        <a href="Contacto.php">Contacto</a>
         <?php
             if(!empty($_SESSION['Tipo']))
                 {   
@@ -74,8 +79,6 @@
                     }
                 }
         ?>
-        <a href="Contacto.php">Contacto</a>
-		<a href="#">Servicio Tecnico</a>
 	</div>
 	<div id="tabs" class="barradiv">
             <ul>
@@ -84,14 +87,14 @@
 			</ul>
 			<div id="tabs-1">
                 <div id="div_Mostrador">
-                    <table>                
-                        <th >Desde</th>
-                        <th >Hasta</th>
-                        <th >Factor</th>
-                        <th >Desde</th>
-                        <th >Hasta</th>
-                        <th >Rebaja</th>
-                        <th >$ Rebaja</th>
+                    <table class="t_impuesto">
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Factor</th>
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Rebaja</th>
+                        <th>$ Rebaja</th>
                         <?php 
                         mostrar_impuesto();
                         ?>
@@ -101,26 +104,26 @@
                 </div>
                 <div id="div_editar" style="display:none">
                     <form action='../php/Impuesto_updates.php' method='POST'>
-                    <table> 
-                        <th >id</th>
-                        <th >Desde</th>
-                        <th >Hasta</th>
-                        <th >Factor</th>
-                        <th >Desde</th>
-                        <th >Hasta</th>
-                        <th >Rebaja</th>
-                        <th >$ Rebaja</th>
-                        <?php 
-                        mostrar_impuesto_editar();
-                        ?>
-                    </table>
+						<table class="t_modImpuesto">
+							<th>id</th>
+							<th>Desde</th>
+							<th>Hasta</th>
+							<th>Factor</th>
+							<th>Desde</th>
+							<th>Hasta</th>
+							<th>Rebaja</th>
+							<th>$ Rebaja</th>
+							<?php
+							mostrar_impuesto_editar();
+							?>
+						</table>
                     <input type="submit" value="Guardar Cambios" id="Guardar"></form>
                     <br/>
                     <input type="submit" value="Volver" id="Mostrar_impuestos">
                 </div>
             </div>
+        </div>   
     </div>
-        
-        </div>
-    </body>
-</html>
+    <?php
+        include("footer.php");
+    ?>

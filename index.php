@@ -6,19 +6,31 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 function verificar_login($user,$password,&$result){
     include("./php/conex.php");
-    $query = pg_query($dbconn, "SELECT * FROM \"tUsuarios\" WHERE \"Usuario\" = '$user' and \"Password\" = '$password'");
-    $count = 0;
-    if(!empty($row = pg_fetch_object($query))) 
+    if(strpbrk($user,'!#$-\"\';:.{}[]?¡=()/&%*') or strpbrk($password,'!#$-\"\';:.{}[]?¡=()/&%*'))
     {
-        $result = $row;
-        return 1;
+        return 0;
     }
-    else
-    {
-        return 0;    
+    else{
+        if(get_magic_quotes_gpc()){
+            $user=stripslashes($user);
+            $password=stripslashes($password);
+        }
+        $user= pg_escape_string($user);
+        $password=pg_escape_string($password);
+        $sql = "SELECT * FROM \"tUsuarios\" WHERE \"Usuario\" = '$user' and \"Password\" = '$password';";
+        $query = pg_query($dbconn, $sql);
+        $count = 0;
+        if(!empty($row = pg_fetch_object($query))) 
+        {
+            $result = $row;
+            return 1;
+        }
+        else
+        {
+            return 0;    
+        }
     }
 }
-
 if (!isset($_SESSION['Usuario'])){
     if(isset($_POST['login']))
     {
