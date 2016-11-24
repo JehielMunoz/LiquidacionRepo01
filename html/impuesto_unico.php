@@ -83,14 +83,14 @@
 			</ul>
 			<div id="tabs-1">
                 <div id="div_Mostrador">
-                    <table>                
-                        <th >Desde</th>
-                        <th >Hasta</th>
-                        <th >Factor</th>
-                        <th >Desde</th>
-                        <th >Hasta</th>
-                        <th >Rebaja</th>
-                        <th >$ Rebaja</th>
+                    <table class="t_impuesto">
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Factor</th>
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Rebaja</th>
+                        <th>$ Rebaja</th>
                         <?php 
                         mostrar_impuesto();
                         ?>
@@ -100,19 +100,19 @@
                 </div>
                 <div id="div_editar" style="display:none">
                     <form action='../php/Impuesto_updates.php' method='POST'>
-                    <table> 
-                        <th >id</th>
-                        <th >Desde</th>
-                        <th >Hasta</th>
-                        <th >Factor</th>
-                        <th >Desde</th>
-                        <th >Hasta</th>
-                        <th >Rebaja</th>
-                        <th >$ Rebaja</th>
-                        <?php 
-                        mostrar_impuesto_editar();
-                        ?>
-                    </table>
+						<table class="t_modImpuesto">
+							<th>id</th>
+							<th>Desde</th>
+							<th>Hasta</th>
+							<th>Factor</th>
+							<th>Desde</th>
+							<th>Hasta</th>
+							<th>Rebaja</th>
+							<th>$ Rebaja</th>
+							<?php
+							mostrar_impuesto_editar();
+							?>
+						</table>
                     <input type="submit" value="Guardar Cambios" id="Guardar"></form>
                     <br/>
                     <input type="submit" value="Volver" id="Mostrar_impuestos">
