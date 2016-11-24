@@ -32,7 +32,8 @@
         var $Persona = null; // Variable que guarda el rut y el nombre
         var id_nombre = <?php get_Personas();?>; 
         var id = [];
-        var nombre = [];   
+        var nombre = [];
+        var nombre_low = [];   
         $(function(){
             $("#tabs").tabs();
         });
@@ -40,16 +41,32 @@
             for (var x = 0; x < id_nombre.length; x++)
             {
                 id.push(id_nombre[x][0]) ;    
-                nombre.push(id_nombre[x][1]) ;    
+                nombre.push(id_nombre[x][1]) ;
+                nombre_low.push(id_nombre[x][1].toLowerCase()) ;
+
             }                        
-            $( "#AutoNombre" ).autocomplete({
+            $("#AutoNombre").autocomplete({
             source: nombre,
             change: function(){   // Esto detecta el canbio en el campo de texto. Cuando se usa el autocompletado. Funcioa en chrome y firefox, IE NO LO HE PROBADO.
                 $Persona = AsignarId($(this));
             }
             });
+            $('#AutoNombre').on('input', function(){
+                $Persona = AsignarId($(this));
+            });
+
         });
-        
+         $(function(){
+                $('#VolverPlanilla').click(Mostrar_y_ocultar);
+                $('#ModificarPlanilla').click(Mostrar_y_ocultar);
+            });
+            
+            function Mostrar_y_ocultar(){
+                $('#Planilla').toggle("slow");
+                $('#m_Planilla').toggle("slow");
+                
+            }
+                  
     </script>
 	<script>
         function TraerDatos_Gratificaciones(num,num2){
@@ -94,6 +111,18 @@
             var rut3 = rut2.replace("-","");
  			objAjax2.open("POST","./html/tabs/Descuentos_Ajax.php");
 			objAjax2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            
+            if(num2=='7'){
+                var monto = document.getElementById('Monto_Credito').value;
+                var id_prestamo = num;
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&id_prestamo="+id_prestamo+"&monto="+monto);
+            }
+
+            if(num2=='6'){
+                var monto = document.getElementById('Monto_Descuento').value;
+                var id_descuento = num;
+                objAjax2.send("id_rut2="+rut3+"&num2="+num+"&num3="+num2+"&id_descuento="+id_descuento+"&monto="+monto);
+            }
             
             if(num2=='4'){
                 var nombre = document.getElementById('Nombre_nuevo_credito').value;

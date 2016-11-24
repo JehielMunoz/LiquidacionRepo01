@@ -8,7 +8,7 @@
 <body>
     <div id="top-header">
         <h1>
-            <?php global $html_titulo_barra;print_Variable($html_titulo_barra); ?> - <span id="n_Empleado"></span> <?php if(!empty($_SESSION['Rut'])){ echo "[ ".$_SESSION['Nombre']." ]";}?>
+            <?php global $html_titulo_barra;print_Variable($html_titulo_barra); ?> - <span id="n_Empleado"> <?php if(!empty($_SESSION['Rut'])){ echo "[ ".$_SESSION['Nombre']." ]";}?> </span> 
         </h1> 
 
         <div>
@@ -33,6 +33,7 @@
         <a href="./html/Licencias.php">Licencias</a>
         <a href="./html/Afp.php">AFP</a>
         <a href="./html/Ips.php">IPS</a>
+        <a href="./html/Contacto.php">Contacto</a>
     <?php
         if(!empty($_SESSION['Tipo']))
             {   
@@ -42,8 +43,7 @@
                 }
             }
     ?>
-        <a href="./html/Contacto.php">Contacto</a>
-        <a href="#">Servicio Tecnico</a>
+        
     </div>
     <div id="tabs" class="barradiv">
         <ul>

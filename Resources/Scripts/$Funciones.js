@@ -1,7 +1,10 @@
 $(function() {
 
-    $('#Buscar_Persona').on('keyup keypress', function(e) {
+    $("input").dblclick(function() {
+        $(this).prop("readonly", false)
+    });
 
+    $('#Buscar_Persona').on('keyup keypress', function(e) {
         if ($Persona == null) {
             var keyCode = e.keyCode || e.which;
             if (keyCode === 13) {
@@ -46,6 +49,7 @@ $(function() {
         return false; // Igual  que al validar formularios, devuelve falso para que se ejecute el enviar del form.
     });
 });
+
 
 
 
