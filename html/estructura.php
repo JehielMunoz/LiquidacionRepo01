@@ -33,6 +33,7 @@
         <a href="./html/Licencias.php">Licencias</a>
         <a href="./html/Afp.php">AFP</a>
         <a href="./html/Ips.php">IPS</a>
+        <a href="./html/Contacto.php">Contacto</a>
     <?php
         if(!empty($_SESSION['Tipo']))
             {   
@@ -42,8 +43,7 @@
                 }
             }
     ?>
-        <a href="./html/Contacto.php">Contacto</a>
-        <a href="#">Servicio Tecnico</a>
+        
     </div>
     <div id="tabs" class="barradiv">
         <ul>
