@@ -84,7 +84,9 @@
 						</tr>
 					</table>
 			</form>
+			<?php if(!empty($_SESSION['Rut'])){ ?>
 			<button id="ModificarPlanilla">Modificar Planilla</button>
+			<?php } ?>
 		</div>
 		<div id="m_Planilla" style="display:none">
 		<h1>Modificar informacion empleado </h1>

@@ -56,6 +56,10 @@
             });
 
         });
+         $('x').on('click', '.button', function (){
+        alert('click!');
+        });
+         
          $(function(){
                 $('#VolverPlanilla').click(Mostrar_y_ocultar);
                 $('#ModificarPlanilla').click(Mostrar_y_ocultar);
