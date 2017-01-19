@@ -1,12 +1,1 @@
-#############################################
-[admin]
-[16:33:53] admin inicio session.
-[16:33:59] Se busco el rut: 136287826 de manera exitosa.
-[16:33:59] Empleado seleccionado [Susana Andrea sepúlveda Medina].
-[21:34:01] Se imprimio la liquidacion del Empleado con rut: 136287826
-[21:37:05] Se imprimio la liquidacion del Empleado con rut: 136287826
-#############################################
-[admin]
-[17:07:39] admin inicio session.
-[17:09:14] Se busco el rut: 157352814 de manera exitosa.
-[17:09:14] Empleado seleccionado [Angélica Haidee Herrera Muñoz].
+[01:49:24] Se imprimio la liquidacion del Empleado con rut: 132822565

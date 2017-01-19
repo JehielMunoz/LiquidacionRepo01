@@ -26,6 +26,7 @@ if(empty($_SESSION))
 
 #si no inicia en 0 la informacion // LO IDEAL SERIA DESTRUIR LAS VARIABLES CUANDO DEJEMOS DE USARLAS, AKA CUANDO LAS SUBIMOS A LA BASE DE DATOS. 
 
+
     function html_llamada($archivo){
         if (file_exists('./html/'.$archivo)) {
             include('./html/'.$archivo);
@@ -540,7 +541,7 @@ if(empty($_SESSION))
 	function Mostrar_Licencias()
 		{
 			include("conex.php");
-			$query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" and \"Activo\"='t'");
+			$query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Activo\"='t'");
 			while($row = pg_fetch_assoc($query))
 			{
 				echo "<tr>
@@ -809,18 +810,91 @@ function gastos_extras(){
     
 }
 
+function desactivar_Prestamos(){
+    include("conex.php"); 
+    $query = pg_query($dbconn, "SELECT * FROM \"tPrestamos\" where \"Activo\"='t'");
+    while($row1 =pg_fetch_assoc($query)){
+        list($year_final,$Mes_final,$Dia_final)= explode("-",$row1['F_final']);
+        if(intval(date('Y'))==intval($year_final) and intval($Mes_final)<12){
+            if(intval(date('n'))>intval($Mes_final)){    
+                $query = pg_query($dbconn, "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";");
+            }
+        }
+        else{
+            if(intval(date('Y'))>intval($year_final) and intval($Mes_final)==12){
+                $query = pg_query($dbconn, "UPDATE \"tPrestamos\" set \"Activo\" = 'f' where \"id_Prestamo\" =".$row1['id_Prestamo'].";");
+            }
+        }
+    }
+}                   
+function desactivar_licencias(){
+    include("conex.php"); 
+    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Activo\" ='t'");
+    while($row1 = pg_fetch_assoc($query)){
+        list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
+        $year=intval($year_inicial);
+        $Mes=intval($Mes_inicial);
+        $Dias=$Dia_inicial+$row1['Dias'];
+        while(true){
+            if($Mes==intval(date('n')) and $year==intval(date('Y')) ){
+                if($Dias<=0){
+                    $query = pg_query($dbconn, "UPDATE \"tLicencias\" set \"Activo\" = 'f' where \"id_Licencia\" =".$row1['id_Licencia'].";" );
+                    break;
+                }
+                else{
+                    break;
+                }
+            }
+            $Mes=$Mes+1;
+            if($Mes>12){
+                $Mes=1;
+                $year=$year+1;
+            }
+            $Dias= $Dias-30;
+        }                  
+    }   
+}
+
 function licencias(){
     include("conex.php"); 
     $_SESSION['Descuentos_Licencias'] =0;
-    $_SESSION['Descuentos_Licencias_dia'] = 0;
-    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."' and \"Activo\"='t'" );
+    $query = pg_query($dbconn, "SELECT * FROM \"tLicencias\" where \"Rut\" ='".$_SESSION['Rut']."' AND \"Activo\" ='t'");
     while($row1 = pg_fetch_assoc($query)){
         if($row1['Descuenta']=='t'){
-            $_SESSION['Descuentos_Licencias_dia'] = round($_SESSION['Total_Haberes']/30);
-            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $row1['Dias']);
-            
+            list($year_inicial,$Mes_inicial,$Dia_inicial)= explode("-",$row1['F_inicio']);
+            $Mes=intval($Mes_inicial);
+            $Dias=$Dia_inicial+$row1['Dias'];
+            $year= intval($year_inicial);
+            if($Dias<=30){
+                $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $row1['Dias']);
+            }
+            else
+            {
+                if($Mes==intval(date('n')) and $year==intval(date('Y'))){
+                      $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * (30-$Dia_inicial));                  
+                }
+                else{
+                    while(true){
+                    $Mes=$Mes+1;
+                    if($Mes>12){
+                        $Mes=1;
+                        $year=$year+1;
+                    }
+                    $Dias= $Dias-30;
+                    if($Mes==intval(date('n')) and $year==intval(date('Y'))){
+                        if($Dias<=30){
+                            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * $Dias);
+                            break;
+                        }
+                        else{
+                            $_SESSION['Descuentos_Licencias'] += round(($_SESSION['Total_Haberes']/30) * 30);
+                            break;
+                            }
+                        }
+                    }
+                }
+            }                    
         }
-        
     }
 }
 
