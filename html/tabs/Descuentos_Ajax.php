@@ -73,7 +73,11 @@ if(!empty($_SESSION['Tipo']))
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
-                }    
+                }
+                else
+                {
+                    Escribir_Reporte("Se agrego un credito llamado  ".$_POST['Nombre']." Por un Monto mensual: ".$_POST['Monto']. " para el empleado".$_SESSION['Rut']); // Quizas agregar fecha
+                 }   
             }
              if($num!='0' && $num2==5){
                 $values = "('$rut','".$_POST['Descuenta']."',".$_POST['Dias'].",'".$_POST['Inicio_l']."','".$_POST['Final_l']."')";
@@ -85,7 +89,7 @@ if(!empty($_SESSION['Tipo']))
                 }
                 else
                 {
-                    Escribir_Reporte("Se creo una licencia de". diferencia_Fecha($_POST['Inicio_l'],$_POST['Final_l']) ." días para el empleado: ".$_SESSION['Rut']);
+                    Escribir_Reporte("Se creo una licencia de". diferencia_Fecha($_POST['Inicio_l'],$_POST['Final_l']) ." días para el empleado: ".$_SESSION['Rut'].".");
                 }
             }
             
@@ -95,6 +99,11 @@ if(!empty($_SESSION['Tipo']))
                 if (!$query) {
                     echo "Falla en la consulta.\n";
                     exit;
+                }
+                else
+                {
+                    $Nombre_Descuento = get_Descuento($num);
+                    Escribir_Reporte("Se agrego un descuento de ".$Nombre_Descuento." con un monto de $monto al empleado $rut.");
                 }
             }
             if($num!='0' && $num2==2){
@@ -182,7 +191,7 @@ if(!empty($_SESSION['Tipo']))
                 exit;
             }
             echo "<br />";
-            echo "<h2>Agregar Descuento al usuario</h2>";
+            echo "<h2>Agregar Descuento al empleado</h2>";
             echo "<br />";
             echo "<table>";
             while ($row2 = pg_fetch_assoc($query)) {

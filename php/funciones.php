@@ -132,6 +132,14 @@ if(empty($_SESSION))
         return ($Fecha_Termino-$Fecha_Inicio)/(60*60*24); //  Dividido en dias
     }
 
+    function get_Descuento($id)
+    {
+        
+        include '../../php/conex.php';
+
+        $query = pg_query($dbconn,"SELECT \"Descuento\" FROM \"tDescuentos\" WHERE \"id_Descuento\" =".$id);
+        return trim(pg_fetch_assoc($query)['Descuento']," ");
+    }
 
 #-----------------------------------------------------------------------------------------------------------------------------
 # funciones Para obtener la informacion de las personas
